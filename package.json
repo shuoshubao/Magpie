@@ -1,0 +1,39 @@
+{
+  "name": "React",
+  "version": "1.0.0",
+  "description": "Electron 学习",
+  "main": "./public/index.js",
+  "scripts": {
+    "start": "react-cli serve & NODE_ENV=development npx electron ./public/index.js",
+    "build": "rm -rf dist && react-cli build && node bin && npx electron-builder build"
+  },
+  "dependencies": {
+    "antd": "^4.19.5",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@jiaoyi/s3": "^0.1.7",
+    "@ke/react-cli": "^1.1.9",
+    "electron": "^18.0.1",
+    "electron-builder": "22.10.5",
+    "nodemon": "^2.0.15"
+  },
+  "build": {
+    "appId": "shuoshubao",
+    "files": [
+      "package.json",
+      "node_modules/**/*",
+      "public",
+      "dist"
+    ],
+    "mac": {
+      "category": "music",
+      "target": [
+        "dmg"
+      ],
+      "icon": "./public/icon.png"
+    },
+    "extends": null
+  }
+}

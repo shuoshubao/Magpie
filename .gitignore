@@ -1,6 +1,11 @@
 .DS_Store
-node_modules
+
+# build
 dist
+
+# npm
+node_modules
+package-lock.json
 
 # ESLint
 ESLintReport.html

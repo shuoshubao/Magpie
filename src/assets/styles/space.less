@@ -1,32 +1,32 @@
 .loop(@i) when(@i <= 6) {
-    @num: @i * 5;
-    @valueText: ~'@{num}px';
-    @marginsShort: t r b l;
-    @marginsLong: top right bottom left;
+  @num: @i * 5;
+  @valueText: ~'@{num}px';
+  @marginsShort: t r b l;
+  @marginsLong: top right bottom left;
 
-    .mg@{num} {
-        margin: @valueText;
-    }
-    .mgtb@{num} {
-        margin-top: @valueText;
-        margin-bottom: @valueText;
-    }
-    .mglr@{num} {
-        margin-left: @valueText;
-        margin-right: @valueText;
-    }
-    .pd@{num} {
-        padding: @valueText;
-    }
-    .pdtb@{num} {
-        padding-top: @valueText;
-        padding-bottom: @valueText;
-    }
-    .pdlr@{num} {
-        padding-left: @valueText;
-        padding-right: @valueText;
-    }
-    each(@marginsShort, {
+  .mg@{num} {
+    margin: @valueText;
+  }
+  .mgtb@{num} {
+    margin-top: @valueText;
+    margin-bottom: @valueText;
+  }
+  .mglr@{num} {
+    margin-left: @valueText;
+    margin-right: @valueText;
+  }
+  .pd@{num} {
+    padding: @valueText;
+  }
+  .pdtb@{num} {
+    padding-top: @valueText;
+    padding-bottom: @valueText;
+  }
+  .pdlr@{num} {
+    padding-left: @valueText;
+    padding-right: @valueText;
+  }
+  each(@marginsShort, {
       .mg@{value}@{num} {
         @direction: extract(@marginsLong, @index);
         margin-@{direction}: @valueText;
@@ -37,6 +37,6 @@
       }
     });
 
-    .loop((@i + 1));
+  .loop((@i + 1));
 }
 .loop(0);

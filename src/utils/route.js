@@ -7,6 +7,6 @@
 
 // 获取 hash 模式下的 window.location.pathname
 export const getPathname = () => {
-    const { hash } = window.location;
-    return hash.slice(1, Math.max(hash.indexOf('?'), 0) || Infinity);
-};
+  const { hash } = window.location
+  return hash.slice(1, Math.max(hash.indexOf('?'), 0) || Infinity)
+}

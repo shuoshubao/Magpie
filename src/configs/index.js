@@ -5,5 +5,5 @@
  * @Last Modified time: 2021-11-08 14:01:58
  */
 
-export * from './enum';
-export * from './color';
+export * from './enum'
+export * from './color'

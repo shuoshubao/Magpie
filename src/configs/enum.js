@@ -7,15 +7,15 @@
 
 // 业务方
 export const BusinessEnum = [
-    { value: 'trade', label: '交易' },
-    { value: 'beijia', label: '贝家' },
-    { value: 'jiafu-dispatch', label: '贝家家服' },
-    { value: 'alps-khala', label: '基础架构' },
-    { value: 'test', label: '测试' }
-];
+  { value: 'trade', label: '交易' },
+  { value: 'beijia', label: '贝家' },
+  { value: 'jiafu-dispatch', label: '贝家家服' },
+  { value: 'alps-khala', label: '基础架构' },
+  { value: 'test', label: '测试' }
+]
 
 // 供应商
 export const SupplierEnum = [
-    { value: 'huanxin', label: '环信' },
-    { value: 'liur', label: '六耳' }
-];
+  { value: 'huanxin', label: '环信' },
+  { value: 'liur', label: '六耳' }
+]

@@ -5,129 +5,129 @@
  * @Last Modified time: 2022-04-07 20:59:03
  */
 
-import axios from 'axios';
-import { message } from 'antd';
-import { merge, isFunction, random, isEqual, pick } from 'lodash';
-import { sleep } from '@nbfe/tools';
+import axios from 'axios'
+import { message } from 'antd'
+import { merge, isFunction, random, isEqual, pick } from 'lodash'
+import { sleep } from '@nbfe/tools'
 
 const defaultRequestConfig = {
-    returnType: 'data', // 'data' | 'response' | 'originResponse'
-    checkCode: true,
-    successCode: 2000, // code: 0 为成功
-    onError: null, // 错误处理函数
-    showLoading: true,
-    cacheThreshold: 50 // 缓存间隔 ms
-};
+  returnType: 'data', // 'data' | 'response' | 'originResponse'
+  checkCode: true,
+  successCode: 2000, // code: 0 为成功
+  onError: null, // 错误处理函数
+  showLoading: true,
+  cacheThreshold: 50 // 缓存间隔 ms
+}
 
 const store = {
-    // 正在进行的请求数量
-    loadingCount: 0,
-    loadingInstance: null
-};
+  // 正在进行的请求数量
+  loadingCount: 0,
+  loadingInstance: null
+}
 
 // 手动关闭 message.loading
 const hideLoading = () => {
-    if (store.loadingInstance && store.loadingCount <= 0) {
-        // store.loadingInstance();
-        message.destroy('request-loading');
-    }
-};
+  if (store.loadingInstance && store.loadingCount <= 0) {
+    // store.loadingInstance();
+    message.destroy('request-loading')
+  }
+}
 
 // 缓存请求
-const CacheRequest = [];
+const CacheRequest = []
 
 // 永久缓存请求
-const memoizeOneCacheRequest = [];
+const memoizeOneCacheRequest = []
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
 export const request = (axiosConfig = {}, requestConfig = {}) => {
-    const mergeRequestConfig = merge({}, defaultRequestConfig, requestConfig);
+  const mergeRequestConfig = merge({}, defaultRequestConfig, requestConfig)
 
-    const { returnType, checkCode, successCode, onError, showLoading, cacheThreshold } = mergeRequestConfig;
+  const { returnType, checkCode, successCode, onError, showLoading, cacheThreshold } = mergeRequestConfig
 
-    const memoizeOne = cacheThreshold === Infinity;
+  const memoizeOne = cacheThreshold === Infinity
 
-    if (showLoading) {
-        if (store.loadingCount === 0) {
-            store.loadingInstance = message.loading({ key: 'request-loading', content: '接口请求中...', duration: 0 });
-        }
-        if (!memoizeOne) {
-            store.loadingCount++;
-        }
+  if (showLoading) {
+    if (store.loadingCount === 0) {
+      store.loadingInstance = message.loading({ key: 'request-loading', content: '接口请求中...', duration: 0 })
     }
-
-    const usedCacheRequest = memoizeOne ? memoizeOneCacheRequest : CacheRequest;
-
-    const item = usedCacheRequest.find(v => {
-        return isEqual({ axiosConfig, requestConfig: mergeRequestConfig }, pick(v, ['axiosConfig', 'requestConfig']));
-    });
-
-    if (item) {
-        if (memoizeOne) {
-            store.loadingCount--;
-            return item.request;
-        }
-        if (Date.now() - item.timestap <= cacheThreshold) {
-            store.loadingCount--;
-            return item.request;
-        }
-    }
-
-    // eslint-disable-next-line no-async-promise-executor
-    const promiseInstance = new Promise(async (resolve, reject) => {
-        if (process.env.NODE_ENV === 'development') {
-            await sleep(random(0, 0.5));
-        }
-        axios(axiosConfig)
-            .then(response => {
-                if (showLoading) {
-                    store.loadingCount--;
-                    hideLoading();
-                }
-                const { code, message: messageText, data } = response.data;
-                if (!checkCode) {
-                    return response;
-                }
-                let returnData = response;
-                if (returnType === 'data') {
-                    returnData = data;
-                }
-                if (returnType === 'response') {
-                    returnData = response.data;
-                }
-                // 成功
-                if (code === successCode) {
-                    return resolve(returnData);
-                }
-                // 失败
-                if (isFunction(onError)) {
-                    onError(response.data);
-                    return resolve(response.data);
-                }
-                message.error(messageText);
-                return reject(response.data);
-            })
-            .catch(e => {
-                if (showLoading) {
-                    store.loadingCount--;
-                    hideLoading();
-                }
-                reject(e);
-                message.error(e.message || '接口请求失败!');
-            });
-    });
-
-    usedCacheRequest.unshift({
-        timestap: Date.now(),
-        axiosConfig,
-        requestConfig: mergeRequestConfig,
-        request: promiseInstance
-    });
-
-    // 清理内存
     if (!memoizeOne) {
-        CacheRequest.splice(1e2, 1e2);
+      store.loadingCount++
     }
+  }
 
-    return promiseInstance;
-};
+  const usedCacheRequest = memoizeOne ? memoizeOneCacheRequest : CacheRequest
+
+  const item = usedCacheRequest.find(v => {
+    return isEqual({ axiosConfig, requestConfig: mergeRequestConfig }, pick(v, ['axiosConfig', 'requestConfig']))
+  })
+
+  if (item) {
+    if (memoizeOne) {
+      store.loadingCount--
+      return item.request
+    }
+    if (Date.now() - item.timestap <= cacheThreshold) {
+      store.loadingCount--
+      return item.request
+    }
+  }
+
+  // eslint-disable-next-line no-async-promise-executor
+  const promiseInstance = new Promise(async (resolve, reject) => {
+    if (process.env.NODE_ENV === 'development') {
+      await sleep(random(0, 0.5))
+    }
+    axios(axiosConfig)
+      .then(response => {
+        if (showLoading) {
+          store.loadingCount--
+          hideLoading()
+        }
+        const { code, message: messageText, data } = response.data
+        if (!checkCode) {
+          return response
+        }
+        let returnData = response
+        if (returnType === 'data') {
+          returnData = data
+        }
+        if (returnType === 'response') {
+          returnData = response.data
+        }
+        // 成功
+        if (code === successCode) {
+          return resolve(returnData)
+        }
+        // 失败
+        if (isFunction(onError)) {
+          onError(response.data)
+          return resolve(response.data)
+        }
+        message.error(messageText)
+        return reject(response.data)
+      })
+      .catch(e => {
+        if (showLoading) {
+          store.loadingCount--
+          hideLoading()
+        }
+        reject(e)
+        message.error(e.message || '接口请求失败!')
+      })
+  })
+
+  usedCacheRequest.unshift({
+    timestap: Date.now(),
+    axiosConfig,
+    requestConfig: mergeRequestConfig,
+    request: promiseInstance
+  })
+
+  // 清理内存
+  if (!memoizeOne) {
+    CacheRequest.splice(1e2, 1e2)
+  }
+
+  return promiseInstance
+}

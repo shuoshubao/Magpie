@@ -1,0 +1,123 @@
+// 整体布局
+body {
+    font: 14px BlinkMacSystemFont, Roboto, Helvetica Neue, Helvetica, PingFangSC-Regular, Hiragino Sans GB,
+        Microsoft YaHei, SimSun, sans-serif;
+    background-color: #f7f7f7;
+}
+
+.site-layout-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    .site-layout-loading-container {
+        color: #1890ff;
+        .anticon {
+            font-size: 30px;
+        }
+        .site-layout-loading-text {
+            padding-top: 20px;
+        }
+    }
+}
+
+.site-layout {
+    background-color: #f7f7f7;
+    transition: all 0.2s;
+    .ant-layout-header {
+        z-index: 1;
+        display: flex;
+        justify-content: space-between;
+        height: 50px;
+        margin-left: 10px;
+        padding: 0 10px;
+        line-height: 50px;
+        background-color: #fff;
+        .site-layout-header-extra {
+            margin-left: auto;
+        }
+        .site-layout-logout {
+            margin-left: 20px;
+            padding-left: 20px;
+            border-left: 1px solid #e8e8e8;
+            .ant-dropdown-trigger {
+                display: flex;
+                align-items: center;
+            }
+            .anticon {
+                color: rgba(0, 0, 0, 0.85);
+            }
+        }
+    }
+    .ant-layout-content {
+        min-height: 400px;
+        background-color: #f7f7f7;
+    }
+}
+
+.site-layout-sider {
+    user-select: none;
+    &.ant-layout-sider-collapsed {
+        .site-layout-logo {
+            text-align: center;
+            .site-layout-logo-text {
+                display: none;
+            }
+        }
+        .site-layout-link {
+            display: none;
+        }
+    }
+    .ant-layout-sider-trigger {
+        height: 40px;
+    }
+    .site-layout-logo-link {
+        padding: 42px 12px 12px 24px;
+        line-height: 20px;
+        border-bottom: 1px solid #eee;
+    }
+    .site-layout-link {
+        padding-top: 10px;
+        .site-layout-link-item {
+            display: flex;
+            align-items: center;
+            padding: 6px 0;
+            & > .anticon {
+                margin-right: 10px;
+            }
+            a {
+                color: #333;
+                &:hover {
+                    color: #1890ff;
+                }
+            }
+        }
+    }
+    .site-layout-logo {
+        display: flex;
+        align-items: center;
+        color: #1890ff;
+        white-space: nowrap;
+        text-align: center;
+        .anticon {
+            font-size: 20px;
+        }
+        .site-layout-logo-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            color: #fff;
+            background: #1890ff;
+            border-radius: 50%;
+        }
+        .site-layout-logo-text {
+            display: inline-block;
+            margin-left: 10px;
+            color: #333;
+            font-size: 20px;
+            line-height: 40px;
+        }
+    }
+}

@@ -1,8 +1,8 @@
 /*
 * @Author: fangt11
 * @Date:   2022-04-07 13:47:44
-* @Last Modified by:   fangt11
-* @Last Modified time: 2022-04-07 13:48:10
+* @Last Modified by:   shuoshubao
+* @Last Modified time: 2022-04-07 20:44:14
 */
 
 const { resolve, join } = require('path')
@@ -13,6 +13,8 @@ const isDevelopment = process.env.NODE_ENV === 'development'
 
 app.on('ready', () => {
   const win = new BrowserWindow({
+    frame: false,
+    titleBarStyle: 'hiddenInset',
     webPreferences: {
       preload: join(__dirname, 'preload.js'),
       nodeIntegration: true,

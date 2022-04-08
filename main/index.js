@@ -1,9 +1,9 @@
 /*
-* @Author: fangt11
-* @Date:   2022-04-07 13:47:44
-* @Last Modified by:   shuoshubao
-* @Last Modified time: 2022-04-07 20:44:14
-*/
+ * @Author: fangt11
+ * @Date:   2022-04-07 13:47:44
+ * @Last Modified by:   shuoshubao
+ * @Last Modified time: 2022-04-08 13:39:13
+ */
 
 const { resolve, join } = require('path')
 const { app, BrowserWindow, ipcMain } = require('electron')
@@ -11,8 +11,10 @@ const { readFileSync } = require('fs')
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 
+let win
+
 app.on('ready', () => {
-  const win = new BrowserWindow({
+  win = new BrowserWindow({
     frame: false,
     titleBarStyle: 'hiddenInset',
     webPreferences: {
@@ -30,14 +32,4 @@ app.on('ready', () => {
   } else {
     win.loadURL(`file://${resolve(__dirname, '../dist')}/index.html`)
   }
-})
-
-ipcMain.on('get-pkg', (event, arg) => {
-  const pkg = readFileSync(join(__dirname, '../package.json')).toString()
-  event.sender.send('get-pkg-reply', pkg, { a: 1 })
-})
-
-ipcMain.on('sync-get-pkg', (event, arg) => {
-  const pkg = readFileSync(join(__dirname, '../package.json')).toString()
-  event.returnValue = pkg
 })

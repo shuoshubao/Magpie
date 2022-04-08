@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { HashRouter } from 'react-router-dom'
+import { ipcRenderer } from 'electron'
 import { Layout, Menu, Dropdown, message } from 'antd'
 import DesktopOutlined from '@ant-design/icons/DesktopOutlined'
 import UserOutlined from '@ant-design/icons/UserOutlined'
@@ -39,7 +40,9 @@ const Index = () => {
 
   const siteLayoutMarginLeft = collapsed ? 80 : 180
 
-  const { name: userName } = get(window, 'globalData.userInfo', {})
+  const { stdout } = ipcRenderer.sendSync('execaSync', 'git', ['config', '--global', 'user.name'])
+
+  const userName = stdout
 
   return (
     <Layout style={{ minHeight: '100vh' }}>

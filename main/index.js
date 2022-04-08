@@ -2,12 +2,13 @@
  * @Author: fangt11
  * @Date:   2022-04-07 13:47:44
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-08 16:39:19
+ * @Last Modified time: 2022-04-08 18:17:26
  */
 
-const { resolve, join } = require('path')
-const { app, BrowserWindow, ipcMain } = require('electron')
 const { readFileSync } = require('fs')
+const { resolve, join } = require('path')
+const execa = require('execa')
+const { app, BrowserWindow, ipcMain } = require('electron')
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 
@@ -36,4 +37,8 @@ app.on('ready', () => {
 
 app.on('ready', () => {
   require('../server')
+})
+
+ipcMain.on('execaSync', (event, file, args) => {
+  event.returnValue = execa.sync(file, args)
 })

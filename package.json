@@ -8,11 +8,12 @@
     "build": "rm -rf dist && react-cli build && node bin && npx electron-builder build"
   },
   "dependencies": {
+    "@ke/form": "^1.2.16",
+    "@ke/table": "^1.1.17",
     "@nbfe/tools": "^0.2.14",
     "antd": "^4.19.5",
     "axios": "^0.26.1",
     "electron-log": "^4.4.6",
-    "execa": "^6.1.0",
     "koa": "^2.13.4",
     "koa-body": "^4.2.0",
     "react": "^17.0.2",
@@ -46,6 +47,10 @@
     "extends": null
   },
   "nodemonConfig": {
-    "ignore": ["dist/*", "public/*", "src/*"]
+    "ignore": [
+      "dist/**",
+      "public/**",
+      "src/**"
+    ]
   }
 }

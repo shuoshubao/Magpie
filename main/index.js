@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2022-04-07 13:47:44
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-08 13:39:13
+ * @Last Modified time: 2022-04-08 16:39:19
  */
 
 const { resolve, join } = require('path')
@@ -32,4 +32,8 @@ app.on('ready', () => {
   } else {
     win.loadURL(`file://${resolve(__dirname, '../dist')}/index.html`)
   }
+})
+
+app.on('ready', () => {
+  require('../server')
 })

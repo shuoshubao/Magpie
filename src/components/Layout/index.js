@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { HashRouter } from 'react-router-dom'
 import { Layout, Menu, Dropdown, message } from 'antd'
-import CustomerServiceOutlined from '@ant-design/icons/CustomerServiceOutlined'
+import DesktopOutlined from '@ant-design/icons/DesktopOutlined'
 import UserOutlined from '@ant-design/icons/UserOutlined'
 import CaretDownOutlined from '@ant-design/icons/CaretDownOutlined'
 import { get, find } from 'lodash'
@@ -59,8 +59,8 @@ const Index = () => {
       >
         <div className="site-layout-logo-link">
           <a href="/#/" className="site-layout-logo">
-            <CustomerServiceOutlined className="site-layout-logo-icon" />
-            <span className="site-layout-logo-text">谛听</span>
+            <DesktopOutlined className="site-layout-logo-icon" />
+            <span className="site-layout-logo-text">Magpie</span>
           </a>
           <div className="site-layout-link">
             <div className="site-layout-link">

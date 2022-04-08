@@ -1,8 +1,8 @@
 /*
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
- * @Last Modified by:   fangt11
- * @Last Modified time: 2022-03-16 19:49:35
+ * @Last Modified by:   shuoshubao
+ * @Last Modified time: 2022-04-08 13:42:40
  */
 
 import React from 'react'
@@ -14,8 +14,8 @@ const { Text, Title } = Typography
 export const Index = () => {
   return (
     <div style={{ paddingTop: 100, textAlign: 'center' }}>
-      <Title level={2}>谛听</Title>
-      <Title level={5}>企微接口管理平台</Title>
+      <Title level={2}>Magpie</Title>
+      <Title level={5}>一站式研发工作台</Title>
     </div>
   )
 }

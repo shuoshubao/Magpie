@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2022-04-07 13:47:44
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-11 12:09:46
+ * @Last Modified time: 2022-04-11 13:22:45
  */
 
 const { readFileSync } = require('fs')
@@ -37,7 +37,7 @@ app.on('ready', () => {
 })
 
 app.on('ready', () => {
-  require('../server')
+  // require('../server')
 })
 
 app.whenReady().then(async () => {

@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-08 18:43:00
+ * @Last Modified time: 2022-04-11 13:23:38
  */
 
 import React, { useState, useEffect } from 'react'
@@ -59,7 +59,7 @@ export const Index = () => {
         {columns.map(v => {
           const { label, name, ...resetProps } = v
           return (
-            <Descriptions.Item label={label} {...resetProps}>
+            <Descriptions.Item key={label} label={label} {...resetProps}>
               {get(dataSource, name)}
             </Descriptions.Item>
           )

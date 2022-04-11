@@ -36,7 +36,8 @@
       "public",
       "main",
       "server",
-      "dist"
+      "dist",
+      "node_modules"
     ],
     "mac": {
       "category": "utilities",

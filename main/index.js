@@ -2,14 +2,15 @@
  * @Author: fangt11
  * @Date:   2022-04-07 13:47:44
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-11 13:22:45
+ * @Last Modified time: 2022-04-11 20:06:34
  */
 
-const { readFileSync } = require('fs')
+const fs = require('fs')
 const { resolve, join } = require('path')
-const os = require('os')
 const execa = require('execa')
-const { app, BrowserWindow, ipcMain, session } = require('electron')
+const shell = require('shelljs')
+const { app, BrowserWindow, ipcMain, session, dialog } = require('electron')
+const { APPLICATIONS_DIR, HOME_DIR } = require('./config')
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 
@@ -43,10 +44,35 @@ app.on('ready', () => {
 app.whenReady().then(async () => {
   if (isDevelopment) {
     const reactDevToolsPath = join(
-      os.homedir(),
+      HOME_DIR,
       '/Library/ApplicationSupport/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.24.3_8'
     )
     await session.defaultSession.loadExtension(reactDevToolsPath)
+  }
+})
+
+app.on('window-all-closed', function () {
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
+})
+
+ipcMain.on('getProcessVersions', (event, file, args) => {
+  event.returnValue = process.versions
+})
+
+ipcMain.on('getNpmConfigUserAgent', (event, file, args) => {
+  event.returnValue = process.env.npm_config_user_agent
+})
+
+ipcMain.handle('showOpenDialog', (event, options) => {
+  return dialog.showOpenDialog(options)
+})
+
+ipcMain.on('fs', (event, fsFuncName, args) => {
+  const res = fs[fsFuncName](args)
+  if (Buffer.isBuffer(res)) {
+    event.returnValue = res.toString()
   }
 })
 

@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-11 13:23:38
+ * @Last Modified time: 2022-04-11 20:03:04
  */
 
 import React, { useState, useEffect } from 'react'
@@ -15,6 +15,8 @@ const { Text, Title } = Typography
 
 // 首页
 export const Index = () => {
+  const [dataSource, setDataSource] = useState({})
+
   const columns = [
     {
       label: '姓名',
@@ -26,26 +28,28 @@ export const Index = () => {
       span: 2
     },
     {
-      label: 'Node版本',
+      label: 'Node 版本',
       name: 'node_version'
     },
     {
-      label: 'Npm版本',
+      label: 'Npm 版本',
       name: 'npm_version'
     }
   ]
 
-  const { stdout: name } = ipcRenderer.sendSync('execaSync', 'git', ['config', '--global', 'user.name'])
-  const { stdout: email } = ipcRenderer.sendSync('execaSync', 'git', ['config', '--global', 'user.email'])
-  const { stdout: node_version } = ipcRenderer.sendSync('execaSync', 'node', ['-v'])
-  const { stdout: npm_version } = ipcRenderer.sendSync('execaSync', 'npm', ['-v'])
-
-  const dataSource = {
-    name,
-    email,
-    node_version,
-    npm_version
-  }
+  useEffect(() => {
+    const { stdout: name } = ipcRenderer.sendSync('execaSync', 'git', ['config', '--global', 'user.name'])
+    const { stdout: email } = ipcRenderer.sendSync('execaSync', 'git', ['config', '--global', 'user.email'])
+    const npmConfigUserAgent = ipcRenderer.sendSync('getNpmConfigUserAgent').split(' ')
+    const npm_version = npmConfigUserAgent[0].split('/')[1]
+    const node_version = npmConfigUserAgent[1].split('/')[1].match(/(\d+(\.\d+)*)/)?.[1]
+    setDataSource({
+      name,
+      email,
+      node_version,
+      npm_version
+    })
+  }, [])
 
   return (
     <div style={{ height: '100%', padding: '100px 10px 10px', background: '#fff' }}>

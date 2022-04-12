@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-12 14:23:21
+ * @Last Modified time: 2022-04-12 20:44:27
  */
 
 import React, { useState, useEffect } from 'react'
@@ -13,7 +13,7 @@ import { Descriptions } from '@ke/table'
 const { Text, Title } = Typography
 
 // 首页
-export const Index = () => {
+const Index = () => {
   const [dataSource, setDataSource] = useState()
 
   const columns = [
@@ -54,13 +54,15 @@ export const Index = () => {
       <Title level={2} style={{ textAlign: 'center' }}>
         Magpie
       </Title>
-      <Title level={5} style={{ textAlign: 'center' }}>
-        一站式研发工作台
+      <Title level={4} style={{ textAlign: 'center' }}>
+        前端研发工作台
       </Title>
       <Descriptions data={dataSource} columns={columns} />
     </div>
   )
 }
+
+export default Index
 
 // 404
 export const NoMatch = () => {
@@ -75,24 +77,9 @@ export const NoMatch = () => {
         </Text>
       }
       extra={
-        <Button type="primary" href="/">
+        <Button type="primary" href="#/">
           去首页
         </Button>
-      }
-    />
-  )
-}
-
-// 无权限
-export const NoPermission = () => {
-  return (
-    <Result
-      status="403"
-      title="403"
-      subTitle={
-        <Text>
-          <div>您没有该页面的权限</div>
-        </Text>
       }
     />
   )

@@ -2,21 +2,15 @@
  * @Author: fangt11
  * @Date:   2022-04-07 13:47:44
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-12 20:10:33
+ * @Last Modified time: 2022-04-12 20:36:34
  */
-
-const fs = require('fs')
-const { resolve, join } = require('path')
-const { app, BrowserWindow, ipcMain, session, dialog } = require('electron')
+const { resolve } = require('path')
+const { app, BrowserWindow, ipcMain, session } = require('electron')
 const log = require('electron-log')
-const execa = require('execa')
-const glob = require('glob')
-const fixPath = require('fix-path')
-const { APPLICATIONS_DIR, HOME_DIR } = require('./config')
-
-const isDevelopment = process.env.NODE_ENV === 'development'
+const { isDevelopment, HOME_DIR } = require('./config')
 
 if (!isDevelopment) {
+  const fixPath = require('fix-path')
   fixPath()
 }
 
@@ -27,7 +21,7 @@ app.on('ready', () => {
     frame: false,
     titleBarStyle: 'hiddenInset',
     webPreferences: {
-      preload: join(__dirname, 'preload.js'),
+      preload: resolve(__dirname, 'preload.js'),
       nodeIntegration: true,
       contextIsolation: false
     }
@@ -41,15 +35,28 @@ app.on('ready', () => {
   } else {
     win.loadURL(`file://${resolve(__dirname, '../dist')}/index.html`)
   }
+
+  win.on('close', () => {
+    app.quit()
+  })
+
+  require('../server')
 })
 
-app.on('ready', () => {
-  require('../server')
+app.on('activate', e => {
+  if (!win.isVisible()) {
+    win.show()
+  }
+})
+
+ipcMain.on('show', () => {
+  win.show()
+  win.focus()
 })
 
 app.whenReady().then(async () => {
   if (isDevelopment) {
-    const reactDevToolsPath = join(
+    const reactDevToolsPath = resolve(
       HOME_DIR,
       '/Library/ApplicationSupport/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.24.3_0'
     )
@@ -57,38 +64,10 @@ app.whenReady().then(async () => {
   }
 })
 
-app.on('window-all-closed', function () {
+app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
 })
 
-ipcMain.on('getProcessVersions', (event, file, args) => {
-  event.returnValue = process.versions
-})
-
-ipcMain.handle('showOpenDialog', (event, options) => {
-  return dialog.showOpenDialog(options)
-})
-
-ipcMain.on('fs', (event, fsFuncName, args) => {
-  const res = fs[fsFuncName](args)
-  if (Buffer.isBuffer(res)) {
-    event.returnValue = res.toString()
-    return
-  }
-  event.returnValue = res
-})
-
-ipcMain.on('getImageBase64', (event, filePath) => {
-  const res = fs.readFileSync(filePath)
-  event.returnValue = res.toString('base64')
-})
-
-ipcMain.on('execaSync', (event, file, args) => {
-  event.returnValue = execa.sync(file, args)
-})
-
-ipcMain.on('globSync', (event, pattern, options) => {
-  event.returnValue = glob.sync(pattern, options)
-})
+require('./listener')

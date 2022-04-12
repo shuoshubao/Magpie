@@ -1,8 +1,8 @@
 /*
  * @Author: fangt11
  * @Date:   2021-07-05 14:35:18
- * @Last Modified by:   fangt11
- * @Last Modified time: 2021-11-12 14:27:34
+ * @Last Modified by:   shuoshubao
+ * @Last Modified time: 2022-04-12 20:40:25
  */
 
 import React from 'react'
@@ -45,6 +45,7 @@ export const RenderRouter = () => {
           const component = () => {
             return <Component routes={item.routes} redirect={item.redirect} />
           }
+          console.log(111, path)
           return <Route path={path} key={key} exact={exact} render={component} />
         })}
       </Switch>

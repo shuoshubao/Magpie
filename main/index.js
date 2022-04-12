@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2022-04-07 13:47:44
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-12 12:23:32
+ * @Last Modified time: 2022-04-12 14:08:10
  */
 
 const fs = require('fs')
@@ -44,15 +44,13 @@ app.on('ready', () => {
 
 app.on('ready', () => {
   // require('../server')
-  console.log('info process')
-  log.info(process)
 })
 
 app.whenReady().then(async () => {
   if (isDevelopment) {
     const reactDevToolsPath = join(
       HOME_DIR,
-      '/Library/ApplicationSupport/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.24.3_8'
+      '/Library/ApplicationSupport/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.24.3_0'
     )
     await session.defaultSession.loadExtension(reactDevToolsPath)
   }

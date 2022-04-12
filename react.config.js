@@ -2,13 +2,14 @@
  * @Author: fangt11
  * @Date:   2021-11-24 10:50:57
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-07 12:01:34
+ * @Last Modified time: 2022-04-12 13:57:03
  * @Desc: 打包配置
  */
 
 module.exports = ({ isDevelopment, isProduction }) => {
   // electron
   return {
+    // publicPath: isDevelopment ? '/' : './',
     publicPath: isDevelopment ? '/' : 'https://storage.lianjia.com/tent/electron/dist/',
     configureWebpack: {
       target: 'electron-renderer',

@@ -23,7 +23,7 @@ const Index = () => {
   const contentRef = useRef()
 
   const [hideSidebar, setHideSidebar] = useState(true)
-  const [collapsed, setCollapsed] = useState(false)
+  const [collapsed, setCollapsed] = useState(JSON.parse(window.localStorage.getItem('sider-collapsed')) || false)
 
   const updateSidebar = () => {
     const pathname = getPathName()
@@ -50,7 +50,10 @@ const Index = () => {
         theme="light"
         collapsible
         collapsed={collapsed}
-        onCollapse={setCollapsed}
+        onCollapse={value => {
+          window.localStorage.setItem('sider-collapsed', JSON.stringify(value))
+          setCollapsed(value)
+        }}
         width={180}
         style={{
           overflow: 'auto',
@@ -61,7 +64,7 @@ const Index = () => {
         className={classNames('site-layout-sider', { hidden: hideSidebar })}
       >
         <div className="site-layout-logo-link">
-          <a href="/#/" className="site-layout-logo">
+          <a href="#/" className="site-layout-logo">
             <DesktopOutlined className="site-layout-logo-icon" />
             <span className="site-layout-logo-text">Magpie</span>
           </a>

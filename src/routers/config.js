@@ -2,24 +2,21 @@
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-08 11:37:08
+ * @Last Modified time: 2022-04-12 14:29:19
  * @Desc: 路由配置
  */
 
 import React from 'react'
-import BugOutlined from '@ant-design/icons/BugOutlined'
-import WechatOutlined from '@ant-design/icons/WechatOutlined'
-import MessageOutlined from '@ant-design/icons/MessageOutlined'
-import BoxPlotOutlined from '@ant-design/icons/BoxPlotOutlined'
+import GitlabOutlined from '@ant-design/icons/GitlabOutlined'
 import { Index, NoMatch } from '@/views/Index'
-import Demo from '@/views/Demo'
+import Git from '@/views/Git'
 
 export default [
   {
-    name: '示例',
-    icon: <BugOutlined />,
-    path: '/demo',
-    component: Demo
+    name: 'Git管理',
+    icon: <GitlabOutlined />,
+    path: '/git',
+    component: Git
   },
   {
     path: '/',

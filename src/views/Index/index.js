@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-12 14:13:24
+ * @Last Modified time: 2022-04-12 14:23:21
  */
 
 import React, { useState, useEffect } from 'react'
@@ -39,12 +39,12 @@ export const Index = () => {
   useEffect(() => {
     const { stdout: name } = ipcRenderer.sendSync('execaSync', 'git', ['config', '--global', 'user.name'])
     const { stdout: email } = ipcRenderer.sendSync('execaSync', 'git', ['config', '--global', 'user.email'])
-    const { stdout: npm_version } = ipcRenderer.sendSync('execaSync', 'node', ['-v'])
-    const { stdout: node_version } = ipcRenderer.sendSync('execaSync', 'npm', ['-v'])
+    const { stdout: node_version } = ipcRenderer.sendSync('execaSync', 'node', ['-v'])
+    const { stdout: npm_version } = ipcRenderer.sendSync('execaSync', 'npm', ['-v'])
     setDataSource({
       name,
       email,
-      node_version,
+      node_version: node_version.match(/(\d+(\.\d+)*)/)?.[1],
       npm_version
     })
   }, [setDataSource])

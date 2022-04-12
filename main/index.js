@@ -2,15 +2,16 @@
  * @Author: fangt11
  * @Date:   2022-04-07 13:47:44
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-12 14:08:10
+ * @Last Modified time: 2022-04-12 20:10:33
  */
 
 const fs = require('fs')
 const { resolve, join } = require('path')
-const execa = require('execa')
-const fixPath = require('fix-path')
 const { app, BrowserWindow, ipcMain, session, dialog } = require('electron')
 const log = require('electron-log')
+const execa = require('execa')
+const glob = require('glob')
+const fixPath = require('fix-path')
 const { APPLICATIONS_DIR, HOME_DIR } = require('./config')
 
 const isDevelopment = process.env.NODE_ENV === 'development'
@@ -43,7 +44,7 @@ app.on('ready', () => {
 })
 
 app.on('ready', () => {
-  // require('../server')
+  require('../server')
 })
 
 app.whenReady().then(async () => {
@@ -74,9 +75,20 @@ ipcMain.on('fs', (event, fsFuncName, args) => {
   const res = fs[fsFuncName](args)
   if (Buffer.isBuffer(res)) {
     event.returnValue = res.toString()
+    return
   }
+  event.returnValue = res
+})
+
+ipcMain.on('getImageBase64', (event, filePath) => {
+  const res = fs.readFileSync(filePath)
+  event.returnValue = res.toString('base64')
 })
 
 ipcMain.on('execaSync', (event, file, args) => {
   event.returnValue = execa.sync(file, args)
+})
+
+ipcMain.on('globSync', (event, pattern, options) => {
+  event.returnValue = glob.sync(pattern, options)
 })

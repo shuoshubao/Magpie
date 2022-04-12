@@ -2,17 +2,22 @@
  * @Author: fangt11
  * @Date:   2022-04-07 13:47:44
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-11 20:06:34
+ * @Last Modified time: 2022-04-12 12:23:32
  */
 
 const fs = require('fs')
 const { resolve, join } = require('path')
 const execa = require('execa')
-const shell = require('shelljs')
+const fixPath = require('fix-path')
 const { app, BrowserWindow, ipcMain, session, dialog } = require('electron')
+const log = require('electron-log')
 const { APPLICATIONS_DIR, HOME_DIR } = require('./config')
 
 const isDevelopment = process.env.NODE_ENV === 'development'
+
+if (!isDevelopment) {
+  fixPath()
+}
 
 let win
 
@@ -39,6 +44,8 @@ app.on('ready', () => {
 
 app.on('ready', () => {
   // require('../server')
+  console.log('info process')
+  log.info(process)
 })
 
 app.whenReady().then(async () => {
@@ -59,10 +66,6 @@ app.on('window-all-closed', function () {
 
 ipcMain.on('getProcessVersions', (event, file, args) => {
   event.returnValue = process.versions
-})
-
-ipcMain.on('getNpmConfigUserAgent', (event, file, args) => {
-  event.returnValue = process.env.npm_config_user_agent
 })
 
 ipcMain.handle('showOpenDialog', (event, options) => {

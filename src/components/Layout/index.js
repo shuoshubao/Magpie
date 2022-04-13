@@ -40,7 +40,7 @@ const Index = () => {
 
   const siteLayoutMarginLeft = collapsed ? 80 : 180
 
-  const { stdout } = ipcRenderer.sendSync('execaSync', 'git', ['config', '--global', 'user.name'])
+  const { stdout } = ipcRenderer.sendSync('execaCommandSync', 'git config --global user.name')
 
   const userName = stdout
 

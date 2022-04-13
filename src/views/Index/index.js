@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-13 17:43:33
+ * @Last Modified time: 2022-04-13 19:51:29
  */
 
 import React, { useState, useEffect } from 'react'
@@ -78,10 +78,10 @@ const Index = () => {
       const userInfo = await ipcRenderer.invoke('os', 'userInfo')
       const cpus = await ipcRenderer.invoke('os', 'cpus')
       const freemem = await ipcRenderer.invoke('os', 'freemem')
-      const { stdout: name } = ipcRenderer.sendSync('execaSync', 'git', ['config', '--global', 'user.name'])
-      const { stdout: email } = ipcRenderer.sendSync('execaSync', 'git', ['config', '--global', 'user.email'])
-      const { stdout: node_version } = ipcRenderer.sendSync('execaSync', 'node', ['-v'])
-      const { stdout: npm_version } = ipcRenderer.sendSync('execaSync', 'npm', ['-v'])
+      const { stdout: name } = ipcRenderer.sendSync('execaCommandSync', 'git config --global user.name')
+      const { stdout: email } = ipcRenderer.sendSync('execaCommandSync', 'git config --global user.email')
+      const { stdout: node_version } = ipcRenderer.sendSync('execaCommandSync', 'node -v')
+      const { stdout: npm_version } = ipcRenderer.sendSync('execaCommandSync', 'npm -v')
       setDataSource1({
         username: userInfo.username,
         cpus: cpus.length,

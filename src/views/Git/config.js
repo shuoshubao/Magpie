@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 14:33:27
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-12 14:53:17
+ * @Last Modified time: 2022-04-13 19:51:26
  */
 import { ipcRenderer } from 'electron'
 import { rules } from '@nbfe/tools'
@@ -10,9 +10,9 @@ import { rules } from '@nbfe/tools'
 const { required } = rules
 
 export const getColumns = () => {
-  const { stdout: name } = ipcRenderer.sendSync('execaSync', 'git', ['config', '--global', 'user.name'])
-  const { stdout: email } = ipcRenderer.sendSync('execaSync', 'git', ['config', '--global', 'user.email'])
-  const { stdout: ignorecase } = ipcRenderer.sendSync('execaSync', 'git', ['config', '--global', 'core.ignorecase'])
+  const { stdout: name } = ipcRenderer.sendSync('execaCommandSync', 'git config --global user.name')
+  const { stdout: email } = ipcRenderer.sendSync('execaCommandSync', 'git config --global user.email')
+  const { stdout: ignorecase } = ipcRenderer.sendSync('execaCommandSync', 'git config --global core.ignorecase')
   return [
     {
       label: '用户名',

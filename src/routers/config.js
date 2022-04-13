@@ -1,8 +1,8 @@
 /*
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-12 21:05:46
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-04-13 15:32:08
  * @Desc: 路由配置
  */
 
@@ -11,7 +11,9 @@ import GitlabOutlined from '@ant-design/icons/GitlabOutlined'
 import PictureOutlined from '@ant-design/icons/PictureOutlined'
 import AppstoreOutlined from '@ant-design/icons/AppstoreOutlined'
 import ChromeOutlined from '@ant-design/icons/ChromeOutlined'
+import { NodeJs as NodeIcon } from '@/assets/icons'
 import Index, { NoMatch } from '@/views/Index'
+import NodeJs from '@/views/NodeJs'
 import Git from '@/views/Git'
 import Tinypng from '@/views/Tinypng'
 import Apps from '@/views/Apps'
@@ -19,7 +21,13 @@ import Browser from '@/views/Browser'
 
 export default [
   {
-    name: 'Git管理',
+    name: 'Node 管理',
+    icon: <NodeIcon />,
+    path: '/nodejs',
+    component: NodeJs
+  },
+  {
+    name: 'Git 管理',
     icon: <GitlabOutlined />,
     path: '/git',
     component: Git

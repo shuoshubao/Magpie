@@ -27,7 +27,7 @@
     "@jiaoyi/s3": "^0.1.7",
     "@ke/react-cli": "^1.2.0",
     "electron": "^18.0.1",
-    "electron-builder": "22.10.5",
+    "electron-builder": "^23.0.3",
     "nodemon": "^2.0.15"
   },
   "build": {

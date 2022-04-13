@@ -24,7 +24,7 @@ body {
 .site-layout {
   background-color: #f7f7f7;
   transition: all 0.2s;
-  .ant-layout-header {
+  & > .ant-layout-header {
     z-index: 1;
     display: flex;
     justify-content: space-between;
@@ -49,9 +49,16 @@ body {
       }
     }
   }
-  .ant-layout-content {
+  & > .ant-layout-content {
     min-height: 400px;
     background-color: #f7f7f7;
+    & > .site-layout-content {
+      & > div:only-child {
+        position: relative;
+        height: 100%;
+        background-color: #fff;
+      }
+    }
   }
 }
 

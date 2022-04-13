@@ -1,8 +1,8 @@
 /*
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
- * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-13 15:32:08
+ * @Last Modified by:   shuoshubao
+ * @Last Modified time: 2022-04-13 17:47:35
  * @Desc: 路由配置
  */
 
@@ -15,7 +15,7 @@ import { NodeJs as NodeIcon } from '@/assets/icons'
 import Index, { NoMatch } from '@/views/Index'
 import NodeJs from '@/views/NodeJs'
 import Git from '@/views/Git'
-import Tinypng from '@/views/Tinypng'
+import Tinify from '@/views/Tinify'
 import Apps from '@/views/Apps'
 import Browser from '@/views/Browser'
 
@@ -47,8 +47,8 @@ export default [
   {
     name: '图片压缩',
     icon: <PictureOutlined />,
-    path: '/tinypng',
-    component: Tinypng
+    path: '/tinify',
+    component: Tinify
   },
   {
     path: '/',

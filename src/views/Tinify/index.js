@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 15:00:05
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-12 20:10:40
+ * @Last Modified time: 2022-04-13 17:50:05
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
@@ -18,7 +18,7 @@ export const Index = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([])
 
   return (
-    <div style={{ height: '100%', padding: 10, background: '#fff' }}>
+    <div>
       <Table
         ref={tableRef}
         columns={columns}
@@ -43,7 +43,7 @@ export const Index = () => {
           }
         }}
         scroll={{
-          y: 'calc(100vh - 40px - 53px - 43px)'
+          y: 'calc(100vh - 20px - 53px - 43px)'
         }}
         prependHeader={
           <Button
@@ -97,6 +97,6 @@ export const Index = () => {
   )
 }
 
-Index.displayName = 'Tinypng'
+Index.displayName = 'Tinify'
 
 export default Index

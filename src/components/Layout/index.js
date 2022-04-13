@@ -83,7 +83,17 @@ const Index = () => {
       </Sider>
       <Layout className="site-layout" style={{ marginLeft: hideSidebar ? 0 : siteLayoutMarginLeft }}>
         <Content style={{ padding: 0, overflow: 'initial', flex: 1 }}>
-          <div ref={contentRef} style={{ position: 'relative', height: '100%', padding: 10 }}>
+          <div
+            className="site-layout-content"
+            ref={contentRef}
+            style={{
+              position: 'relative',
+              height: '100%',
+              padding: 10,
+              display: 'flex',
+              flexDirection: 'column'
+            }}
+          >
             <RenderRouter />
           </div>
         </Content>

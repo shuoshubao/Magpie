@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-13 16:12:08
+ * @Last Modified time: 2022-04-13 17:43:33
  */
 
 import React, { useState, useEffect } from 'react'
@@ -97,7 +97,7 @@ const Index = () => {
   }, [setDataSource1, setDataSource2])
 
   return (
-    <div style={{ height: '100%', padding: 10 }}>
+    <>
       <Card style={{ padding: '100px 0' }}>
         <Title level={2} style={{ textAlign: 'center' }}>
           <DesktopOutlined />
@@ -109,7 +109,7 @@ const Index = () => {
       </Card>
       <Descriptions title="基本信息" data={dataSource1} columns={columns1} style={{ padding: 10, marginTop: 10 }} />
       <Descriptions title="Electron" data={dataSource2} columns={columns2} style={{ padding: 10, marginTop: 10 }} />
-    </div>
+    </>
   )
 }
 

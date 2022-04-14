@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-14 19:45:23
+ * @Last Modified time: 2022-04-14 20:47:30
  */
 
 import React, { useState, useEffect } from 'react'
@@ -10,68 +10,15 @@ import { ipcRenderer } from 'electron'
 import { Card, Result, Button, Typography } from 'antd'
 import DesktopOutlined from '@ant-design/icons/DesktopOutlined'
 import { Descriptions } from '@ke/table'
-import filesize from 'filesize'
+import { BaseinfoColumns, ElectronColumns } from './config'
 
 const { Text, Title } = Typography
 
 // 首页
 const Index = () => {
-  const [dataSource1, setDataSource1] = useState()
-  const [dataSource2, setDataSource2] = useState()
-
-  const columns1 = [
-    {
-      label: 'username',
-      name: 'username'
-    },
-    {
-      label: 'CPU',
-      name: 'cpus'
-    },
-    {
-      label: 'freemem',
-      name: 'freemem',
-      render: value => {
-        return filesize(value || 0)
-      }
-    },
-    {
-      label: 'IP',
-      name: 'ip'
-    },
-    {
-      label: '姓名',
-      name: 'name'
-    },
-    {
-      label: '邮箱',
-      name: 'email',
-      span: 2
-    },
-    {
-      label: 'Node 版本',
-      name: 'node_version'
-    },
-    {
-      label: 'Npm 版本',
-      name: 'npm_version'
-    }
-  ]
-
-  const columns2 = [
-    {
-      label: 'Electron',
-      name: 'electron'
-    },
-    {
-      label: 'Chromium',
-      name: 'chrome'
-    },
-    {
-      label: 'Node',
-      name: 'node'
-    }
-  ]
+  const [username, setUsername] = useState()
+  const [BaseinfoDataSource, setBaseinfoDataSource] = useState({})
+  const [ElectronDataSource, setElectronDataSource] = useState({})
 
   useEffect(() => {
     const userInfo = ipcRenderer.sendSync('os', 'userInfo')
@@ -81,32 +28,39 @@ const Index = () => {
     const { stdout: email } = ipcRenderer.sendSync('execaCommandSync', 'git config --global user.email')
     const { stdout: node_version } = ipcRenderer.sendSync('execaCommandSync', 'node -v')
     const { stdout: npm_version } = ipcRenderer.sendSync('execaCommandSync', 'npm -v')
-    setDataSource1({
-      username: userInfo.username,
+    setUsername(userInfo.username)
+    setBaseinfoDataSource({
       cpus: cpus.length,
       freemem,
       ip: ipcRenderer.sendSync('getIp'),
       name,
       email,
-      node_version: node_version.match(/(\d+(\.\d+)*)/)?.[1],
+      node_version,
       npm_version
     })
-    setDataSource2(ipcRenderer.sendSync('getProcessVersions'))
-  }, [setDataSource1, setDataSource2])
+    setElectronDataSource(ipcRenderer.sendSync('getProcessVersions'))
+  }, [setUsername, setBaseinfoDataSource, setElectronDataSource])
+
+  if (!username) {
+    return null
+  }
 
   return (
     <>
-      <Card style={{ padding: '100px 0' }}>
-        <Title level={2} style={{ textAlign: 'center' }}>
+      <Card style={{ padding: '10px 0' }}>
+        <Title level={2} style={{ textAlign: 'center' }} type="success">
           <DesktopOutlined />
           <span style={{ marginLeft: 10 }}>Magpie</span>
         </Title>
         <Title level={4} style={{ textAlign: 'center' }}>
-          前端研发工作台
+          你好, {username}!
+        </Title>
+        <Title level={4} style={{ textAlign: 'center' }}>
+          欢迎使用[前端研发工作台]
         </Title>
       </Card>
-      <Descriptions title="基本信息" data={dataSource1} columns={columns1} style={{ padding: 10, marginTop: 10 }} />
-      <Descriptions title="Electron" data={dataSource2} columns={columns2} style={{ padding: 10, marginTop: 10 }} />
+      <Descriptions title="基本信息" data={BaseinfoDataSource} columns={BaseinfoColumns} style={{ padding: 10, marginTop: 10 }} />
+      <Descriptions title="Electron" data={ElectronDataSource} columns={ElectronColumns} style={{ padding: 10, marginTop: 10 }} />
     </>
   )
 }

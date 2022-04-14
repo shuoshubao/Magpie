@@ -43,9 +43,7 @@ const Index = () => {
 
   const siteLayoutMarginLeft = collapsed ? 80 : 180
 
-  const { stdout } = ipcRenderer.sendSync('execaCommandSync', 'git config --global user.name')
-
-  const userName = stdout
+  const { username } = ipcRenderer.sendSync('os', 'userInfo')
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -75,7 +73,7 @@ const Index = () => {
             <div className="site-layout-link">
               <div className="site-layout-link-item">
                 <UserOutlined />
-                <span>{userName}</span>
+                <span>{username}</span>
               </div>
             </div>
           </div>

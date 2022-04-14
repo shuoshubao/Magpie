@@ -214,16 +214,28 @@ body .ant-modal-wrap {
     }
   }
   .ant-modal-body {
-    max-height: calc(100vh - 42px - 53px - 20px * 2);
     padding: 10px;
-    overflow-y: auto;
+    max-height: 100vh;
   }
   .ant-modal-footer {
     padding: 10px;
   }
+  &:not(.ant-modal-confirm) {
+    .ant-modal-body {
+      max-height: calc(100vh - 42px - 53px - 20px * 2);
+      overflow-y: auto;
+    }
+  }
   &.ant-modal-confirm {
     .ant-modal-body {
-      padding: 32px 32px 24px;
+      padding: 30px 30px 10px;
+    }
+    .ant-modal-confirm-content {
+      max-height: calc(100vh - 20px * 2 - 30px - 10px - 25px - 32px - 10px);
+      overflow-y: auto;
+    }
+    .ant-modal-confirm-btns {
+      margin-top: 10px;
     }
   }
 }

@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-14 13:18:09
+ * @Last Modified time: 2022-04-14 14:13:52
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
@@ -16,7 +16,6 @@ export const Index = () => {
   const [modalVisible, setModalVisible] = useState(false)
 
   const fetchDependencies = async () => {
-    console.time('fetch dependencies')
     const { stdout } = ipcRenderer.sendSync('execaCommandSync', 'npm list -g --depth 0 --json')
     const { dependencies } = JSON.parse(stdout)
     const dataSource = Object.entries(dependencies).reduce((prev, [name, v]) => {
@@ -34,7 +33,6 @@ export const Index = () => {
       })
       return prev
     }, [])
-    console.timeEnd('fetch dependencies')
     return {
       list: dataSource
     }

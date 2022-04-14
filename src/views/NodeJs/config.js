@@ -2,11 +2,11 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 14:33:27
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-14 11:43:53
+ * @Last Modified time: 2022-04-14 14:37:31
  */
 import React from 'react'
 import { ipcRenderer } from 'electron'
-import { Tooltip, message } from 'antd'
+import { Modal, Tag, Tooltip, message } from 'antd'
 import QuestionCircleOutlined from '@ant-design/icons/QuestionCircleOutlined'
 import { rules } from '@nbfe/tools'
 import semver from 'semver'
@@ -78,19 +78,41 @@ export const getTableColumns = () => {
       template: {
         tpl: 'link',
         render: (value, record) => {
-          const { version, latestVersion } = record
+          const { name, version, latestVersion } = record
           return [
             {
               text: '升级',
-              disabled: !semver.lt(version, latestVersion)
+              disabled: !semver.lt(version, latestVersion),
+              PopconfirmConfig: {
+                title: (
+                  <span>
+                    <span>确定要升级</span>
+                    <Tag color="#87d068" style={{ margin: '0 5px' }}>
+                      {name}
+                    </Tag>
+                    <span>吗？</span>
+                  </span>
+                ),
+                onConfirm: async () => {
+                  ipcRenderer.sendSync('execaCommandSync', `npm i -g ${name}`)
+                }
+              }
             },
             {
               text: '卸载',
               danger: true,
               PopconfirmConfig: {
-                title: '确定要卸载吗?',
+                title: (
+                  <span>
+                    <span>确定要卸载</span>
+                    <Tag color="#f50" style={{ margin: '0 5px' }}>
+                      {name}
+                    </Tag>
+                    <span>吗？</span>
+                  </span>
+                ),
                 onConfirm: async () => {
-                  console.log(111)
+                  ipcRenderer.sendSync('execaCommandSync', `npm un -g ${name}`)
                 }
               }
             }

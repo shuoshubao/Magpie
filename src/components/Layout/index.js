@@ -34,6 +34,9 @@ const Index = () => {
   useEffect(() => {
     updateSidebar()
     window.addEventListener('hashchange', () => {
+      const { hash } = window.location
+      const hashPath = hash.slice(0, hash.includes('?') ? hash.indexOf('?') : Infinity)
+      window.localStorage.setItem('memoizeHash', hashPath)
       updateSidebar()
     })
   }, [setHideSidebar])

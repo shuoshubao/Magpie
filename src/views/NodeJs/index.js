@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-13 20:48:18
+ * @Last Modified time: 2022-04-14 13:18:09
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
@@ -13,28 +13,36 @@ import { getFormColumns, getTableColumns } from './config'
 
 export const Index = () => {
   const tableRef = useRef()
-  const [globalDependencies, setGlobalDependencies] = useState([])
   const [modalVisible, setModalVisible] = useState(false)
 
-  useEffect(() => {
+  const fetchDependencies = async () => {
+    console.time('fetch dependencies')
     const { stdout } = ipcRenderer.sendSync('execaCommandSync', 'npm list -g --depth 0 --json')
     const { dependencies } = JSON.parse(stdout)
-    const dataSource = Object.entries(dependencies).reduce((prev, [k, v]) => {
-      if (k === 'npm') {
+    const dataSource = Object.entries(dependencies).reduce((prev, [name, v]) => {
+      if (name === 'npm') {
         return prev
       }
       const { version, resolved } = v
       const registry = resolved.slice(0, resolved.indexOf('/', 10))
+      const latestVersion = ipcRenderer.sendSync('getPackageLatestVersion', name, registry)
       prev.push({
-        name: k,
+        name,
         version,
-        registry
+        registry,
+        latestVersion
       })
       return prev
     }, [])
-    setGlobalDependencies(dataSource)
+    console.timeEnd('fetch dependencies')
+    return {
+      list: dataSource
+    }
+  }
+
+  useEffect(() => {
     tableRef.current.search()
-  }, [setGlobalDependencies])
+  }, [])
 
   return (
     <>
@@ -51,11 +59,7 @@ export const Index = () => {
         rowKey="name"
         columns={getTableColumns()}
         remoteConfig={{
-          fetch: async () => {
-            return {
-              list: globalDependencies
-            }
-          }
+          fetch: fetchDependencies
         }}
         extraConfig={{ showTotal: true }}
         pagination={false}

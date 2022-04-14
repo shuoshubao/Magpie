@@ -2,13 +2,14 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 14:33:27
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-13 20:47:45
+ * @Last Modified time: 2022-04-14 11:43:53
  */
 import React from 'react'
 import { ipcRenderer } from 'electron'
 import { Tooltip, message } from 'antd'
 import QuestionCircleOutlined from '@ant-design/icons/QuestionCircleOutlined'
 import { rules } from '@nbfe/tools'
+import semver from 'semver'
 import { RegistryEnum } from '@/configs'
 
 const { required } = rules
@@ -23,7 +24,8 @@ export const getFormColumns = () => {
       defaultValue: version,
       rules: [required],
       template: {
-        width: 500
+        width: 500,
+        disabled: true
       }
     },
     {
@@ -76,13 +78,21 @@ export const getTableColumns = () => {
       template: {
         tpl: 'link',
         render: (value, record) => {
+          const { version, latestVersion } = record
           return [
             {
-              text: '升级'
+              text: '升级',
+              disabled: !semver.lt(version, latestVersion)
             },
             {
               text: '卸载',
-              danger: true
+              danger: true,
+              PopconfirmConfig: {
+                title: '确定要卸载吗?',
+                onConfirm: async () => {
+                  console.log(111)
+                }
+              }
             }
           ]
         }

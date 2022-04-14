@@ -5,7 +5,7 @@ import DownloadOutlined from '@ant-design/icons/DownloadOutlined'
 import moment from 'moment'
 import { getAntdLocaleZhCN, defineMomentLocaleZhCn } from '@nbfe/tools'
 import Layout from '@/components/Layout'
-import { isChrome } from '@/utils'
+import '@/utils/monitor'
 import '@/assets/styles/index.less'
 import '@ke/form/dist/index.css'
 import '@ke/table/dist/index.css'
@@ -17,25 +17,6 @@ moment.locale('zh-cn', {
     dow: 1
   }
 })
-
-if (!isChrome()) {
-  notification.warning({
-    description: [
-      <div key="0">为保证您的使用体验，建议您使用谷歌Chrome浏览器</div>,
-      <Button
-        type="primary"
-        icon={<DownloadOutlined />}
-        size="small"
-        href="https://www.baidu.com/s?wd=Chrome浏览器"
-        target="_blank"
-        key="1"
-      >
-        去下载
-      </Button>
-    ],
-    duration: 10
-  })
-}
 
 export default () => {
   return (

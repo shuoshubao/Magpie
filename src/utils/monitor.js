@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2021-07-23 12:06:57
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-14 12:15:22
+ * @Last Modified time: 2022-04-14 16:06:04
  * @Desc: 错误监控
  */
 
@@ -77,7 +77,7 @@ window.addEventListener('error', e => {
   const { stack } = error
   Modal.error({
     title: ['JS报错', 'error', window.location.href].join(' _ '),
-    width: 1000,
+    width: '90%',
     okText: '知道了',
     content: (
       <Descriptions column={1} size="small">
@@ -107,7 +107,7 @@ window.addEventListener('unhandledrejection', e => {
   }
   Modal.error({
     title: ['JS报错', 'unhandledrejection', window.location.href].join(' _ '),
-    width: 1000,
+    width: '90%',
     okText: '知道了',
     content: getErrorStackNode(stack)
   })

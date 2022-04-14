@@ -2,17 +2,18 @@
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-14 14:13:52
+ * @Last Modified time: 2022-04-14 16:17:37
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
 import { Button, Modal } from 'antd'
 import Form from '@ke/form'
 import Table from '@ke/table'
-import { getFormColumns, getTableColumns } from './config'
+import { getFormColumns, getTableColumns, getQueryColumns, getQueryTableColumns } from './config'
 
 export const Index = () => {
   const tableRef = useRef()
+  const queryTableRef = useRef()
   const [modalVisible, setModalVisible] = useState(false)
 
   const fetchDependencies = async () => {
@@ -42,6 +43,10 @@ export const Index = () => {
     tableRef.current.search()
   }, [])
 
+  const handleSearch = params => {
+    queryTableRef.current.search(params)
+  }
+
   return (
     <>
       <Form
@@ -51,6 +56,7 @@ export const Index = () => {
         cardProps={{
           title: 'Node 全局配置'
         }}
+        autoSubmit={false}
       />
       <Table
         ref={tableRef}
@@ -73,12 +79,46 @@ export const Index = () => {
         }
       />
       <Modal
-        title="添加依赖"
+        title="安装全局依赖"
         visible={modalVisible}
+        width="90%"
         onCancel={() => {
           setModalVisible(false)
         }}
-      ></Modal>
+        destroyOnClose
+        footer={null}
+      >
+        <Form columns={getQueryColumns()} onSubmit={handleSearch} showResetBtn={false} />
+        <Table
+          ref={queryTableRef}
+          rowKey="name"
+          columns={getQueryTableColumns()}
+          remoteConfig={{
+            fetch: async params => {
+              const { name, registry } = params
+              if (!name) {
+                return {
+                  list: []
+                }
+              }
+              const { stderr, stdout } = ipcRenderer.sendSync(
+                'execaCommandSync',
+                `npm view ${name} name dist-tags maintainers description readme --json --registry=${registry}`
+              )
+              if (stderr) {
+                return {
+                  list: []
+                }
+              }
+              const list = [JSON.parse(stdout)]
+              return {
+                list
+              }
+            }
+          }}
+          pagination={false}
+        />
+      </Modal>
     </>
   )
 }

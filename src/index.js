@@ -13,10 +13,10 @@ if (hashPath) {
 ReactDOM.render(<App />, document.getElementById('root'))
 
 ipcRenderer.on('showErrorBox', (event, title, content) => {
-  Modal.info({
+  Modal.error({
     title,
     content,
-    width: 1000,
+    width: '90%',
     style: {
       top: 20
     }

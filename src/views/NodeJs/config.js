@@ -2,17 +2,21 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 14:33:27
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-14 14:37:31
+ * @Last Modified time: 2022-04-14 16:15:48
  */
 import React from 'react'
 import { ipcRenderer } from 'electron'
-import { Modal, Tag, Tooltip, message } from 'antd'
+import ReactMarkdown from 'react-markdown'
+import RemarkGfm from 'remark-gfm'
+import { Modal, Typography, Tooltip, message } from 'antd'
 import QuestionCircleOutlined from '@ant-design/icons/QuestionCircleOutlined'
 import { rules } from '@nbfe/tools'
 import semver from 'semver'
 import { RegistryEnum } from '@/configs'
 
 const { required } = rules
+
+const { Text } = Typography
 
 export const getFormColumns = () => {
   const { stdout: version } = ipcRenderer.sendSync('execaCommandSync', 'node -v')
@@ -24,7 +28,7 @@ export const getFormColumns = () => {
       defaultValue: version,
       rules: [required],
       template: {
-        width: 500,
+        width: 450,
         disabled: true
       }
     },
@@ -35,8 +39,8 @@ export const getFormColumns = () => {
       rules: [required],
       template: {
         tpl: 'select',
-        width: 500,
         options: RegistryEnum,
+        width: 450,
         optionLabelProp: 'value',
         onChange: value => {
           ipcRenderer.sendSync('execaCommandSync', `npm config set registry ${value}`)
@@ -50,13 +54,13 @@ export const getFormColumns = () => {
 export const getTableColumns = () => {
   return [
     {
-      title: 'npm 依赖',
+      title: 'name',
       dataIndex: 'name',
       render: (value, record) => {
         const { registry } = record
         return (
           <>
-            <span>{value}</span>
+            <Text type="success">{value}</Text>
             <Tooltip title={['registry', registry].join(':')} overlayStyle={{ maxWidth: 400 }}>
               <QuestionCircleOutlined style={{ marginLeft: 4, color: '#00000073' }} />
             </Tooltip>
@@ -87,9 +91,9 @@ export const getTableColumns = () => {
                 title: (
                   <span>
                     <span>确定要升级</span>
-                    <Tag color="#87d068" style={{ margin: '0 5px' }}>
+                    <Text type="success" style={{ margin: '0 5px' }}>
                       {name}
-                    </Tag>
+                    </Text>
                     <span>吗？</span>
                   </span>
                 ),
@@ -105,14 +109,103 @@ export const getTableColumns = () => {
                 title: (
                   <span>
                     <span>确定要卸载</span>
-                    <Tag color="#f50" style={{ margin: '0 5px' }}>
+                    <Text type="danger" style={{ margin: '0 5px' }}>
                       {name}
-                    </Tag>
+                    </Text>
                     <span>吗？</span>
                   </span>
                 ),
                 onConfirm: async () => {
                   ipcRenderer.sendSync('execaCommandSync', `npm un -g ${name}`)
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+
+export const getQueryColumns = () => {
+  const npmrc = ipcRenderer.sendSync('getNpmrc')
+  return [
+    {
+      name: 'registry',
+      defaultValue: npmrc.registry,
+      template: {
+        tpl: 'select',
+        options: RegistryEnum,
+        width: 450,
+        optionLabelProp: 'value'
+      }
+    },
+    {
+      name: 'name',
+      deafaultValue: '@nbfe/tools',
+      template: {
+        inputType: 'search'
+      }
+    }
+  ]
+}
+
+export const getQueryTableColumns = () => {
+  return [
+    {
+      title: 'name',
+      dataIndex: 'name',
+      template: {
+        type: 'success'
+      }
+    },
+    {
+      title: 'version',
+      dataIndex: ['dist-tags', 'latest']
+    },
+    {
+      title: 'description',
+      dataIndex: 'description'
+    },
+    {
+      title: 'maintainers',
+      dataIndex: 'maintainers'
+    },
+    {
+      title: '操作',
+      width: 150,
+      template: {
+        tpl: 'link',
+        render: (value, record) => {
+          const { name, readme } = record
+          return [
+            {
+              text: '查看Readme',
+              onClick: () => {
+                Modal.info({
+                  content: <ReactMarkdown children={readme} remarkPlugins={[RemarkGfm]} />,
+                  icon: null,
+                  width: '90%',
+                  style: {
+                    top: 20
+                  }
+                })
+              }
+            },
+            {
+              text: '安装',
+              PopconfirmConfig: {
+                title: (
+                  <span>
+                    <span>确定要安装</span>
+                    <Text type="success" style={{ margin: '0 5px' }}>
+                      {name}
+                    </Text>
+                    <span>吗？</span>
+                  </span>
+                ),
+                onConfirm: async () => {
+                  ipcRenderer.sendSync('execaCommandSync', `npm i -g ${name}`)
                 }
               }
             }

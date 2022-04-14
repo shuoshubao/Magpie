@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 14:33:27
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-14 16:15:48
+ * @Last Modified time: 2022-04-14 19:16:44
  */
 import React from 'react'
 import { ipcRenderer } from 'electron'
@@ -142,7 +142,6 @@ export const getQueryColumns = () => {
     },
     {
       name: 'name',
-      deafaultValue: '@nbfe/tools',
       template: {
         inputType: 'search'
       }

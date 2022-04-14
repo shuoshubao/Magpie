@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:31:01
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-14 13:21:31
+ * @Last Modified time: 2022-04-14 18:27:09
  */
 const { ipcMain, dialog } = require('electron')
 const log = require('electron-log')
@@ -37,8 +37,8 @@ ipcMain.on('getProcessVersions', (event, file, args) => {
   event.returnValue = process.versions
 })
 
-ipcMain.on('fs', (event, fsFuncName, args) => {
-  const res = fs[fsFuncName](args)
+ipcMain.on('fs', (event, fsFuncName, ...args) => {
+  const res = fs[fsFuncName](...args)
   event.returnValue = res
 })
 

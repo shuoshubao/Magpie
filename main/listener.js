@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:31:01
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-14 18:27:09
+ * @Last Modified time: 2022-04-14 19:24:27
  */
 const { ipcMain, dialog } = require('electron')
 const log = require('electron-log')
@@ -21,10 +21,8 @@ axios.interceptors.request.use(request => {
     'axios',
     request.method,
     request.url,
-    'params:',
-    JSON.stringify(request.params, null),
-    'data:',
-    JSON.stringify(request.data, null)
+    request.params ? ['params', JSON.stringify(request.params, null)].join(':') : '',
+    request.data ? ['data', JSON.stringify(request.data, null)].join(':') : ''
   )
   return request
 })

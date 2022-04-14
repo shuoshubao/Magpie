@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-13 19:51:29
+ * @Last Modified time: 2022-04-14 19:45:23
  */
 
 import React, { useState, useEffect } from 'react'
@@ -74,26 +74,24 @@ const Index = () => {
   ]
 
   useEffect(() => {
-    ;(async () => {
-      const userInfo = await ipcRenderer.invoke('os', 'userInfo')
-      const cpus = await ipcRenderer.invoke('os', 'cpus')
-      const freemem = await ipcRenderer.invoke('os', 'freemem')
-      const { stdout: name } = ipcRenderer.sendSync('execaCommandSync', 'git config --global user.name')
-      const { stdout: email } = ipcRenderer.sendSync('execaCommandSync', 'git config --global user.email')
-      const { stdout: node_version } = ipcRenderer.sendSync('execaCommandSync', 'node -v')
-      const { stdout: npm_version } = ipcRenderer.sendSync('execaCommandSync', 'npm -v')
-      setDataSource1({
-        username: userInfo.username,
-        cpus: cpus.length,
-        freemem,
-        ip: ipcRenderer.sendSync('getIp'),
-        name,
-        email,
-        node_version: node_version.match(/(\d+(\.\d+)*)/)?.[1],
-        npm_version
-      })
-      setDataSource2(ipcRenderer.sendSync('getProcessVersions'))
-    })()
+    const userInfo = ipcRenderer.sendSync('os', 'userInfo')
+    const cpus = ipcRenderer.sendSync('os', 'cpus')
+    const freemem = ipcRenderer.sendSync('os', 'freemem')
+    const { stdout: name } = ipcRenderer.sendSync('execaCommandSync', 'git config --global user.name')
+    const { stdout: email } = ipcRenderer.sendSync('execaCommandSync', 'git config --global user.email')
+    const { stdout: node_version } = ipcRenderer.sendSync('execaCommandSync', 'node -v')
+    const { stdout: npm_version } = ipcRenderer.sendSync('execaCommandSync', 'npm -v')
+    setDataSource1({
+      username: userInfo.username,
+      cpus: cpus.length,
+      freemem,
+      ip: ipcRenderer.sendSync('getIp'),
+      name,
+      email,
+      node_version: node_version.match(/(\d+(\.\d+)*)/)?.[1],
+      npm_version
+    })
+    setDataSource2(ipcRenderer.sendSync('getProcessVersions'))
   }, [setDataSource1, setDataSource2])
 
   return (

@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:31:01
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-14 19:24:27
+ * @Last Modified time: 2022-04-14 19:44:49
  */
 const { ipcMain, dialog } = require('electron')
 const log = require('electron-log')
@@ -40,15 +40,15 @@ ipcMain.on('fs', (event, fsFuncName, ...args) => {
   event.returnValue = res
 })
 
-ipcMain.handle('os', (event, propName) => {
+ipcMain.on('os', (event, propName) => {
   const value = os[propName]
   if (propName === 'freemem') {
-    return os.freemem()
+    event.returnValue = os.freemem()
   }
   if (isFunction(value)) {
-    return value()
+    event.returnValue = value()
   }
-  return value
+  event.returnValue = value
 })
 
 ipcMain.on('getImageBase64', (event, filePath) => {

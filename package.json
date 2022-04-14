@@ -13,10 +13,12 @@
     "@nbfe/tools": "^0.2.14",
     "antd": "^4.19.5",
     "axios": "^0.26.1",
+    "electron": "^18.0.1",
     "electron-log": "^4.4.6",
     "execa": "^5.0.0",
     "fix-path": "3.0.0",
     "glob": "^8.0.1",
+    "ini": "^3.0.0",
     "ip": "^1.1.5",
     "koa": "^2.13.4",
     "koa-body": "^4.2.0",
@@ -29,7 +31,6 @@
   "devDependencies": {
     "@jiaoyi/s3": "^0.1.7",
     "@ke/react-cli": "^1.2.0",
-    "electron": "^18.0.1",
     "electron-builder": "^23.0.3",
     "nodemon": "^2.0.15"
   },

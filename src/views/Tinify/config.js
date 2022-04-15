@@ -2,8 +2,12 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 15:06:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-15 17:47:11
+ * @Last Modified time: 2022-04-15 18:33:57
  */
+import React from 'react'
+import { ipcRenderer, shell } from 'electron'
+import { Space } from 'antd'
+import SearchOutlined from '@ant-design/icons/SearchOutlined'
 import filesize from 'filesize'
 
 export const Extensions = ['png', 'jpg', 'jpeg', 'webp']
@@ -21,10 +25,17 @@ export const columns = [
     dataIndex: 'path',
     transform: (value, record) => {
       const { filePath, isFile } = record
-      if (isFile) {
-        return value
-      }
-      return value.replace(`${filePath}/`, '')
+      const path = isFile ? ipcRenderer.sendSync('getShortPath', value) : value.replace(`${filePath}/`, '')
+      return (
+        <Space align="center">
+          <span>{path} </span>
+          <SearchOutlined
+            onClick={() => {
+              shell.showItemInFolder(value)
+            }}
+          />
+        </Space>
+      )
     }
   },
   {

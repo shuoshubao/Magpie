@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-14 13:09:24
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-14 13:22:25
+ * @Last Modified time: 2022-04-15 18:25:41
  */
 const { ipcMain } = require('electron')
 const fs = require('fs')
@@ -11,7 +11,7 @@ const execa = require('execa')
 const { execaCommandSync } = require('./util')
 const { NPMRC_PATH } = require('./config')
 
-ipcMain.on('getNpmrc', (event, filePath) => {
+ipcMain.on('getNpmrc', event => {
   const content = fs.readFileSync(NPMRC_PATH).toString()
   event.returnValue = content ? ini.parse(content) : {}
 })

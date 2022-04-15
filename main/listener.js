@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:31:01
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-15 17:53:01
+ * @Last Modified time: 2022-04-15 18:32:02
  */
 const { ipcMain, dialog } = require('electron')
 const log = require('electron-log')
@@ -15,6 +15,7 @@ const axios = require('axios')
 const { isFunction } = require('lodash')
 const { execaCommandSync } = require('./util')
 require('./npm')
+require('./path')
 
 axios.interceptors.request.use(request => {
   log.info(
@@ -54,8 +55,8 @@ ipcMain.on('os', (event, propName) => {
   event.returnValue = value
 })
 
-ipcMain.on('getImageBase64', (event, filePath) => {
-  const res = fs.readFileSync(filePath)
+ipcMain.on('getImageBase64', (event, fullPath) => {
+  const res = fs.readFileSync(fullPath)
   event.returnValue = res.toString('base64')
 })
 

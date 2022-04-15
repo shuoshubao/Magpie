@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-15 16:43:01
+ * @Last Modified time: 2022-04-15 16:46:01
  * @Desc: 路由配置
  */
 
@@ -18,6 +18,7 @@ import NodeJs from '@/views/NodeJs'
 import Git from '@/views/Git'
 import Tinify from '@/views/Tinify'
 import AntDesignColors from '@/views/AntDesign/Colors'
+import AntDesignRecommendation from '@/views/AntDesign/Recommendation'
 import Apps from '@/views/Apps'
 import Browser from '@/views/Browser'
 
@@ -57,9 +58,14 @@ export default [
     icon: <AntDesignOutlined />,
     children: [
       {
-        name: 'Colors',
+        name: '色表盘',
         path: '/ant-design/colors',
         component: AntDesignColors
+      },
+      {
+        name: '社区精选组件',
+        path: '/ant-design/recommendation',
+        component: AntDesignRecommendation
       }
     ]
   },

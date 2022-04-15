@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 15:00:05
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-15 17:46:46
+ * @Last Modified time: 2022-04-15 17:52:50
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
@@ -49,7 +49,7 @@ export const Index = () => {
           <Button
             type="primary"
             onClick={async () => {
-              const { canceled, filePaths } = await ipcRenderer.invoke('showOpenDialog', {
+              const { canceled, filePaths } = await ipcRenderer.invoke('electron.dialog.showOpenDialog', {
                 properties: ['openDirectory', 'openFile'],
                 filters: [
                   {

@@ -2,10 +2,11 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 15:06:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-12 17:51:43
+ * @Last Modified time: 2022-04-15 17:47:11
  */
-import { last } from 'lodash'
 import filesize from 'filesize'
+
+export const Extensions = ['png', 'jpg', 'jpeg', 'webp']
 
 export const columns = [
   {
@@ -18,8 +19,12 @@ export const columns = [
   {
     title: '路径',
     dataIndex: 'path',
-    transform: value => {
-      return last(value.split('/'))
+    transform: (value, record) => {
+      const { filePath, isFile } = record
+      if (isFile) {
+        return value
+      }
+      return value.replace(`${filePath}/`, '')
     }
   },
   {

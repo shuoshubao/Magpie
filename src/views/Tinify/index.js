@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 15:00:05
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-13 17:50:05
+ * @Last Modified time: 2022-04-15 17:46:46
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
@@ -10,7 +10,7 @@ import { Button, message } from 'antd'
 import Table from '@ke/table'
 import { last, flatten } from 'lodash'
 import { sleep } from '@nbfe/tools'
-import { columns } from './config'
+import { Extensions, columns } from './config'
 
 export const Index = () => {
   const tableRef = useRef()
@@ -50,24 +50,33 @@ export const Index = () => {
             type="primary"
             onClick={async () => {
               const { canceled, filePaths } = await ipcRenderer.invoke('showOpenDialog', {
-                properties: ['openDirectory', 'openFile', 'multiSelections']
+                properties: ['openDirectory', 'openFile'],
+                filters: [
+                  {
+                    name: 'Images',
+                    extensions: Extensions
+                  }
+                ]
               })
               if (canceled) {
                 message.error('你没有选择文件')
                 return
               }
               const time = Date.now()
-              const patterns = filePaths.map(v => {
-                const isFile = last(v.split('/')).includes('.')
-                return isFile ? v : `${v}/**/*.{jpg,jpeg,png,webp}`
-              })
-              const files = flatten(
-                patterns.map(v => {
-                  return ipcRenderer.sendSync('globSync', v, {
+              const filePath = filePaths[0]
+              const isFile = last(filePath.split('/')).includes('.')
+              let files = []
+              if (isFile) {
+                files.push(filePath)
+              } else {
+                ipcRenderer
+                  .sendSync('globSync', [filePath, `**/*.{${Extensions.join(',')}}`].join('/'), {
                     ignore: ['**/node_modules/**', '**/dist/**']
                   })
-                })
-              )
+                  .forEach(v => {
+                    files.push(v)
+                  })
+              }
               message.warning(['获取和读取所有图片耗时: ', Date.now() - time, 'ms'].join(''), 2)
               setSelectedRowKeys(files)
               setDataSource(
@@ -75,6 +84,8 @@ export const Index = () => {
                   const { size } = ipcRenderer.sendSync('fs', 'statSync', v)
                   const base64 = ipcRenderer.sendSync('getImageBase64', v)
                   return {
+                    filePath,
+                    isFile,
                     path: v,
                     size,
                     base64: ['data:image/png;base64,', base64].join('')

@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-08 11:39:32
+ * @Last Modified time: 2022-04-15 20:55:50
  */
 
 import React from 'react'
@@ -11,6 +11,10 @@ import { Menu } from 'antd'
 import { map } from 'lodash'
 import { RouterConfig } from '@/routers'
 import { getPathname } from '@/utils'
+
+const SiteTheme = window.localStorage.getItem('site-theme')
+
+const isDarkTheme = SiteTheme === 'dark'
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
 const Index = () => {
@@ -23,7 +27,12 @@ const Index = () => {
   }
 
   return (
-    <Menu theme="light" mode="inline" selectedKeys={[getPathname()]} defaultOpenKeys={map(filterRouterConfig, 'name')}>
+    <Menu
+      theme={isDarkTheme ? 'dark' : 'light'}
+      mode="inline"
+      selectedKeys={[getPathname()]}
+      defaultOpenKeys={map(filterRouterConfig, 'name')}
+    >
       {filterRouterConfig.map(v => {
         const { icon = null, hideNav = false, children = [] } = v
         if (hideNav) {

@@ -13,6 +13,10 @@ import '@/assets/styles/index.less'
 
 const { Content, Sider } = Layout
 
+const SiteTheme = window.localStorage.getItem('site-theme')
+
+const isDarkTheme = SiteTheme === 'dark'
+
 const getPathName = () => {
   const { hash } = window.location
   const hasQuery = hash.includes('?')
@@ -48,7 +52,7 @@ const Index = () => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider
-        theme="light"
+        theme={isDarkTheme ? 'dark' : 'light'}
         collapsible
         collapsed={collapsed}
         onCollapse={value => {

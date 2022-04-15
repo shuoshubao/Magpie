@@ -10,8 +10,6 @@ if (hashPath) {
   window.location.hash = hashPath
 }
 
-ReactDOM.render(<App />, document.getElementById('root'))
-
 ipcRenderer.on('showErrorBox', (event, title, content) => {
   Modal.error({
     title,
@@ -22,3 +20,18 @@ ipcRenderer.on('showErrorBox', (event, title, content) => {
     }
   })
 })
+;(async () => {
+  const SiteTheme = window.localStorage.getItem('site-theme')
+
+  const isDarkTheme = SiteTheme === 'dark'
+
+  document.body.dataset.theme = isDarkTheme ? 'dark' : 'default'
+
+  if (isDarkTheme) {
+    await import('antd/dist/antd.dark.min.css')
+  } else {
+    await import('antd/dist/antd.min.css')
+  }
+
+  ReactDOM.render(<App />, document.getElementById('root'))
+})()

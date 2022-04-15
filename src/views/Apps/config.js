@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-14 16:26:12
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-14 19:14:06
+ * @Last Modified time: 2022-04-15 22:11:01
  */
 import React from 'react'
 import { ipcRenderer } from 'electron'
@@ -77,13 +77,13 @@ export const getTableColumns = () => {
         const color = presetPalettes[Object.keys(presetPalettes)[index]].primary
         return (
           <div>
-            <div className="ant-list-item-meta-title">
+            <div>
               <span>{name}</span>
               <Tag color={color} style={{ marginLeft: 4, lineHeight: '14px', fontSize: 11 }}>
                 {category}
               </Tag>
             </div>
-            <div className="ant-list-item-meta-title">{description}</div>
+            <div>{description}</div>
           </div>
         )
       }

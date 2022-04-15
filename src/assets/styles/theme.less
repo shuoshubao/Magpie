@@ -1,0 +1,30 @@
+.dynamic-table-descriptions,
+.dynamic-table-header {
+  background-color: #fff;
+}
+
+body[data-theme='dark'] {
+  .site-layout {
+    background-color: #141414;
+    & > .ant-layout-content {
+      background-color: #141414;
+      & > .site-layout-content {
+        & > div:only-child {
+          background-color: #141414;
+        }
+      }
+    }
+  }
+  .dynamic-table .ant-pagination.ant-table-pagination,
+  .dynamic-table .ant-table-footer,
+  .dynamic-table-descriptions,
+  .dynamic-table-header {
+    background-color: #141414;
+  }
+  .dynamic-table .dynamic-table-header {
+    border-bottom-color: #303030;
+  }
+  .ant-table {
+    border-radius: 0;
+  }
+}

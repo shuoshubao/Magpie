@@ -69,7 +69,12 @@ const Index = () => {
         className={classNames('site-layout-sider', { hidden: hideSidebar })}
       >
         <div className="site-layout-logo-link">
-          <a href="#/" className="site-layout-logo">
+          <a
+            className="site-layout-logo"
+            onClick={() => {
+              window.location.hash = '#/'
+            }}
+          >
             <DesktopOutlined className="site-layout-logo-icon" />
             <span className="site-layout-logo-text">Magpie</span>
           </a>

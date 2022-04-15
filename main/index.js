@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2022-04-07 13:47:44
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-13 19:37:07
+ * @Last Modified time: 2022-04-15 15:02:52
  */
 const { resolve } = require('path')
 const { app, BrowserWindow, ipcMain, session } = require('electron')
@@ -20,6 +20,8 @@ app.on('ready', () => {
   win = new BrowserWindow({
     frame: false,
     titleBarStyle: 'hiddenInset',
+    width: 1200,
+    height: 600,
     webPreferences: {
       preload: resolve(__dirname, 'preload.js'),
       nodeIntegration: true,

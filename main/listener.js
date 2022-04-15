@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:31:01
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-14 19:44:49
+ * @Last Modified time: 2022-04-15 14:41:23
  */
 const { ipcMain, dialog } = require('electron')
 const log = require('electron-log')
@@ -37,6 +37,9 @@ ipcMain.on('getProcessVersions', (event, file, args) => {
 
 ipcMain.on('fs', (event, fsFuncName, ...args) => {
   const res = fs[fsFuncName](...args)
+  if (fsFuncName === 'readFileSync') {
+    event.returnValue = res.toString()
+  }
   event.returnValue = res
 })
 

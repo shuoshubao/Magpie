@@ -2,14 +2,16 @@
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-14 20:47:30
+ * @Last Modified time: 2022-04-15 14:47:14
  */
 
 import React, { useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
-import { Card, Result, Button, Typography } from 'antd'
+import { Modal, Card, Result, Button, Typography } from 'antd'
 import DesktopOutlined from '@ant-design/icons/DesktopOutlined'
 import { Descriptions } from '@ke/table'
+import ReactMarkdown from 'react-markdown'
+import RemarkGfm from 'remark-gfm'
 import { BaseinfoColumns, ElectronColumns } from './config'
 
 const { Text, Title } = Typography
@@ -41,26 +43,53 @@ const Index = () => {
     setElectronDataSource(ipcRenderer.sendSync('getProcessVersions'))
   }, [setUsername, setBaseinfoDataSource, setElectronDataSource])
 
+  const handleOpenChangeLog = () => {
+    const ChangelogContent = ipcRenderer.sendSync('fs', 'readFileSync', 'CHANGELOG.md')
+    Modal.info({
+      content: <ReactMarkdown children={ChangelogContent} remarkPlugins={[RemarkGfm]} />,
+      icon: null,
+      width: '90%',
+      style: {
+        top: 20
+      }
+    })
+  }
+
   if (!username) {
     return null
   }
 
   return (
     <>
-      <Card style={{ padding: '10px 0' }}>
-        <Title level={2} style={{ textAlign: 'center' }} type="success">
-          <DesktopOutlined />
-          <span style={{ marginLeft: 10 }}>Magpie</span>
-        </Title>
-        <Title level={4} style={{ textAlign: 'center' }}>
-          你好, {username}!
-        </Title>
-        <Title level={4} style={{ textAlign: 'center' }}>
-          欢迎使用[前端研发工作台]
-        </Title>
+      <Card
+        style={{ padding: '10px 0' }}
+        title={
+          <Title level={2} type="success">
+            <DesktopOutlined />
+            <span style={{ marginLeft: 10 }}>Magpie</span>
+          </Title>
+        }
+        extra={
+          <Button type="link" onClick={handleOpenChangeLog}>
+            更新日志
+          </Button>
+        }
+      >
+        <Title level={4}>你好, {username}!</Title>
+        <Title level={4}>欢迎使用[前端研发工作台]</Title>
       </Card>
-      <Descriptions title="基本信息" data={BaseinfoDataSource} columns={BaseinfoColumns} style={{ padding: 10, marginTop: 10 }} />
-      <Descriptions title="Electron" data={ElectronDataSource} columns={ElectronColumns} style={{ padding: 10, marginTop: 10 }} />
+      <Descriptions
+        title="基本信息"
+        data={BaseinfoDataSource}
+        columns={BaseinfoColumns}
+        style={{ padding: 10, marginTop: 10 }}
+      />
+      <Descriptions
+        title="Electron"
+        data={ElectronDataSource}
+        columns={ElectronColumns}
+        style={{ padding: 10, marginTop: 10 }}
+      />
     </>
   )
 }

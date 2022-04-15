@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-13 17:47:35
+ * @Last Modified time: 2022-04-15 12:33:08
  * @Desc: 路由配置
  */
 
@@ -33,13 +33,13 @@ export default [
     component: Git
   },
   {
-    name: '应用市场',
+    name: 'App Store',
     icon: <AppstoreOutlined />,
     path: '/apps',
     component: Apps
   },
   {
-    name: '浏览器插件',
+    name: 'Chrome 插件',
     icon: <ChromeOutlined />,
     path: '/browser',
     component: Browser

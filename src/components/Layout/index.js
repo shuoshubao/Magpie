@@ -25,7 +25,7 @@ const Index = () => {
     window.addEventListener('hashchange', () => {
       const { hash } = window.location
       const hashPath = hash.slice(0, hash.includes('?') ? hash.indexOf('?') : Infinity)
-      window.localStorage.setItem('memoizeHash', hashPath)
+      window.localStorage.setItem('path', hashPath)
       setHideSidebar(checkShoulduHideSidebar())
     })
   }, [setHideSidebar])

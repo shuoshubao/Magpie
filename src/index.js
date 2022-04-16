@@ -1,26 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { ipcRenderer } from 'electron'
-import { Modal } from 'antd'
 import { checkShoulduHideSidebar, getTheme, isDarkTheme } from '@/utils'
+import '@/configs/ipc'
 import App from './App'
 
-const hashPath = window.localStorage.getItem('memoizeHash')
+const memoizePath = window.localStorage.getItem('path')
 
-if (!checkShoulduHideSidebar() && hashPath) {
-  window.location.hash = hashPath
+if (!checkShoulduHideSidebar() && memoizePath) {
+  window.location.hash = memoizePath
 }
 
-ipcRenderer.on('showErrorBox', (event, title, content) => {
-  Modal.error({
-    title,
-    content,
-    width: '90%',
-    style: {
-      top: 20
-    }
-  })
-})
 ;(async () => {
   document.body.dataset.theme = getTheme()
 

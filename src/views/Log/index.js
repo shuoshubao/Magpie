@@ -2,11 +2,12 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:59:52
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-16 21:46:03
+ * @Last Modified time: 2022-04-16 23:00:59
  */
 import React, { useState, useEffect } from 'react'
 import { ipcRenderer, shell } from 'electron'
-import { List, Button, Tag, Space } from 'antd'
+import { List, Button, Space, Tooltip, Tag } from 'antd'
+import SyncOutlined from '@ant-design/icons/SyncOutlined'
 import { LogColors } from '@/configs'
 
 const { LOG_APTH } = ipcRenderer.sendSync('getMainConfig')
@@ -14,7 +15,7 @@ const { LOG_APTH } = ipcRenderer.sendSync('getMainConfig')
 export default () => {
   const [LogList, setLogList] = useState([])
 
-  useEffect(() => {
+  const initData = () => {
     const text = ipcRenderer.sendSync('fs', 'readFileSync', LOG_APTH)
     const list = text
       .split('\n')
@@ -26,48 +27,62 @@ export default () => {
         const text = d.join(' ')
         return {
           time,
+          shortTime: time.slice(11, 19),
           type,
           text
         }
       })
     setLogList(list)
+  }
+
+  useEffect(() => {
+    initData()
   }, [setLogList])
 
   const header = (
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
       <span>运行日志</span>
-      <Button
-        type="link"
-        size="small"
+      <SyncOutlined
         onClick={() => {
-          shell.showItemInFolder(LOG_APTH)
+          initData()
         }}
-      >
-        查看源文件
-      </Button>
+      />
     </div>
+  )
+
+  const footer = (
+    <Button
+      type="link"
+      size="small"
+      onClick={() => {
+        shell.showItemInFolder(LOG_APTH)
+      }}
+    >
+      查看日志文件
+    </Button>
   )
 
   return (
     <div style={{ margin: -10, padding: 10, height: 'calc(100% + 20px)' }}>
       <List
-        header={header}
         size="small"
         dataSource={LogList.reverse()}
         renderItem={item => {
-          const { time, type, text } = item
+          const { time, shortTime, type, text } = item
           const color = LogColors[type]
           return (
-            <List.Item>
+            <List.Item style={{ padding: '5px 10px' }}>
               <Space>
-                <span>{time}</span>
+                <Tooltip title={time}>{shortTime}</Tooltip>
                 <Tag color={color}>{type}</Tag>
                 <span>{text}</span>
               </Space>
             </List.Item>
           )
         }}
-      ></List>
+        header={header}
+        footer={footer}
+      />
     </div>
   )
 }

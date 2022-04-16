@@ -2,12 +2,13 @@
  * @Author: shuoshubao
  * @Date:   2022-04-16 12:52:15
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-16 15:43:49
+ * @Last Modified time: 2022-04-16 22:44:58
  */
-const { BrowserWindow, Menu, app, shell, dialog } = require('electron')
+const { BrowserWindow, Menu } = require('electron')
 const log = require('electron-log')
 const { APP_NAME, APP_VERSION } = require('./config')
 const { createAboutWindow } = require('./window-about')
+const { createLogWindow } = require('./window-log')
 
 const template = [
   {
@@ -108,7 +109,7 @@ const template = [
       {
         label: '查看运行日志',
         click() {
-          console.log(111)
+          createLogWindow()
         }
       }
     ]

@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-16 13:25:37
+ * @Last Modified time: 2022-04-16 22:59:56
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
@@ -54,7 +54,8 @@ export const Index = () => {
         formProps={{ layout: 'horizontal' }}
         showResetBtn={false}
         cardProps={{
-          title: 'Node 全局配置'
+          title: 'Node 全局配置',
+          size: 'default'
         }}
         autoSubmit={false}
       />

@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2022-04-07 13:47:44
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-15 15:02:52
+ * @Last Modified time: 2022-04-16 13:01:21
  */
 const { resolve } = require('path')
 const { app, BrowserWindow, ipcMain, session } = require('electron')
@@ -56,15 +56,20 @@ ipcMain.on('show', () => {
   win.focus()
 })
 
-app.whenReady().then(async () => {
-  if (isDevelopment) {
-    const reactDevToolsPath = resolve(
-      HOME_DIR,
-      '/Library/ApplicationSupport/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.24.3_0'
-    )
-    await session.defaultSession.loadExtension(reactDevToolsPath)
-  }
-})
+app
+  .whenReady()
+  .then(async () => {
+    if (isDevelopment) {
+      const reactDevToolsPath = resolve(
+        HOME_DIR,
+        '/Library/ApplicationSupport/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.24.3_0'
+      )
+      await session.defaultSession.loadExtension(reactDevToolsPath)
+    }
+  })
+  .finally(() => {
+    require('./menu')
+  })
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

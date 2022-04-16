@@ -2,11 +2,12 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { ipcRenderer } from 'electron'
 import { Modal } from 'antd'
+import { checkShoulduHideSidebar } from '@/utils'
 import App from './App'
 
 const hashPath = window.localStorage.getItem('memoizeHash')
 
-if (hashPath) {
+if (!checkShoulduHideSidebar() && hashPath) {
   window.location.hash = hashPath
 }
 

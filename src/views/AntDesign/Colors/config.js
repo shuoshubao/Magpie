@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-15 15:08:20
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-15 16:34:54
+ * @Last Modified time: 2022-04-16 12:25:57
  */
 import { message } from 'antd'
 import { range } from 'lodash'
@@ -169,7 +169,7 @@ export const columns = [
             }}
             onClick={() => {
               copyText(text)
-              message.success(['色值已复制到粘贴板', text].join(' : '))
+              message.success(['色值已复制', text].join(' : '))
             }}
           >
             {text}

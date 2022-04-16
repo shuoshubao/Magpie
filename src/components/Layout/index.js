@@ -8,6 +8,7 @@ import CaretDownOutlined from '@ant-design/icons/CaretDownOutlined'
 import { get, find } from 'lodash'
 import { classNames } from '@nbfe/tools'
 import { RouterConfig, RenderRouter } from '@/routers'
+import { checkShoulduHideSidebar } from '@/utils'
 import SideMenu from './SideMenu'
 import '@/assets/styles/index.less'
 
@@ -17,31 +18,19 @@ const SiteTheme = window.localStorage.getItem('site-theme')
 
 const isDarkTheme = SiteTheme === 'dark'
 
-const getPathName = () => {
-  const { hash } = window.location
-  const hasQuery = hash.includes('?')
-  return hash.slice(1, hasQuery ? hash.indexOf('?') : Infinity)
-}
-
 const Index = () => {
   const contentRef = useRef()
 
   const [hideSidebar, setHideSidebar] = useState(true)
   const [collapsed, setCollapsed] = useState(JSON.parse(window.localStorage.getItem('sider-collapsed')) || false)
 
-  const updateSidebar = () => {
-    const pathname = getPathName()
-    const itemRouterConfig = find(RouterConfig, { path: pathname }) || {}
-    setHideSidebar(itemRouterConfig.hideSidebar || false)
-  }
-
   useEffect(() => {
-    updateSidebar()
+    setHideSidebar(checkShoulduHideSidebar())
     window.addEventListener('hashchange', () => {
       const { hash } = window.location
       const hashPath = hash.slice(0, hash.includes('?') ? hash.indexOf('?') : Infinity)
       window.localStorage.setItem('memoizeHash', hashPath)
-      updateSidebar()
+      setHideSidebar(checkShoulduHideSidebar())
     })
   }, [setHideSidebar])
 

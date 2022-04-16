@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:59:52
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-16 16:00:48
+ * @Last Modified time: 2022-04-16 21:46:03
  */
 import React, { useState, useEffect } from 'react'
 import { ipcRenderer, shell } from 'electron'
@@ -53,7 +53,7 @@ export default () => {
       <List
         header={header}
         size="small"
-        dataSource={LogList}
+        dataSource={LogList.reverse()}
         renderItem={item => {
           const { time, type, text } = item
           const color = LogColors[type]

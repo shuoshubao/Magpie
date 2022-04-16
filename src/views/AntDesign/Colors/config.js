@@ -2,53 +2,15 @@
  * @Author: shuoshubao
  * @Date:   2022-04-15 15:08:20
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-16 12:25:57
+ * @Last Modified time: 2022-04-16 22:00:54
  */
 import { message } from 'antd'
+import * as Colors from '@ant-design/colors'
 import { range } from 'lodash'
 import { copyText } from '@nbfe/tools'
-import {
-  blue,
-  cyan,
-  geekblue,
-  generate,
-  gold,
-  green,
-  grey,
-  lime,
-  magenta,
-  orange,
-  presetDarkPalettes,
-  presetPalettes,
-  presetPrimaryColors,
-  purple,
-  red,
-  volcano,
-  yellow
-} from '@ant-design/colors'
 import styles from './index.module.less'
 
-export const Colors = {
-  blue,
-  cyan,
-  geekblue,
-  generate,
-  gold,
-  green,
-  grey,
-  lime,
-  magenta,
-  orange,
-  presetDarkPalettes,
-  presetPalettes,
-  presetPrimaryColors,
-  purple,
-  red,
-  volcano,
-  yellow
-}
-
-export const ColorsList = [
+const ColorsList = [
   {
     value: 'red',
     desc: 'Dust Red',

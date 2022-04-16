@@ -2,10 +2,11 @@
  * @Author: fangt11
  * @Date:   2021-07-05 19:52:43
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-14 12:15:56
+ * @Last Modified time: 2022-04-16 14:37:34
  */
 export * from './route'
 export * from './axios'
+export * from './theme'
 
 // 格式化部分时长
 export const formatDuration = (time = 0) => {

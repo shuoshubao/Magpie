@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { ipcRenderer } from 'electron'
 import { Modal } from 'antd'
-import { checkShoulduHideSidebar } from '@/utils'
+import { checkShoulduHideSidebar, getTheme, isDarkTheme } from '@/utils'
 import App from './App'
 
 const hashPath = window.localStorage.getItem('memoizeHash')
@@ -22,13 +22,9 @@ ipcRenderer.on('showErrorBox', (event, title, content) => {
   })
 })
 ;(async () => {
-  const SiteTheme = window.localStorage.getItem('site-theme')
+  document.body.dataset.theme = getTheme()
 
-  const isDarkTheme = SiteTheme === 'dark'
-
-  document.body.dataset.theme = isDarkTheme ? 'dark' : 'default'
-
-  if (isDarkTheme) {
+  if (isDarkTheme()) {
     await import('antd/dist/antd.dark.min.css')
   } else {
     await import('antd/dist/antd.min.css')

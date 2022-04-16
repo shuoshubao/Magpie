@@ -8,15 +8,11 @@ import CaretDownOutlined from '@ant-design/icons/CaretDownOutlined'
 import { get, find } from 'lodash'
 import { classNames } from '@nbfe/tools'
 import { RouterConfig, RenderRouter } from '@/routers'
-import { checkShoulduHideSidebar } from '@/utils'
+import { checkShoulduHideSidebar, getTheme } from '@/utils'
 import SideMenu from './SideMenu'
 import '@/assets/styles/index.less'
 
 const { Content, Sider } = Layout
-
-const SiteTheme = window.localStorage.getItem('site-theme')
-
-const isDarkTheme = SiteTheme === 'dark'
 
 const Index = () => {
   const contentRef = useRef()
@@ -41,7 +37,7 @@ const Index = () => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider
-        theme={isDarkTheme ? 'dark' : 'light'}
+        theme={getTheme()}
         collapsible
         collapsed={collapsed}
         onCollapse={value => {

@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-16 13:27:27
+ * @Last Modified time: 2022-04-16 16:01:18
  * @Desc: 路由配置
  */
 
@@ -15,6 +15,7 @@ import ChromeOutlined from '@ant-design/icons/ChromeOutlined'
 import { NodeJs as NodeIcon } from '@/assets/icons'
 import Index, { NoMatch } from '@/views/Index'
 import About from '@/views/About'
+import Log from '@/views/Log'
 import NodeJs from '@/views/NodeJs'
 import Git from '@/views/Git'
 import Tinify from '@/views/Tinify'
@@ -28,6 +29,13 @@ export default [
     name: '关于',
     path: '/about',
     component: About,
+    hideNav: true,
+    hideSidebar: true
+  },
+  {
+    name: '运行日志',
+    path: '/log',
+    component: Log,
     hideNav: true,
     hideSidebar: true
   },

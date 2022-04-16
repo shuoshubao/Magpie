@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-16 13:54:56
+ * @Last Modified time: 2022-04-16 14:32:32
  */
 
 import React from 'react'
@@ -40,7 +40,7 @@ const Index = () => {
         }
         if (children.length === 0) {
           return (
-            <Menu.Item key={v.name} icon={icon} title={v.name}>
+            <Menu.Item key={v.path} icon={icon} title={v.name}>
               <Link to={v.path}>{v.name}</Link>
             </Menu.Item>
           )

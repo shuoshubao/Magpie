@@ -2,12 +2,14 @@
  * @Author: shuoshubao
  * @Date:   2022-04-16 12:52:15
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-16 22:44:58
+ * @Last Modified time: 2022-04-16 23:58:58
+ * @Desc 菜单
  */
 const { BrowserWindow, Menu } = require('electron')
 const log = require('electron-log')
 const { APP_NAME, APP_VERSION } = require('./config')
 const { createAboutWindow } = require('./window-about')
+const { createSettingsWindow } = require('./window-settings')
 const { createLogWindow } = require('./window-log')
 
 const template = [
@@ -18,6 +20,13 @@ const template = [
         label: ['关于', APP_NAME].join(' '),
         click: () => {
           createAboutWindow()
+        }
+      },
+      {
+        label: '偏好设置',
+        accelerator: 'Command+,',
+        click: () => {
+          createSettingsWindow()
         }
       }
     ]
@@ -107,7 +116,7 @@ const template = [
         }
       },
       {
-        label: '查看运行日志',
+        label: '查看日志',
         click() {
           createLogWindow()
         }

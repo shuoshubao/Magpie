@@ -2,12 +2,13 @@
  * @Author: fangt11
  * @Date:   2022-04-07 13:47:44
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-16 13:01:21
+ * @Last Modified time: 2022-04-17 00:18:30
  */
 const { resolve } = require('path')
-const { app, BrowserWindow, ipcMain, session } = require('electron')
+const { app, BrowserWindow, ipcMain, globalShortcut, session } = require('electron')
 const log = require('electron-log')
-const { isDevelopment, HOME_DIR } = require('./config')
+const glob = require('glob')
+const { isDevelopment, Chrome_Extensions_PATH, Chrome_Extensions_IDS } = require('./config')
 
 if (!isDevelopment) {
   const fixPath = require('fix-path')
@@ -17,6 +18,7 @@ if (!isDevelopment) {
 let win
 
 app.on('ready', () => {
+  log.info('ready')
   win = new BrowserWindow({
     frame: false,
     titleBarStyle: 'hiddenInset',
@@ -39,6 +41,7 @@ app.on('ready', () => {
   }
 
   win.on('close', () => {
+    log.silly('close')
     app.quit()
   })
 
@@ -51,6 +54,16 @@ app.on('activate', e => {
   }
 })
 
+app.on('browser-window-focus', () => {
+  require('./shortcut')
+  // log.info('browser-window-focus')
+})
+
+app.on('browser-window-blur', () => {
+  // log.warn('browser-window-blur')
+  globalShortcut.unregisterAll()
+})
+
 ipcMain.on('show', () => {
   win.show()
   win.focus()
@@ -60,21 +73,20 @@ app
   .whenReady()
   .then(async () => {
     if (isDevelopment) {
-      const reactDevToolsPath = resolve(
-        HOME_DIR,
-        '/Library/ApplicationSupport/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.24.3_0'
-      )
-      await session.defaultSession.loadExtension(reactDevToolsPath)
+      const versions = glob.sync(`${Chrome_Extensions_PATH}/${Chrome_Extensions_IDS.ReactDevTools}/*`)
+      const latestVersion = versions[0]
+      if (latestVersion) {
+        await session.defaultSession.loadExtension(latestVersion)
+      }
     }
   })
   .finally(() => {
     require('./menu')
   })
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+app.on('will-quit', () => {
+  log.silly('will-quit')
+  globalShortcut.unregisterAll()
 })
 
 require('./listener')

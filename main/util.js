@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-14 12:18:48
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-14 14:26:52
+ * @Last Modified time: 2022-04-16 23:43:22
  */
 const { BrowserWindow } = require('electron')
 const log = require('electron-log')
@@ -15,7 +15,10 @@ const execaCommandSync = command => {
   try {
     return execa.sync(file, args)
   } catch (e) {
-    BrowserWindow.getAllWindows()[0].webContents.send('showErrorBox', ['execa.sync', command].join(': '), e.message)
+    BrowserWindow.getAllWindows()[0].webContents.send('showErrorBox', {
+      title: ['execa.sync', command].join(': '),
+      content: e.message
+    })
     log.error('execaCommandSync', e.message)
     return {
       stderr: e

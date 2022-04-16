@@ -2,7 +2,8 @@
  * @Author: shuoshubao
  * @Date:   2022-04-11 14:37:07
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-16 15:18:58
+ * @Last Modified time: 2022-04-16 23:34:59
+ * @Desc 配置
  */
 const { resolve } = require('path')
 const os = require('os')
@@ -23,6 +24,12 @@ const HOME_DIR = os.homedir()
 
 const LOG_APTH = resolve(HOME_DIR, 'Library/Logs', APP_NAME, 'main.log')
 
+const Chrome_Extensions_PATH = resolve(HOME_DIR, 'Library/ApplicationSupport/Google/Chrome/Default/Extensions')
+
+const Chrome_Extensions_IDS = {
+  ReactDevTools: 'fmkadmapgofadopljbjfkapdkoienihi'
+}
+
 const NPMRC_PATH = resolve(HOME_DIR, '.npmrc')
 
 const config = {
@@ -34,6 +41,8 @@ const config = {
   APPLICATIONS_DIR,
   HOME_DIR,
   LOG_APTH,
+  Chrome_Extensions_PATH,
+  Chrome_Extensions_IDS,
   NPMRC_PATH
 }
 

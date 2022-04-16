@@ -2,14 +2,15 @@
  * @Author: shuoshubao
  * @Date:   2022-04-16 14:07:47
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-16 22:42:23
+ * @Last Modified time: 2022-04-16 23:25:05
+ * @Desc 窗口-日志
  */
 
 const { BrowserWindow } = require('electron')
 const { find } = require('lodash')
 const { APP_NAME, isDevelopment } = require('./config')
 
-const title = [APP_NAME, '运行日志'].join('-')
+const title = [APP_NAME, '日志'].join('-')
 
 const createLogWindow = () => {
   const allWindows = BrowserWindow.getAllWindows()

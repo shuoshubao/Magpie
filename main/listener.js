@@ -2,7 +2,8 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:31:01
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-15 18:32:02
+ * @Last Modified time: 2022-04-16 23:24:07
+ * @Desc 事件监听
  */
 const { ipcMain, dialog } = require('electron')
 const log = require('electron-log')

@@ -2,7 +2,8 @@
  * @Author: shuoshubao
  * @Date:   2022-04-16 14:07:47
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-16 14:29:25
+ * @Last Modified time: 2022-04-16 23:24:30
+ * @Desc 窗口-关于
  */
 
 const { BrowserWindow } = require('electron')

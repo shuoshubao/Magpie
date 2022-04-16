@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react'
-import { ConfigProvider, Button, notification } from 'antd'
+import { ConfigProvider, Button, Skeleton, notification } from 'antd'
 import LoadingOutlined from '@ant-design/icons/LoadingOutlined'
 import DownloadOutlined from '@ant-design/icons/DownloadOutlined'
 import moment from 'moment'
@@ -20,16 +20,7 @@ moment.locale('zh-cn', {
 
 export default () => {
   return (
-    <Suspense
-      fallback={
-        <div className="site-layout-loading">
-          <div className="site-layout-loading-container">
-            <LoadingOutlined />
-            <div className="site-layout-loading-text">页面加载中...</div>
-          </div>
-        </div>
-      }
-    >
+    <Suspense fallback={<Skeleton active />}>
       <ConfigProvider locale={getAntdLocaleZhCN()}>
         <Layout />
       </ConfigProvider>

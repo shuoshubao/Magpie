@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2021-07-09 13:24:17
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-16 13:55:40
+ * @Last Modified time: 2022-04-16 22:13:04
  */
 import { find } from 'lodash'
 import { RouterConfig } from '@/routers'
@@ -13,6 +13,7 @@ export const getPathname = () => {
   return hash.slice(1, Math.max(hash.indexOf('?'), 0) || Infinity)
 }
 
+// 隐藏侧边栏的页面 为新窗口页面
 export const checkShoulduHideSidebar = () => {
   const pathname = getPathname()
   const itemRouterConfig = find(RouterConfig, { path: pathname }) || {}

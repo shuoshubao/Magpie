@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-16 23:57:28
+ * @Last Modified time: 2022-04-18 00:10:44
  * @Desc: 路由配置
  */
 
@@ -15,7 +15,6 @@ import ChromeOutlined from '@ant-design/icons/ChromeOutlined'
 import { NodeJs as NodeIcon } from '@/assets/icons'
 import Index, { NoMatch } from '@/views/Index'
 import About from '@/views/About'
-import Settings from '@/views/Settings'
 import Log from '@/views/Log'
 import NodeJs from '@/views/NodeJs'
 import Git from '@/views/Git'
@@ -30,13 +29,6 @@ export default [
     name: '关于',
     path: '/about',
     component: About,
-    hideNav: true,
-    hideSidebar: true
-  },
-  {
-    name: '偏好设置',
-    path: '/settings',
-    component: Settings,
     hideNav: true,
     hideSidebar: true
   },

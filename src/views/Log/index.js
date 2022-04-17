@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:59:52
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-16 23:00:59
+ * @Last Modified time: 2022-04-17 15:05:40
  */
 import React, { useState, useEffect } from 'react'
 import { ipcRenderer, shell } from 'electron'
@@ -10,10 +10,10 @@ import { List, Button, Space, Tooltip, Tag } from 'antd'
 import SyncOutlined from '@ant-design/icons/SyncOutlined'
 import { LogColors } from '@/configs'
 
-const { LOG_APTH } = ipcRenderer.sendSync('getMainConfig')
-
 export default () => {
   const [LogList, setLogList] = useState([])
+
+  const { LOG_APTH } = ipcRenderer.sendSync('getMainConfig')
 
   const initData = () => {
     const text = ipcRenderer.sendSync('fs', 'readFileSync', LOG_APTH)

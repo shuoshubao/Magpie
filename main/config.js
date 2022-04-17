@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-11 14:37:07
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-16 23:34:59
+ * @Last Modified time: 2022-04-17 14:57:16
  * @Desc 配置
  */
 const { resolve } = require('path')
@@ -46,7 +46,7 @@ const config = {
   NPMRC_PATH
 }
 
-ipcMain.on('getMainConfig', (event, fullPath) => {
+ipcMain.on('getMainConfig', event => {
   event.returnValue = config
 })
 

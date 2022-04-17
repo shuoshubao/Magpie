@@ -2,13 +2,20 @@
  * @Author: shuoshubao
  * @Date:   2022-04-16 14:07:47
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-16 23:59:36
+ * @Last Modified time: 2022-04-17 00:26:06
  * @Desc 窗口-偏好设置
  */
 
-const { BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('electron')
+const Store = require('electron-store')
 const { find } = require('lodash')
 const { APP_NAME, isDevelopment } = require('./config')
+
+const store = new Store()
+
+console.log(111, app.getPath('userData'))
+
+store.set('theme', 'dark')
 
 const title = [APP_NAME, '设置'].join('-')
 

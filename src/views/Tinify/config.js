@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 15:06:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-15 18:33:57
+ * @Last Modified time: 2022-04-17 15:03:48
  */
 import React from 'react'
 import { ipcRenderer, shell } from 'electron'
@@ -25,7 +25,13 @@ export const columns = [
     dataIndex: 'path',
     transform: (value, record) => {
       const { filePath, isFile } = record
-      const path = isFile ? ipcRenderer.sendSync('getShortPath', value) : value.replace(`${filePath}/`, '')
+      let path
+      if (isFile) {
+        const { HOME_DIR } = ipcRenderer.sendSync('getMainConfig')
+        path = value.replace(HOME_DIR, '~')
+      } else {
+        path = value.replace(`${filePath}/`, '')
+      }
       return (
         <Space align="center">
           <span>{path} </span>

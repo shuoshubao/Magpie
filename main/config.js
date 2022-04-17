@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-11 14:37:07
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-17 14:57:16
+ * @Last Modified time: 2022-04-17 15:15:17
  * @Desc 配置
  */
 const { resolve } = require('path')
@@ -15,6 +15,8 @@ const isDevelopment = process.env.NODE_ENV === 'development'
 const APP_NAME = pkg.name
 
 const APP_VERSION = pkg.version
+
+const STORE_CONFIG_NAME = `${APP_NAME}.config`
 
 const KOA_PROT = isDevelopment ? 7598 : 7599
 
@@ -36,6 +38,7 @@ const config = {
   pkg,
   APP_NAME,
   APP_VERSION,
+  STORE_CONFIG_NAME,
   isDevelopment,
   KOA_PROT,
   APPLICATIONS_DIR,

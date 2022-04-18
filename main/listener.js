@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:31:01
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-18 15:29:17
+ * @Last Modified time: 2022-04-18 17:55:13
  * @Desc 事件监听
  */
 const { ipcMain, dialog } = require('electron')
@@ -33,6 +33,10 @@ axios.interceptors.request.use(request => {
 
 ipcMain.handle('electron.dialog.showOpenDialog', (event, options) => {
   return dialog.showOpenDialog(options)
+})
+
+ipcMain.handle('electron.dialog.showSaveDialogSync', (event, options) => {
+  return dialog.showSaveDialogSync(options)
 })
 
 ipcMain.on('getProcessVersions', (event, file, args) => {

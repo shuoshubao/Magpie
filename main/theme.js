@@ -2,14 +2,10 @@
  * @Author: shuoshubao
  * @Date:   2022-04-18 11:34:35
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-18 13:35:53
+ * @Last Modified time: 2022-04-18 18:03:55
  */
 const { ipcMain, BrowserWindow, nativeTheme } = require('electron')
 const store = require('./store')
-
-if (!store.get('theme')) {
-  store.set({ theme: 'light' })
-}
 
 ipcMain.on('getNativeThemeSource', (event, file, args) => {
   event.returnValue = nativeTheme.themeSource

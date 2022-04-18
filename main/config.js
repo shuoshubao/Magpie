@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-11 14:37:07
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-18 15:30:32
+ * @Last Modified time: 2022-04-18 18:16:53
  * @Desc 配置
  */
 const { resolve } = require('path')

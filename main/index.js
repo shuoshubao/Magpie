@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2022-04-07 13:47:44
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-18 11:08:24
+ * @Last Modified time: 2022-04-18 18:27:43
  */
 const { resolve } = require('path')
 const { app, BrowserWindow, ipcMain, globalShortcut, session } = require('electron')

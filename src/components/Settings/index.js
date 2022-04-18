@@ -2,31 +2,31 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:59:52
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-18 16:10:31
+ * @Last Modified time: 2022-04-18 18:35:28
  */
 import React, { useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
-import { Modal, Button, Input, Tabs, Radio, message } from 'antd'
+import { Modal, Typography, Button, Input, Tabs, Radio, message } from 'antd'
 import ReactJson from 'react-json-view'
 import stripAnsi from 'strip-ansi'
 import { setTheme as updateTheme } from '@/utils'
 import { ThemeOptions } from './config'
 
+const { Title } = Typography
 const { TabPane } = Tabs
 
 const Index = () => {
   const [activeKey, setActiveKey] = useState('appearance')
-  const [visible, setVisible] = useState(true)
+  const [visible, setVisible] = useState(false)
   const [theme, setTheme] = useState()
   const [prettierConfig, setPrettierConfig] = useState({})
+  const [defaultPath, setDefaultPath] = useState()
 
   useEffect(() => {
-    setTheme(ipcRenderer.sendSync('getTheme'))
-  }, [setTheme])
-
-  useEffect(() => {
-    setPrettierConfig(ipcRenderer.sendSync('getPrettierConfig'))
-  }, [setPrettierConfig])
+    setTheme(ipcRenderer.sendSync('getStore', 'theme'))
+    setPrettierConfig(ipcRenderer.sendSync('getStore', 'prettierConfig'))
+    setDefaultPath(ipcRenderer.sendSync('getStore', 'defaultPath'))
+  }, [setTheme, setPrettierConfig, setDefaultPath])
 
   useEffect(() => {
     ipcRenderer.on('showSettingsModal', () => {
@@ -62,11 +62,23 @@ const Index = () => {
         // eslint-disable-next-line
         console.log(msg)
       } else {
-        ipcRenderer.send('setPrettierConfig', prettierConfig)
+        ipcRenderer.send('setStore', 'prettierConfig', prettierConfig)
         setVisible(false)
       }
       return
     }
+  }
+
+  const handleSelectDefaultPath = async () => {
+    const { canceled, filePaths } = await ipcRenderer.invoke('electron.dialog.showOpenDialog', {
+      properties: ['openDirectory']
+    })
+    if (canceled) {
+      return
+    }
+    const [filePath] = filePaths
+    ipcRenderer.send('setStore', 'defaultPath', filePath)
+    setDefaultPath(filePath)
   }
 
   if (!theme) {
@@ -80,7 +92,10 @@ const Index = () => {
       footer={getFooter()}
       width={600}
       destroyOnClose
-      bodyStyle={{ padding: '20px 10px 10px 0' }}
+      bodyStyle={{
+        padding: '20px 10px 10px 0',
+        minHeight: 200
+      }}
       onOk={handleConfirm}
       onCancel={() => {
         setVisible(false)
@@ -112,6 +127,12 @@ const Index = () => {
               setPrettierConfig(updated_src)
             }}
           />
+        </TabPane>
+        <TabPane tab="默认路径" key="defaultPath">
+          <Title level={5}>{defaultPath}</Title>
+          <Button type="primary" size="small" onClick={handleSelectDefaultPath}>
+            浏览
+          </Button>
         </TabPane>
       </Tabs>
     </Modal>

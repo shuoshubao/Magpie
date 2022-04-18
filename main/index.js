@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2022-04-07 13:47:44
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-17 00:18:30
+ * @Last Modified time: 2022-04-18 11:08:24
  */
 const { resolve } = require('path')
 const { app, BrowserWindow, ipcMain, globalShortcut, session } = require('electron')
@@ -15,11 +15,9 @@ if (!isDevelopment) {
   fixPath()
 }
 
-let win
-
 app.on('ready', () => {
   log.info('ready')
-  win = new BrowserWindow({
+  const win = new BrowserWindow({
     frame: false,
     titleBarStyle: 'hiddenInset',
     width: 1200,
@@ -45,28 +43,28 @@ app.on('ready', () => {
     app.quit()
   })
 
-  require('../server')
-})
+  app.on('activate', e => {
+    if (!win.isVisible()) {
+      win.show()
+    }
+  })
 
-app.on('activate', e => {
-  if (!win.isVisible()) {
+  app.on('browser-window-focus', () => {
+    require('./shortcut')
+    // log.info('browser-window-focus')
+  })
+
+  app.on('browser-window-blur', () => {
+    // log.warn('browser-window-blur')
+    globalShortcut.unregisterAll()
+  })
+
+  ipcMain.on('show', () => {
     win.show()
-  }
-})
+    win.focus()
+  })
 
-app.on('browser-window-focus', () => {
-  require('./shortcut')
-  // log.info('browser-window-focus')
-})
-
-app.on('browser-window-blur', () => {
-  // log.warn('browser-window-blur')
-  globalShortcut.unregisterAll()
-})
-
-ipcMain.on('show', () => {
-  win.show()
-  win.focus()
+  require('../server')
 })
 
 app

@@ -10,6 +10,8 @@ if (!checkShoulduHideSidebar() && memoizePath) {
   window.location.hash = memoizePath
 }
 
-setTheme()
+;(async () => {
+  await setTheme()
 
-ReactDOM.render(<App />, document.getElementById('root'))
+  ReactDOM.render(<App />, document.getElementById('root'))
+})()

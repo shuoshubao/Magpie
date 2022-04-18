@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2021-07-13 20:07:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-07 20:59:03
+ * @Last Modified time: 2022-04-18 14:35:41
  */
 
 import axios from 'axios'
@@ -84,9 +84,14 @@ export const request = (axiosConfig = {}, requestConfig = {}) => {
           store.loadingCount--
           hideLoading()
         }
+        if (response.config.responseType === 'text') {
+          resolve(response.data)
+          return
+        }
         const { code, message: messageText, data } = response.data
         if (!checkCode) {
-          return response
+          resolve(response)
+          return
         }
         let returnData = response
         if (returnType === 'data') {

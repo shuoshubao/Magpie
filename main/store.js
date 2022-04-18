@@ -2,13 +2,12 @@
  * @Author: shuoshubao
  * @Date:   2022-04-11 14:37:07
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-18 18:17:34
+ * @Last Modified time: 2022-04-18 18:39:14
  * @Desc 配置
  */
-const { ipcMain } = require('electron')
-const { resolve } = require('path')
+const { app, ipcMain } = require('electron')
 const Store = require('electron-store')
-const { STORE_CONFIG_NAME, HOME_DIR, prettierConfig } = require('./config')
+const { STORE_CONFIG_NAME, prettierConfig } = require('./config')
 
 const store = new Store({
   name: STORE_CONFIG_NAME
@@ -25,7 +24,7 @@ if (!store.get('prettierConfig')) {
 // 默认路径
 if (!store.get('defaultPath')) {
   store.set({
-    defaultPath: resolve(HOME_DIR, 'Downloads')
+    defaultPath: app.getPath('downloads')
   })
 }
 

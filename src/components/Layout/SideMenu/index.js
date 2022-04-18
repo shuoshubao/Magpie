@@ -2,11 +2,12 @@
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-16 14:41:05
+ * @Last Modified time: 2022-04-18 13:30:53
  */
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, withRouter } from 'react-router-dom'
+import { ipcRenderer } from 'electron'
 import { Menu } from 'antd'
 import { map } from 'lodash'
 import { RouterConfig } from '@/routers'
@@ -14,21 +15,24 @@ import { getPathname, getTheme } from '@/utils'
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
 const Index = () => {
+  const [theme, setTheme] = useState(getTheme())
+
   const filterRouterConfig = RouterConfig.filter(v => {
     return !!v.name
   })
+
+  useEffect(() => {
+    ipcRenderer.on('theme-updated', () => {
+      setTheme(getTheme())
+    })
+  }, [setTheme])
 
   if (filterRouterConfig.length === 0) {
     return null
   }
 
   return (
-    <Menu
-      theme={getTheme()}
-      mode="inline"
-      selectedKeys={[getPathname()]}
-      defaultOpenKeys={map(filterRouterConfig, 'name')}
-    >
+    <Menu theme={theme} mode="inline" selectedKeys={[getPathname()]} defaultOpenKeys={map(filterRouterConfig, 'name')}>
       {filterRouterConfig.map(v => {
         const { icon = null, hideNav = false, children = [] } = v
         if (hideNav) {

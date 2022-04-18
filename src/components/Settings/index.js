@@ -2,22 +2,40 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:59:52
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-18 00:28:42
+ * @Last Modified time: 2022-04-18 13:42:29
  */
 import React, { useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
-import { Modal, Tabs } from 'antd'
+import { Modal, Tabs, Radio } from 'antd'
+import { setTheme as updateTheme } from '@/utils'
+import { ThemeOptions } from './config'
 
 const { TabPane } = Tabs
 
 const Index = () => {
   const [visible, setVisible] = useState(false)
+  const [theme, setTheme] = useState()
 
   useEffect(() => {
-    ipcRenderer.on('showSettingsModal', event => {
+    setTheme(ipcRenderer.sendSync('getTheme'))
+    ipcRenderer.on('showSettingsModal', () => {
       setVisible(true)
     })
-  }, [setVisible])
+  }, [setVisible, setTheme])
+
+  ipcRenderer.on('native-theme-updated', () => {})
+
+  const handleChangeTheme = async e => {
+    const { value } = e.target
+    ipcRenderer.send('changeTheme', value)
+    window.localStorage.setItem('theme', value)
+    setTheme(value)
+    updateTheme()
+  }
+
+  if (!theme) {
+    return null
+  }
 
   return (
     <Modal
@@ -29,14 +47,17 @@ const Index = () => {
       }}
     >
       <Tabs tabPosition="left">
-        <TabPane tab="外观" key="1">
-          Content of Tab 1
-        </TabPane>
-        <TabPane tab="Tab 2" key="2">
-          Content of Tab 2
-        </TabPane>
-        <TabPane tab="Tab 3" key="3">
-          Content of Tab 3
+        <TabPane tab="外观" key="appearance" style={{ padding: 20 }}>
+          <Radio.Group onChange={handleChangeTheme} defaultValue={theme} style={{ width: '100%' }}>
+            {ThemeOptions.map(v => {
+              const { label, value } = v
+              return (
+                <Radio.Button value={value} key={value} style={{ display: 'block', height: 50, lineHeight: '50px' }}>
+                  {label}
+                </Radio.Button>
+              )
+            })}
+          </Radio.Group>
         </TabPane>
       </Tabs>
     </Modal>

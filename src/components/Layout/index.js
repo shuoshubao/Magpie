@@ -20,6 +20,7 @@ const Index = () => {
 
   const [hideSidebar, setHideSidebar] = useState(true)
   const [collapsed, setCollapsed] = useState(JSON.parse(window.localStorage.getItem('sider-collapsed')) || false)
+  const [theme, setTheme] = useState(getTheme())
 
   useEffect(() => {
     setHideSidebar(checkShoulduHideSidebar())
@@ -33,6 +34,12 @@ const Index = () => {
     })
   }, [setHideSidebar])
 
+  useEffect(() => {
+    ipcRenderer.on('theme-updated', () => {
+      setTheme(getTheme())
+    })
+  }, [setTheme])
+
   const siteLayoutMarginLeft = collapsed ? 80 : 180
 
   const { username } = ipcRenderer.sendSync('os', 'userInfo')
@@ -40,7 +47,7 @@ const Index = () => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider
-        theme={getTheme()}
+        theme={theme}
         collapsible
         collapsed={collapsed}
         onCollapse={value => {

@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:31:01
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-16 23:24:07
+ * @Last Modified time: 2022-04-18 11:41:36
  * @Desc 事件监听
  */
 const { ipcMain, dialog } = require('electron')
@@ -17,6 +17,7 @@ const { isFunction } = require('lodash')
 const { execaCommandSync } = require('./util')
 require('./npm')
 require('./path')
+require('./theme')
 
 axios.interceptors.request.use(request => {
   log.info(

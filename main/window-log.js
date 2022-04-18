@@ -2,11 +2,12 @@
  * @Author: shuoshubao
  * @Date:   2022-04-16 14:07:47
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-16 23:25:05
+ * @Last Modified time: 2022-04-18 21:13:16
  * @Desc 窗口-日志
  */
 
 const { BrowserWindow } = require('electron')
+const { resolve } = require('path')
 const { find } = require('lodash')
 const { APP_NAME, isDevelopment } = require('./config')
 

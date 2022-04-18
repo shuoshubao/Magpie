@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:31:01
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-18 17:55:13
+ * @Last Modified time: 2022-04-18 18:42:50
  * @Desc 事件监听
  */
 const { ipcMain, dialog } = require('electron')
@@ -19,6 +19,7 @@ require('./npm')
 require('./path')
 require('./theme')
 require('./prettier')
+require('./image')
 
 axios.interceptors.request.use(request => {
   log.info(

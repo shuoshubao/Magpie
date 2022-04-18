@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-18 00:10:44
+ * @Last Modified time: 2022-04-18 14:58:37
  * @Desc: 路由配置
  */
 
@@ -21,6 +21,7 @@ import Git from '@/views/Git'
 import Tinify from '@/views/Tinify'
 import AntDesignColors from '@/views/AntDesign/Colors'
 import AntDesignRecommendation from '@/views/AntDesign/Recommendation'
+import ToolsCarbon from '@/views/Tools/Carbon'
 import Apps from '@/views/Apps'
 import Browser from '@/views/Browser'
 
@@ -82,6 +83,17 @@ export default [
         name: '社区精选组件',
         path: '/ant-design/recommendation',
         component: AntDesignRecommendation
+      }
+    ]
+  },
+  {
+    name: '工具',
+    icon: <AntDesignOutlined />,
+    children: [
+      {
+        name: 'Carbon',
+        path: '/tools/carbon',
+        component: ToolsCarbon
       }
     ]
   },

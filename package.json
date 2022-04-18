@@ -24,6 +24,7 @@
     "koa-body": "^4.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-json-view": "^1.21.3",
     "react-markdown": "^8.0.2",
     "react-router-dom": "5.2.0",
     "remark-gfm": "^3.0.1"
@@ -40,6 +41,7 @@
     "appId": "org.erb.shuoshubao",
     "files": [
       "package.json",
+      "prettier.config.js",
       "public",
       "main",
       "server",

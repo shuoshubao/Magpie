@@ -2,13 +2,14 @@
  * @Author: shuoshubao
  * @Date:   2022-04-11 14:37:07
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-17 15:15:17
+ * @Last Modified time: 2022-04-18 15:30:32
  * @Desc 配置
  */
 const { resolve } = require('path')
 const os = require('os')
 const { ipcMain } = require('electron')
 const pkg = require('../package.json')
+const prettierConfig = require('../prettier.config')
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 
@@ -38,6 +39,7 @@ const config = {
   pkg,
   APP_NAME,
   APP_VERSION,
+  prettierConfig,
   STORE_CONFIG_NAME,
   isDevelopment,
   KOA_PROT,

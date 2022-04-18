@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 14:33:27
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-14 19:16:44
+ * @Last Modified time: 2022-04-18 14:02:02
  */
 import React from 'react'
 import { ipcRenderer } from 'electron'
@@ -82,11 +82,12 @@ export const getTableColumns = () => {
       template: {
         tpl: 'link',
         render: (value, record) => {
-          const { name, version, latestVersion } = record
+          const { name, version, loading, latestVersion } = record
           return [
             {
               text: '升级',
               disabled: !semver.lt(version, latestVersion),
+              visible: !loading,
               PopconfirmConfig: {
                 title: (
                   <span>

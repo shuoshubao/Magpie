@@ -2,9 +2,9 @@
  * @Author: shuoshubao
  * @Date:   2022-04-14 13:09:24
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-15 18:25:41
+ * @Last Modified time: 2022-04-18 14:08:24
  */
-const { ipcMain } = require('electron')
+const { ipcMain, BrowserWindow } = require('electron')
 const fs = require('fs')
 const ini = require('ini')
 const execa = require('execa')
@@ -20,11 +20,20 @@ ipcMain.on('getNpmrc', event => {
 const PackageLatestVersions = {}
 
 const getPackageLatestVersion = (name, registry) => {
+  if (PackageLatestVersions[name]) {
+    return PackageLatestVersions[name]
+  }
   const { stdout: latestVersion } = execaCommandSync(`npm view ${name} version --registry=${registry}`)
   PackageLatestVersions[name] = latestVersion
   return latestVersion
 }
 
-ipcMain.on('getPackageLatestVersion', (event, name, registry) => {
-  event.returnValue = PackageLatestVersions[name] || getPackageLatestVersion(name, registry)
+ipcMain.on('getPackagesLatestVersion', (event, packages) => {
+  const list = []
+  packages.forEach(v => {
+    const { name, registry } = v
+    list.push(getPackageLatestVersion(name, registry))
+  })
+
+  BrowserWindow.getAllWindows()[0].webContents.send('getPackagesLatestVersion', list)
 })

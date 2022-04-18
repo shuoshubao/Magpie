@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-16 22:59:56
+ * @Last Modified time: 2022-04-18 14:09:07
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
@@ -16,27 +16,34 @@ export const Index = () => {
   const queryTableRef = useRef()
   const [modalVisible, setModalVisible] = useState(false)
 
-  const fetchDependencies = async () => {
-    const { stdout } = ipcRenderer.sendSync('execaCommandSync', 'npm list -g --depth 0 --json')
-    const { dependencies } = JSON.parse(stdout)
-    const dataSource = Object.entries(dependencies).reduce((prev, [name, v]) => {
-      if (name === 'npm') {
+  const fetchDependencies = () => {
+    return new Promise((resolve, reject) => {
+      const { stdout } = ipcRenderer.sendSync('execaCommandSync', 'npm list -g --depth 0 --json')
+      const { dependencies } = JSON.parse(stdout)
+      const dataSource = Object.entries(dependencies).reduce((prev, [name, v]) => {
+        if (name === 'npm') {
+          return prev
+        }
+        const { version, resolved } = v
+        const registry = resolved.slice(0, resolved.indexOf('/', 10))
+        prev.push({
+          name,
+          version,
+          registry,
+          latestVersion: ''
+        })
         return prev
-      }
-      const { version, resolved } = v
-      const registry = resolved.slice(0, resolved.indexOf('/', 10))
-      const latestVersion = ipcRenderer.sendSync('getPackageLatestVersion', name, registry)
-      prev.push({
-        name,
-        version,
-        registry,
-        latestVersion
+      }, [])
+      ipcRenderer.send('getPackagesLatestVersion', dataSource)
+      ipcRenderer.on('getPackagesLatestVersion', (event, list) => {
+        dataSource.forEach((v, i) => {
+          v.latestVersion = list[i]
+        })
+        resolve({
+          list: dataSource
+        })
       })
-      return prev
-    }, [])
-    return {
-      list: dataSource
-    }
+    })
   }
 
   useEffect(() => {

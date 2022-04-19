@@ -2,12 +2,12 @@
  * @Author: shuoshubao
  * @Date:   2022-04-15 14:55:02
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-19 13:49:01
+ * @Last Modified time: 2022-04-19 14:01:20
  * @Desc Carbon
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer, shell } from 'electron'
-import { Card, Button, message } from 'antd'
+import { Card, Button, Modal, message } from 'antd'
 import Table from '@ke/table'
 import Form from '@ke/form'
 import { pick } from 'lodash'
@@ -21,8 +21,9 @@ const Index = () => {
   const containerRef = useRef()
   const formRef = useRef()
 
-  const [config, setConfig] = useState({})
+  const [visible, setVisible] = useState(false)
   const [imgSrc, setImgSrc] = useState()
+  const [config, setConfig] = useState({})
   const [highlightCode, setHighlightCode] = useState()
 
   const handleSubmit = async () => {
@@ -32,6 +33,14 @@ const Index = () => {
     const { value } = hljs.highlight(code, { language })
 
     setHighlightCode(value)
+  }
+
+  const handlePreview = async () => {
+    const canvas = await html2canvas(containerRef.current)
+    console.log(111)
+    console.log(canvas.toDataURL())
+    setImgSrc(canvas.toDataURL())
+    setVisible(true)
   }
 
   const handleDownload = async () => {
@@ -63,8 +72,8 @@ const Index = () => {
       >
         <Form ref={formRef} columns={getColumns(handleSubmit)} showResetBtn={false} onSubmit={handleSubmit}>
           <div style={{ marginLeft: -110 }}>
-            <Button type="primary" onClick={handleSubmit}>
-              预览图片
+            <Button type="primary" onClick={handlePreview}>
+              预览大图
             </Button>
             <Button type="primary" onClick={handleDownload} style={{ marginLeft: 20 }}>
               下载图片
@@ -94,6 +103,19 @@ const Index = () => {
           </pre>
         </div>
       </div>
+      <Modal
+        visible={visible}
+        title="查看图片"
+        width="calc(100% - 30px)"
+        style={{ top: 30 }}
+        bodyStyle={{ textAlign: 'center' }}
+        onCancel={() => {
+          setVisible(false)
+        }}
+        footer={null}
+      >
+        <img src={imgSrc} />
+      </Modal>
     </>
   )
 }

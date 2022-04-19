@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-18 16:20:54
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-19 12:21:41
+ * @Last Modified time: 2022-04-19 13:50:20
  */
 import { ipcRenderer } from 'electron'
 import { convertDataToEnum } from '@nbfe/tools'
@@ -135,7 +135,8 @@ export const getColumns = handleSubmit => {
       name: 'width',
       defaultValue: 800,
       template: {
-        tpl: 'number'
+        tpl: 'number',
+        min: 300
       }
     },
     {

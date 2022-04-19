@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-15 14:55:02
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-19 14:01:20
+ * @Last Modified time: 2022-04-19 14:04:03
  * @Desc Carbon
  */
 import React, { useRef, useState, useEffect } from 'react'
@@ -37,8 +37,6 @@ const Index = () => {
 
   const handlePreview = async () => {
     const canvas = await html2canvas(containerRef.current)
-    console.log(111)
-    console.log(canvas.toDataURL())
     setImgSrc(canvas.toDataURL())
     setVisible(true)
   }
@@ -53,7 +51,7 @@ const Index = () => {
   const handleCopy = async () => {
     const canvas = await html2canvas(containerRef.current)
     await ipcRenderer.sendSync('copyImage', canvas.toDataURL())
-    message.success('复制成功')
+    message.success('复制成功, 可直接粘贴图片')
   }
 
   useEffect(() => {
@@ -106,8 +104,8 @@ const Index = () => {
       <Modal
         visible={visible}
         title="查看图片"
-        width="calc(100% - 30px)"
-        style={{ top: 30 }}
+        width="calc(100% - 130px)"
+        style={{ top: 40 }}
         bodyStyle={{ textAlign: 'center' }}
         onCancel={() => {
           setVisible(false)

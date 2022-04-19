@@ -41,7 +41,7 @@
     "nodemon": "^2.0.15"
   },
   "build": {
-    "productName": "硕鼠宝",
+    "productName": "Magpie",
     "appId": "org.erb.shuoshubao",
     "files": [
       "package.json",

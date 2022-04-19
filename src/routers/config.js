@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-18 14:58:37
+ * @Last Modified time: 2022-04-19 15:38:27
  * @Desc: 路由配置
  */
 
@@ -11,7 +11,8 @@ import GitlabOutlined from '@ant-design/icons/GitlabOutlined'
 import PictureOutlined from '@ant-design/icons/PictureOutlined'
 import AntDesignOutlined from '@ant-design/icons/AntDesignOutlined'
 import AppstoreOutlined from '@ant-design/icons/AppstoreOutlined'
-import ChromeOutlined from '@ant-design/icons/ChromeOutlined'
+import ControlOutlined from '@ant-design/icons/ControlOutlined'
+import ToolOutlined from '@ant-design/icons/ToolOutlined'
 import { NodeJs as NodeIcon } from '@/assets/icons'
 import Index, { NoMatch } from '@/views/Index'
 import About from '@/views/About'
@@ -23,7 +24,7 @@ import AntDesignColors from '@/views/AntDesign/Colors'
 import AntDesignRecommendation from '@/views/AntDesign/Recommendation'
 import ToolsCarbon from '@/views/Tools/Carbon'
 import Apps from '@/views/Apps'
-import Browser from '@/views/Browser'
+import Plugins from '@/views/Plugins'
 
 export default [
   {
@@ -59,10 +60,10 @@ export default [
     component: Apps
   },
   {
-    name: 'Chrome 插件',
-    icon: <ChromeOutlined />,
-    path: '/browser',
-    component: Browser
+    name: '插件',
+    icon: <ControlOutlined />,
+    path: '/plugins',
+    component: Plugins
   },
   {
     name: '图片压缩',
@@ -88,7 +89,7 @@ export default [
   },
   {
     name: '工具',
-    icon: <AntDesignOutlined />,
+    icon: <ToolOutlined />,
     children: [
       {
         name: 'Carbon',

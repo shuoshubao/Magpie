@@ -2,17 +2,18 @@
  * @Author: shuoshubao
  * @Date:   2022-04-14 13:09:24
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-18 14:08:24
+ * @Last Modified time: 2022-04-19 11:05:33
  */
 const { ipcMain, BrowserWindow } = require('electron')
-const fs = require('fs')
+const { readFileSync } = require('fs')
+const { resolve } = require('path')
 const ini = require('ini')
 const execa = require('execa')
 const { execaCommandSync } = require('./util')
 const { NPMRC_PATH } = require('./config')
 
 ipcMain.on('getNpmrc', event => {
-  const content = fs.readFileSync(NPMRC_PATH).toString()
+  const content = readFileSync(NPMRC_PATH).toString()
   event.returnValue = content ? ini.parse(content) : {}
 })
 
@@ -36,4 +37,11 @@ ipcMain.on('getPackagesLatestVersion', (event, packages) => {
   })
 
   BrowserWindow.getAllWindows()[0].webContents.send('getPackagesLatestVersion', list)
+})
+
+const basepath = resolve(__dirname, '../public/npm')
+
+ipcMain.on('getPublicNpmAssets', (event, filePath) => {
+  const content = readFileSync(resolve(basepath, filePath)).toString()
+  event.returnValue = content
 })

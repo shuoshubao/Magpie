@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:59:52
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-18 18:35:28
+ * @Last Modified time: 2022-04-18 21:14:13
  */
 import React, { useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
@@ -118,6 +118,7 @@ const Index = () => {
           <ReactJson
             src={prettierConfig}
             enableClipboard={false}
+            style={{ background: '#fff' }}
             onEdit={({ name, new_value, updated_src }) => {
               const { message: msg } = ipcRenderer.sendSync('getPrettierFormatCode', '', updated_src)
               if (msg) {

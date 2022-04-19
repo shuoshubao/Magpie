@@ -4,7 +4,7 @@
   "description": "Electron 学习",
   "main": "./main/index.js",
   "scripts": {
-    "start": "react-cli serve & NODE_ENV=development nodemon --exec electron ./main/index.js",
+    "start": "react-cli serve & node bin/copy-npm & NODE_ENV=development nodemon --exec electron ./main/index.js",
     "build": "rm -rf dist && react-cli build && node bin && npx electron-builder build"
   },
   "dependencies": {
@@ -17,6 +17,7 @@
     "electron-store": "^8.0.1",
     "execa": "^5.0.0",
     "fix-path": "3.0.0",
+    "fs-extra": "^10.1.0",
     "glob": "^8.0.1",
     "highlight.js": "^11.5.1",
     "html2canvas": "^1.4.1",

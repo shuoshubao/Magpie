@@ -17,8 +17,19 @@ const Index = () => {
   const [imageUrl, setImageUrl] = useState()
 
   const handleSubmit = async params => {
-    console.log(111)
-    console.log(params)
+    const { width, height, color, background, text } = params
+    const canvas = canvasRef.current
+    canvas.width = width
+    canvas.height = height
+    const ctx = canvas.getContext('2d')
+    ctx.fillStyle = background
+    ctx.fillRect(0, 0, width, height)
+    ctx.fill()
+    ctx.font = '30px Arial'
+    const { width: textWidth } = ctx.measureText(text)
+    ctx.fillStyle = color
+    ctx.fillText(text, (width - textWidth) / 2, height / 2)
+    ctx.fill()
   }
 
   return (
@@ -30,11 +41,7 @@ const Index = () => {
         </Button>
       }
     >
-      <Form
-        onSubmit={handleSubmit}
-        columns={getColumns()}
-        showResetBtn={false}
-      />
+      <Form onSubmit={handleSubmit} columns={getColumns()} showResetBtn={false} />
       <canvas ref={canvasRef} />
     </Card>
   )

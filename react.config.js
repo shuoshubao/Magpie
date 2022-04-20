@@ -33,6 +33,10 @@ module.exports = ({ isDevelopment, isProduction }) => {
         'https://file.ljcdn.com/bs/moment/2.25.3/min/moment.min.js',
         'https://file.ljcdn.com/bs/antd/4.18.7/dist/antd.min.js'
       ]
+    },
+    dllEntry: {
+      tools: ['html2canvas', 'react-markdown', 'react-json-view', 'remark-gfm'],
+      nbfe: ['@nbfe/tools', '@ke/form', '@ke/table'],
     }
   }
 }

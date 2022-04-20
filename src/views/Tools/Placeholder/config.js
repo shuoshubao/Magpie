@@ -12,16 +12,16 @@ export const getColumns = () => {
     {
       name: 'width',
       label: '宽度',
-      defaultValue: 200,
+      defaultValue: 879,
       template: {
         tpl: 'number',
-        width: 100
+        width: 200
       }
     },
     {
       name: 'height',
       label: '高度',
-      defaultValue: 50,
+      defaultValue: 200,
       template: {
         tpl: 'number',
         width: 100
@@ -30,7 +30,7 @@ export const getColumns = () => {
     {
       name: 'text',
       label: '内容',
-      defaultValue: '',
+      defaultValue: '879x200'
     },
     {
       name: 'color',

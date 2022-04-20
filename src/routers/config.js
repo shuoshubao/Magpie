@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-19 15:38:27
+ * @Last Modified time: 2022-04-20 17:06:46
  * @Desc: 路由配置
  */
 
@@ -23,6 +23,7 @@ import Tinify from '@/views/Tinify'
 import AntDesignColors from '@/views/AntDesign/Colors'
 import AntDesignRecommendation from '@/views/AntDesign/Recommendation'
 import ToolsCarbon from '@/views/Tools/Carbon'
+import ToolsPlaceholder from '@/views/Tools/Placeholder'
 import Apps from '@/views/Apps'
 import Plugins from '@/views/Plugins'
 
@@ -95,6 +96,11 @@ export default [
         name: 'Carbon',
         path: '/tools/carbon',
         component: ToolsCarbon
+      },
+      {
+        name: '图片占位符',
+        path: '/tools/placeholder',
+        component: ToolsPlaceholder
       }
     ]
   },

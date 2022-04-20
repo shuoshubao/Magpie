@@ -2,14 +2,14 @@
  * @Author: shuoshubao
  * @Date:   2022-04-15 14:55:02
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-19 14:04:03
+ * @Last Modified time: 2022-04-20 17:07:53
  * @Desc Carbon
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer, shell } from 'electron'
 import { Card, Button, Modal, message } from 'antd'
-import Table from '@ke/table'
 import Form from '@ke/form'
+import Table from '@ke/table'
 import { pick } from 'lodash'
 import hljs from 'highlight.js/lib/core'
 import { classNames } from '@nbfe/tools'

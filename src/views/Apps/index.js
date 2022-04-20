@@ -2,11 +2,11 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:59:52
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-20 14:39:35
+ * @Last Modified time: 2022-04-20 16:13:24
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer, shell } from 'electron'
-import { List, Card, Button, Tag, Tooltip } from 'antd'
+import { List, Card, Button, Tag, Tooltip, Image } from 'antd'
 import { presetPalettes } from '@ant-design/colors'
 import CloudDownloadOutlined from '@ant-design/icons/CloudDownloadOutlined'
 import { random } from 'lodash'
@@ -45,7 +45,7 @@ export default () => {
             <List.Item>
               <Card title={name} extra={extraNode}>
                 <div style={{ display: 'flex' }}>
-                  <img style={{ width: 60, height: 60 }} src={icon} />
+                  <Image style={{ width: 60, height: 60 }} src={icon} />
                   <div style={{ paddingLeft: 5 }}>
                     <div>{description}</div>
                     <div>

@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:59:52
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-18 21:14:13
+ * @Last Modified time: 2022-04-20 16:46:34
  */
 import React, { useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
@@ -117,8 +117,8 @@ const Index = () => {
         <TabPane tab="Pretter" key="pretter">
           <ReactJson
             src={prettierConfig}
+            theme={theme === 'light' ? 'monokai' : 'summerfruit:inverted'}
             enableClipboard={false}
-            style={{ background: '#fff' }}
             onEdit={({ name, new_value, updated_src }) => {
               const { message: msg } = ipcRenderer.sendSync('getPrettierFormatCode', '', updated_src)
               if (msg) {

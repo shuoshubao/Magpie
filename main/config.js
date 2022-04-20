@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-11 14:37:07
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-18 18:16:53
+ * @Last Modified time: 2022-04-20 13:33:18
  * @Desc 配置
  */
 const { resolve } = require('path')
@@ -21,9 +21,9 @@ const STORE_CONFIG_NAME = `${APP_NAME}.config`
 
 const KOA_PROT = isDevelopment ? 7598 : 7599
 
-const APPLICATIONS_DIR = '/Applications'
-
 const HOME_DIR = os.homedir()
+
+const APPLICATIONS_DIR = '/Applications'
 
 const LOG_APTH = resolve(HOME_DIR, 'Library/Logs', APP_NAME, 'main.log')
 

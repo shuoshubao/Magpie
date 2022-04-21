@@ -8,6 +8,7 @@
     "build": "rm -rf dist && react-cli build && node bin && npx electron-builder build"
   },
   "dependencies": {
+    "@electron/remote": "^2.0.8",
     "@ke/form": "^2.1.4",
     "@ke/table": "^2.1.1",
     "@nbfe/tools": "^0.2.14",

@@ -2,13 +2,16 @@
  * @Author: fangt11
  * @Date:   2022-04-07 13:47:44
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-18 18:27:43
+ * @Last Modified time: 2022-04-21 10:58:38
  */
 const { resolve } = require('path')
 const { app, BrowserWindow, ipcMain, globalShortcut, session } = require('electron')
 const log = require('electron-log')
 const glob = require('glob')
+const remote = require('@electron/remote/main')
 const { isDevelopment, Chrome_Extensions_PATH, Chrome_Extensions_IDS } = require('./config')
+
+remote.initialize()
 
 if (!isDevelopment) {
   const fixPath = require('fix-path')

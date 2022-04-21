@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:59:52
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-21 11:14:04
+ * @Last Modified time: 2022-04-21 11:24:33
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer, shell } from 'electron'
@@ -46,9 +46,7 @@ export default () => {
               <Card title={name} extra={extraNode}>
                 <div style={{ display: 'flex' }}>
                   <Image style={{ width: 60, height: 60 }} src={icon} />
-                  <div style={{ paddingLeft: 5 }}>
-                    <div>{description}</div>
-                  </div>
+                  <div style={{ paddingLeft: 5 }}>{description}</div>
                 </div>
                 <div className="ant-card-footer">
                   {categories.map((v, i) => {

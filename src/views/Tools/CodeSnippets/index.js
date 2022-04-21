@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-21 14:24:16
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-21 17:36:43
+ * @Last Modified time: 2022-04-21 20:51:10
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
@@ -10,7 +10,7 @@ import { Modal, Button, message } from 'antd'
 import { omit } from 'lodash'
 import Form from '@ke/form'
 import Table from '@ke/table'
-import { store, PrettierParser, getDataSource, getTableColumns, getFormColumns } from './config'
+import { PrettierParser, getDataSource, getTableColumns, getFormColumns } from './config'
 
 const Index = () => {
   const tableRef = useRef()
@@ -31,7 +31,8 @@ const Index = () => {
       return
     }
     const { title, code, language } = formData
-    if (modalData.action === 'add' && Object.keys(store.store).includes(title)) {
+    const allCodeSnippets = ipcRenderer.sendSync('getAllCodeSnippetsStore')
+    if (modalData.action === 'add' && Object.keys(allCodeSnippets).includes(title)) {
       message.error('标题已存在, 不可新增')
       return
     }
@@ -45,7 +46,7 @@ const Index = () => {
       return
     }
     formData.code = stdout
-    store.set(title, omit(formData, ['title']))
+    ipcRenderer.send('setCodeSnippetsStore', title, omit(formData, ['title']))
     setModalData({ visible: false })
     message.success('提交成功')
     tableRef.current.search()

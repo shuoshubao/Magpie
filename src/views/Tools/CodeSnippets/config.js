@@ -2,10 +2,9 @@
  * @Author: shuoshubao
  * @Date:   2022-04-21 14:25:58
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-21 17:30:10
+ * @Last Modified time: 2022-04-21 20:51:38
  */
 import { ipcRenderer } from 'electron'
-import Store from 'electron-store'
 import { Modal } from 'antd'
 import { find, merge, cloneDeep } from 'lodash'
 import { rules, convertDataToEnum } from '@nbfe/tools'
@@ -13,12 +12,6 @@ import hljs from 'highlight.js/lib/core'
 import { injectHighlightStyle } from '@/utils/highlight'
 
 const { required } = rules
-
-const { CODE_SNIPPETS_STORE_CONFIG_NAME } = ipcRenderer.sendSync('getMainConfig')
-
-export const store = new Store({
-  name: CODE_SNIPPETS_STORE_CONFIG_NAME
-})
 
 const ReactHooks = `
 import React, { useRef, useState, useEffect } from 'react'
@@ -66,7 +59,8 @@ export const BuiltInDataSource = [
 })
 
 export const getDataSource = () => {
-  return Object.entries(store.store).reduce((prev, [k, v]) => {
+  const allCodeSnippets = ipcRenderer.sendSync('getAllCodeSnippetsStore')
+  return Object.entries(allCodeSnippets).reduce((prev, [k, v]) => {
     prev.push({
       title: k,
       ...v
@@ -153,7 +147,7 @@ export const getTableColumns = ({ setModalData }) => {
               PopconfirmConfig: {
                 title: '确定要删除吗？',
                 onConfirm: async () => {
-                  store.delete(value)
+                  ipcRenderer.send('deleteCodeSnippetsStore', value)
                 }
               }
             }

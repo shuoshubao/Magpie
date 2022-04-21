@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-15 14:47:14
+ * @Last Modified time: 2022-04-21 13:36:06
  */
 
 import React, { useState, useEffect } from 'react'
@@ -21,6 +21,8 @@ const Index = () => {
   const [username, setUsername] = useState()
   const [BaseinfoDataSource, setBaseinfoDataSource] = useState({})
   const [ElectronDataSource, setElectronDataSource] = useState({})
+
+  const { APP_NAME } = ipcRenderer.sendSync('getMainConfig')
 
   useEffect(() => {
     const userInfo = ipcRenderer.sendSync('os', 'userInfo')
@@ -66,7 +68,7 @@ const Index = () => {
         title={
           <Title level={2} type="success">
             <DesktopOutlined />
-            <span style={{ marginLeft: 10 }}>Magpie</span>
+            <span style={{ marginLeft: 10 }}>{APP_NAME}</span>
           </Title>
         }
         extra={

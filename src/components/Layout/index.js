@@ -42,6 +42,8 @@ const Index = () => {
 
   const siteLayoutMarginLeft = collapsed ? 80 : 180
 
+  const { APP_NAME } = ipcRenderer.sendSync('getMainConfig')
+
   const { username } = ipcRenderer.sendSync('os', 'userInfo')
 
   return (
@@ -71,7 +73,7 @@ const Index = () => {
             }}
           >
             <DesktopOutlined className="site-layout-logo-icon" />
-            <span className="site-layout-logo-text">Magpie</span>
+            <span className="site-layout-logo-text">{APP_NAME}</span>
           </a>
           <div className="site-layout-link">
             <div className="site-layout-link">

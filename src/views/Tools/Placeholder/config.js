@@ -2,10 +2,11 @@
  * @Author: shuoshubao
  * @Date:   2022-04-20 17:08:11
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-20 20:49:08
+ * @Last Modified time: 2022-04-21 11:33:31
  */
 
 import React, { useRef, useState, useEffect } from 'react'
+import { merge } from 'lodash'
 
 export const getColumns = () => {
   return [
@@ -14,8 +15,7 @@ export const getColumns = () => {
       label: '宽度',
       defaultValue: 879,
       template: {
-        tpl: 'number',
-        width: 200
+        tpl: 'number'
       }
     },
     {
@@ -23,8 +23,7 @@ export const getColumns = () => {
       label: '高度',
       defaultValue: 200,
       template: {
-        tpl: 'number',
-        width: 100
+        tpl: 'number'
       }
     },
     {
@@ -37,8 +36,7 @@ export const getColumns = () => {
       label: '颜色',
       defaultValue: '#525252',
       template: {
-        tpl: 'color-picker',
-        width: 100
+        tpl: 'color-picker'
       }
     },
     {
@@ -46,9 +44,14 @@ export const getColumns = () => {
       label: '背景色',
       defaultValue: '#969696',
       template: {
-        tpl: 'color-picker',
-        width: 100
+        tpl: 'color-picker'
       }
     }
-  ]
+  ].map(v => {
+    return merge({}, v, {
+      template: {
+        width: 100
+      }
+    })
+  })
 }

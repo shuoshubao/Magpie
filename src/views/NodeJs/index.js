@@ -1,8 +1,8 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-18 14:09:07
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-04-21 12:13:55
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
@@ -14,6 +14,7 @@ import { getFormColumns, getTableColumns, getQueryColumns, getQueryTableColumns 
 export const Index = () => {
   const tableRef = useRef()
   const queryTableRef = useRef()
+  const [DependenciesDataSource, setDependenciesDataSource] = useState(false)
   const [modalVisible, setModalVisible] = useState(false)
 
   const fetchDependencies = () => {
@@ -39,6 +40,7 @@ export const Index = () => {
         dataSource.forEach((v, i) => {
           v.latestVersion = list[i]
         })
+        setDependenciesDataSource(dataSource)
         resolve({
           list: dataSource
         })
@@ -100,7 +102,7 @@ export const Index = () => {
         <Table
           ref={queryTableRef}
           rowKey="name"
-          columns={getQueryTableColumns()}
+          columns={getQueryTableColumns({ DependenciesDataSource })}
           remoteConfig={{
             fetch: async params => {
               const { name, registry } = params

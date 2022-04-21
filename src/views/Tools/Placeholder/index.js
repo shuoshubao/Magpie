@@ -2,14 +2,15 @@
  * @Author: shuoshubao
  * @Date:   2022-04-15 14:55:02
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-20 21:05:59
+ * @Last Modified time: 2022-04-21 12:53:01
  * @Desc 图片占位符
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer, shell } from 'electron'
-import { Card, Button, Modal, message } from 'antd'
+import { Card, Button, Modal, Space, message } from 'antd'
 import Form from '@ke/form'
 import Table from '@ke/table'
+import { copyText } from '@nbfe/tools'
 import { getColumns } from './config'
 
 const Index = () => {
@@ -32,18 +33,52 @@ const Index = () => {
     ctx.fill()
   }
 
+  const handleDownload = async () => {
+    const canvas = canvasRef.current
+    const filePath = await ipcRenderer.sendSync('saveImgae', canvas.toDataURL(), `Placeholder_${Date.now()}.png`)
+    message.success(['下载成功', filePath].join(': '))
+    shell.showItemInFolder(filePath)
+  }
+
+  const handleCopy = async () => {
+    const canvas = canvasRef.current
+    await ipcRenderer.sendSync('copyImage', canvas.toDataURL())
+    message.success('复制成功, 可直接粘贴图片')
+  }
+
+  const handleCopyDataURL = async () => {
+    const canvas = canvasRef.current
+    copyText(canvas.toDataURL())
+    message.success('复制成功')
+  }
+
   return (
-    <Card
-      title="图片占位符"
-      extra={
-        <Button type="link" href="https://carbon.now.sh">
-          官网
+    <>
+      <Card
+        title="图片占位符"
+        extra={
+          <Button type="link" href="https://carbon.now.sh">
+            官网
+          </Button>
+        }
+      >
+        <Form onSubmit={handleSubmit} columns={getColumns()} showResetBtn={false} />
+      </Card>
+      <Space className="pdtb10">
+        <Button type="primary" onClick={handleDownload}>
+          下载图片
         </Button>
-      }
-    >
-      <Form onSubmit={handleSubmit} columns={getColumns()} showResetBtn={false} />
-      <canvas ref={canvasRef} />
-    </Card>
+        <Button type="primary" onClick={handleCopy}>
+          复制图片
+        </Button>
+        <Button type="primary" onClick={handleCopyDataURL}>
+          复制 DataURL
+        </Button>
+      </Space>
+      <div>
+        <canvas ref={canvasRef} />
+      </div>
+    </>
   )
 }
 

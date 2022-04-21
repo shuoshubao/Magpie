@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 14:33:27
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-18 14:02:02
+ * @Last Modified time: 2022-04-21 12:16:25
  */
 import React from 'react'
 import { ipcRenderer } from 'electron'
@@ -143,6 +143,7 @@ export const getQueryColumns = () => {
     },
     {
       name: 'name',
+      defaultValue: 'prettier',
       template: {
         inputType: 'search'
       }
@@ -150,7 +151,7 @@ export const getQueryColumns = () => {
   ]
 }
 
-export const getQueryTableColumns = () => {
+export const getQueryTableColumns = ({ DependenciesDataSource }) => {
   return [
     {
       title: 'name',
@@ -178,6 +179,9 @@ export const getQueryTableColumns = () => {
         tpl: 'link',
         render: (value, record) => {
           const { name, readme } = record
+          const installed = DependenciesDataSource.some(v => {
+            return v.name === name
+          })
           return [
             {
               text: '查看Readme',
@@ -194,6 +198,7 @@ export const getQueryTableColumns = () => {
             },
             {
               text: '安装',
+              disabled: installed,
               PopconfirmConfig: {
                 title: (
                   <span>
@@ -204,6 +209,7 @@ export const getQueryTableColumns = () => {
                     <span>吗？</span>
                   </span>
                 ),
+                disabled: installed,
                 onConfirm: async () => {
                   ipcRenderer.sendSync('execaCommandSync', `npm i -g ${name}`)
                 }

@@ -2,17 +2,17 @@
  * @Author: shuoshubao
  * @Date:   2022-04-15 14:55:02
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-20 17:07:53
+ * @Last Modified time: 2022-04-21 12:53:41
  * @Desc Carbon
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer, shell } from 'electron'
-import { Card, Button, Modal, message } from 'antd'
+import { Card, Button, Modal, Space, message } from 'antd'
 import Form from '@ke/form'
 import Table from '@ke/table'
 import { pick } from 'lodash'
 import hljs from 'highlight.js/lib/core'
-import { classNames } from '@nbfe/tools'
+import { classNames, copyText } from '@nbfe/tools'
 import html2canvas from 'html2canvas'
 import { HighlightThemes, injectHighlightStyle, getColumns } from './config'
 import styles from './index.module.less'
@@ -54,6 +54,12 @@ const Index = () => {
     message.success('复制成功, 可直接粘贴图片')
   }
 
+  const handleCopyDataURL = async () => {
+    const canvas = await html2canvas(containerRef.current)
+    copyText(canvas.toDataURL())
+    message.success('复制成功')
+  }
+
   useEffect(() => {
     injectHighlightStyle(HighlightThemes[0].value)
   }, [])
@@ -68,20 +74,22 @@ const Index = () => {
           </Button>
         }
       >
-        <Form ref={formRef} columns={getColumns(handleSubmit)} showResetBtn={false} onSubmit={handleSubmit}>
-          <div style={{ marginLeft: -110 }}>
-            <Button type="primary" onClick={handlePreview}>
-              预览大图
-            </Button>
-            <Button type="primary" onClick={handleDownload} style={{ marginLeft: 20 }}>
-              下载图片
-            </Button>
-            <Button type="primary" onClick={handleCopy} style={{ marginLeft: 20 }}>
-              复制图片
-            </Button>
-          </div>
-        </Form>
+        <Form ref={formRef} columns={getColumns(handleSubmit)} showResetBtn={false} onSubmit={handleSubmit}></Form>
       </Card>
+      <Space className="pdtb10" style={{ textAlign: 'center' }}>
+        <Button type="primary" onClick={handlePreview}>
+          预览大图
+        </Button>
+        <Button type="primary" onClick={handleDownload}>
+          下载图片
+        </Button>
+        <Button type="primary" onClick={handleCopy}>
+          复制图片
+        </Button>
+        <Button type="primary" onClick={handleCopyDataURL}>
+          复制 DataURL
+        </Button>
+      </Space>
       <div ref={containerRef} className={styles.containerWrap} style={pick(config, ['padding', 'background', 'width'])}>
         <div className={styles.container}>
           <div className={classNames('hljs', styles.titleArea)}>

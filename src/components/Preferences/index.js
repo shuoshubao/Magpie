@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:59:52
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-21 13:15:08
+ * @Last Modified time: 2022-04-21 16:19:53
  */
 import React, { useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
@@ -56,12 +56,12 @@ const Index = () => {
 
   const handleConfirm = () => {
     if (activeKey === 'pretter') {
-      const { message: msg } = ipcRenderer.sendSync('getPrettierFormatCode', '', prettierConfig)
-      if (msg) {
+      const { stderr } = ipcRenderer.sendSync('getPrettierFormatCode', '', prettierConfig)
+      if (stderr) {
         message.warning('无效配置, 请按提示检查输入')
-        message.error(stripAnsi(msg))
+        message.error(stripAnsi(stderr))
         // eslint-disable-next-line
-        console.log(msg)
+        console.log(stderr)
       } else {
         ipcRenderer.send('setStore', 'prettierConfig', prettierConfig)
         setVisible(false)
@@ -121,8 +121,8 @@ const Index = () => {
             theme={theme === 'light' ? 'monokai' : 'summerfruit:inverted'}
             enableClipboard={false}
             onEdit={({ name, new_value, updated_src }) => {
-              const { message: msg } = ipcRenderer.sendSync('getPrettierFormatCode', '', updated_src)
-              if (msg) {
+              const { stderr } = ipcRenderer.sendSync('getPrettierFormatCode', '', updated_src)
+              if (stderr) {
                 message.error(`${name} = ${new_value}(${typeof new_value}) 不合法`)
                 return false
               }

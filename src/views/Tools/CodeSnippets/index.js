@@ -2,14 +2,15 @@
  * @Author: shuoshubao
  * @Date:   2022-04-21 14:24:16
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-21 16:10:52
+ * @Last Modified time: 2022-04-21 17:36:43
  */
 import React, { useRef, useState, useEffect } from 'react'
+import { ipcRenderer } from 'electron'
 import { Modal, Button, message } from 'antd'
 import { omit } from 'lodash'
 import Form from '@ke/form'
 import Table from '@ke/table'
-import { store, getDataSource, getTableColumns, getFormColumns } from './config'
+import { store, PrettierParser, getDataSource, getTableColumns, getFormColumns } from './config'
 
 const Index = () => {
   const tableRef = useRef()
@@ -29,16 +30,25 @@ const Index = () => {
     if (!formData) {
       return
     }
-    const { title } = formData
+    const { title, code, language } = formData
     if (modalData.action === 'add' && Object.keys(store.store).includes(title)) {
       message.error('标题已存在, 不可新增')
       return
     }
-    store.set(title, omit(formData, ['title']))
-    setModalData({
-      visible: false
+    const { stderr, stdout } = ipcRenderer.sendSync('getPrettierFormatCode', code, {
+      parser: PrettierParser[language],
+      semi: false, // 不要分号
+      singleQuote: true // 单引号
     })
+    if (stderr) {
+      message.error('代码有误, 请检查')
+      return
+    }
+    formData.code = stdout
+    store.set(title, omit(formData, ['title']))
+    setModalData({ visible: false })
     message.success('提交成功')
+    tableRef.current.search()
   }
 
   return (
@@ -48,13 +58,12 @@ const Index = () => {
         rowKey="title"
         remoteConfig={{
           fetch: async () => {
-            console.log(222)
             return {
               list: getDataSource()
             }
           }
         }}
-        columns={getTableColumns()}
+        columns={getTableColumns({ setModalData })}
         prependHeader={
           <Button
             type="primary"
@@ -62,7 +71,7 @@ const Index = () => {
               setModalData({
                 visible: true,
                 action: 'add',
-                data: {}
+                data: null
               })
             }}
           >
@@ -74,13 +83,14 @@ const Index = () => {
         title={modalData.action === 'add' ? '新增代码片段' : '编辑代码片段'}
         visible={modalData.visible}
         onOk={handleSubmit}
+        width={600}
+        style={{ top: 20 }}
+        destroyOnClose
         onCancel={() => {
-          setModalData({
-            visible: false
-          })
+          setModalData({ visible: false })
         }}
       >
-        <Form ref={formRef} columns={getFormColumns()} showResetBtn={false} />
+        <Form ref={formRef} columns={getFormColumns({ initialValues: modalData.data })} showResetBtn={false} />
       </Modal>
     </>
   )

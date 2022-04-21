@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-21 14:25:58
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-21 16:51:23
+ * @Last Modified time: 2022-04-21 17:30:10
  */
 import { ipcRenderer } from 'electron'
 import Store from 'electron-store'
@@ -66,8 +66,7 @@ export const BuiltInDataSource = [
 })
 
 export const getDataSource = () => {
-  const { store: allStore } = store
-  return Object.entries(allStore).reduce((prev, [k, v]) => {
+  return Object.entries(store.store).reduce((prev, [k, v]) => {
     prev.push({
       title: k,
       ...v
@@ -78,13 +77,13 @@ export const getDataSource = () => {
 
 const LanguageList = ['javascript', 'css', 'typescript']
 
-const PrettierParser = {
+export const PrettierParser = {
   javascript: 'babel',
   css: 'css',
   typescript: 'typescript'
 }
 
-export const getTableColumns = () => {
+export const getTableColumns = ({ setModalData }) => {
   return [
     {
       title: '标题',
@@ -138,7 +137,14 @@ export const getTableColumns = () => {
             },
             {
               text: '编辑',
-              visible: !isBuiltIn
+              visible: !isBuiltIn,
+              onClick: () => {
+                setModalData({
+                  visible: true,
+                  action: 'edit',
+                  data: record
+                })
+              }
             },
             {
               text: '删除',
@@ -158,7 +164,7 @@ export const getTableColumns = () => {
   ]
 }
 
-export const getFormColumns = () => {
+export const getFormColumns = ({ initialValues }) => {
   return [
     {
       label: '标题',
@@ -180,7 +186,7 @@ export const getFormColumns = () => {
       rules: [required],
       template: {
         inputType: 'textarea',
-        width: 400
+        width: 500
       }
     },
     {
@@ -189,9 +195,18 @@ export const getFormColumns = () => {
       rules: [required],
       template: {
         inputType: 'textarea',
-        width: 400,
+        width: 500,
         rows: 10
       }
     }
-  ]
+  ].map(v => {
+    v.inline = false
+    if (initialValues) {
+      return {
+        ...v,
+        defaultValue: initialValues?.[v.name]
+      }
+    }
+    return v
+  })
 }

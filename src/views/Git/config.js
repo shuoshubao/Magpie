@@ -10,9 +10,10 @@ import { rules } from '@nbfe/tools'
 const { required } = rules
 
 export const getColumns = () => {
-  const { stdout: name } = ipcRenderer.sendSync('execaCommandSync', 'git config --global user.name')
-  const { stdout: email } = ipcRenderer.sendSync('execaCommandSync', 'git config --global user.email')
-  const { stdout: ignorecase } = ipcRenderer.sendSync('execaCommandSync', 'git config --global core.ignorecase')
+  const name = ipcRenderer.sendSync('execaCommandSync', 'git config --global user.name')
+  const email = ipcRenderer.sendSync('execaCommandSync', 'git config --global user.email')
+  const ignorecase = ipcRenderer.sendSync('execaCommandSync', 'git config --global core.ignorecase') || 'true'
+
   return [
     {
       label: '用户名',

@@ -19,8 +19,8 @@ export const Index = () => {
 
   const fetchDependencies = () => {
     return new Promise((resolve, reject) => {
-      const { stdout } = ipcRenderer.sendSync('execaCommandSync', 'npm list -g --depth 0 --json')
-      const { dependencies } = JSON.parse(stdout)
+      const res = ipcRenderer.sendSync('execaCommandSync', 'npm list -g --depth 0 --json')
+      const { dependencies } = JSON.parse(res)
       const dataSource = Object.entries(dependencies).reduce((prev, [name, v]) => {
         if (name === 'npm') {
           return prev
@@ -111,15 +111,10 @@ export const Index = () => {
                   list: []
                 }
               }
-              const { stderr, stdout } = ipcRenderer.sendSync(
+              const stdout = ipcRenderer.sendSync(
                 'execaCommandSync',
                 `npm view ${name} name dist-tags maintainers description readme --json --registry=${registry}`
               )
-              if (stderr) {
-                return {
-                  list: []
-                }
-              }
               const list = [JSON.parse(stdout)]
               return {
                 list

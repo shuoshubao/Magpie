@@ -6,17 +6,18 @@
  */
 const { BrowserWindow } = require('electron')
 const log = require('electron-log')
-const execa = require('execa')
+const spawn = require('cross-spawn')
 const { win } = require('.')
 
 const execaCommandSync = command => {
   log.info('execaCommandSync', command)
   const [file, ...args] = command.split(/\s+/)
   try {
-    return execa.sync(file, args)
+    const res = spawn.sync(file, args)
+    return res.stdout.toString().trim()
   } catch (e) {
     BrowserWindow.getAllWindows()[0].webContents.send('showErrorBox', {
-      title: ['execa.sync', command].join(': '),
+      title: ['spawn.sync', command].join(': '),
       content: e.message
     })
     log.error('execaCommandSync', e.message)

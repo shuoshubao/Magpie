@@ -28,10 +28,10 @@ const Index = () => {
     const userInfo = ipcRenderer.sendSync('os', 'userInfo')
     const cpus = ipcRenderer.sendSync('os', 'cpus')
     const freemem = ipcRenderer.sendSync('os', 'freemem')
-    const { stdout: name } = ipcRenderer.sendSync('execaCommandSync', 'git config --global user.name')
-    const { stdout: email } = ipcRenderer.sendSync('execaCommandSync', 'git config --global user.email')
-    const { stdout: node_version } = ipcRenderer.sendSync('execaCommandSync', 'node -v')
-    const { stdout: npm_version } = ipcRenderer.sendSync('execaCommandSync', 'npm -v')
+    const name = ipcRenderer.sendSync('execaCommandSync', 'git config --global user.name')
+    const email = ipcRenderer.sendSync('execaCommandSync', 'git config --global user.email')
+    const node_version = ipcRenderer.sendSync('execaCommandSync', 'node -v')
+    const npm_version = ipcRenderer.sendSync('execaCommandSync', 'npm -v')
     setUsername(userInfo.username)
     setBaseinfoDataSource({
       cpus: cpus.length,

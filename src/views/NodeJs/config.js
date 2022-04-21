@@ -19,7 +19,7 @@ const { required } = rules
 const { Text } = Typography
 
 export const getFormColumns = () => {
-  const { stdout: version } = ipcRenderer.sendSync('execaCommandSync', 'node -v')
+  const version = ipcRenderer.sendSync('execaCommandSync', 'node -v')
   const npmrc = ipcRenderer.sendSync('getNpmrc')
   return [
     {

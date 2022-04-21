@@ -24,7 +24,7 @@ const getPackageLatestVersion = (name, registry) => {
   if (PackageLatestVersions[name]) {
     return PackageLatestVersions[name]
   }
-  const { stdout: latestVersion } = execaCommandSync(`npm view ${name} version --registry=${registry}`)
+  const latestVersion = execaCommandSync(`npm view ${name} version --registry=${registry}`)
   PackageLatestVersions[name] = latestVersion
   return latestVersion
 }

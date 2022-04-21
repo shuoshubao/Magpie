@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:59:52
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-20 16:13:24
+ * @Last Modified time: 2022-04-21 11:14:04
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer, shell } from 'electron'
@@ -48,21 +48,17 @@ export default () => {
                   <Image style={{ width: 60, height: 60 }} src={icon} />
                   <div style={{ paddingLeft: 5 }}>
                     <div>{description}</div>
-                    <div>
-                      {categories.map((v, i) => {
-                        const color = presetPalettes[colors[random(colors.length - 1)]].primary
-                        return (
-                          <Tag
-                            color={color}
-                            key={i}
-                            style={{ marginLeft: i === 0 ? 0 : 4, lineHeight: '14px', fontSize: 11 }}
-                          >
-                            {v}
-                          </Tag>
-                        )
-                      })}
-                    </div>
                   </div>
+                </div>
+                <div className="ant-card-footer">
+                  {categories.map((v, i) => {
+                    const color = presetPalettes[colors[random(colors.length - 1)]].primary
+                    return (
+                      <Tag color={color} key={i} style={{ lineHeight: '14px', fontSize: 11 }}>
+                        {v}
+                      </Tag>
+                    )
+                  })}
                 </div>
               </Card>
             </List.Item>

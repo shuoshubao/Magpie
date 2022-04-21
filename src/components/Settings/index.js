@@ -2,13 +2,14 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:59:52
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-20 16:46:34
+ * @Last Modified time: 2022-04-21 11:23:01
  */
 import React, { useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
 import { Modal, Typography, Button, Input, Tabs, Radio, message } from 'antd'
 import ReactJson from 'react-json-view'
 import stripAnsi from 'strip-ansi'
+import FolderOpenOutlined from '@ant-design/icons/FolderOpenOutlined'
 import { setTheme as updateTheme } from '@/utils'
 import { ThemeOptions } from './config'
 
@@ -130,10 +131,12 @@ const Index = () => {
           />
         </TabPane>
         <TabPane tab="默认路径" key="defaultPath">
-          <Title level={5}>{defaultPath}</Title>
-          <Button type="primary" size="small" onClick={handleSelectDefaultPath}>
-            浏览
-          </Button>
+          <Input
+            value={defaultPath}
+            readOnly
+            suffix={<FolderOpenOutlined onClick={handleSelectDefaultPath} />}
+            style={{ width: 400 }}
+          />
         </TabPane>
       </Tabs>
     </Modal>

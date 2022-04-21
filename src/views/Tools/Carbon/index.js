@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-15 14:55:02
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-21 12:53:41
+ * @Last Modified time: 2022-04-21 16:46:30
  * @Desc Carbon
  */
 import React, { useRef, useState, useEffect } from 'react'
@@ -14,7 +14,8 @@ import { pick } from 'lodash'
 import hljs from 'highlight.js/lib/core'
 import { classNames, copyText } from '@nbfe/tools'
 import html2canvas from 'html2canvas'
-import { HighlightThemes, injectHighlightStyle, getColumns } from './config'
+import { injectHighlightStyle } from '@/utils/highlight'
+import { HighlightThemes, getColumns } from './config'
 import styles from './index.module.less'
 
 const Index = () => {
@@ -102,7 +103,7 @@ const Index = () => {
             </svg>
             <span className={styles.titleText}>{config.title}</span>
           </div>
-          <pre style={{ margin: 0 }}>
+          <pre>
             <code className="hljs language-javascript">
               <div dangerouslySetInnerHTML={{ __html: highlightCode }}></div>
             </code>

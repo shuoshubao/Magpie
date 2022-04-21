@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-20 17:06:46
+ * @Last Modified time: 2022-04-21 14:32:33
  * @Desc: 路由配置
  */
 
@@ -24,6 +24,7 @@ import AntDesignColors from '@/views/AntDesign/Colors'
 import AntDesignRecommendation from '@/views/AntDesign/Recommendation'
 import ToolsCarbon from '@/views/Tools/Carbon'
 import ToolsPlaceholder from '@/views/Tools/Placeholder'
+import ToolsCodeSnippets from '@/views/Tools/CodeSnippets'
 import Apps from '@/views/Apps'
 import Plugins from '@/views/Plugins'
 
@@ -101,6 +102,11 @@ export default [
         name: '图片占位符',
         path: '/tools/placeholder',
         component: ToolsPlaceholder
+      },
+      {
+        name: '代码片段',
+        path: '/tools/codesnippets',
+        component: ToolsCodeSnippets
       }
     ]
   },

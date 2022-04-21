@@ -2,12 +2,12 @@
  * @Author: shuoshubao
  * @Date:   2022-04-11 14:37:07
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-20 13:33:18
+ * @Last Modified time: 2022-04-21 15:12:46
  * @Desc 配置
  */
 const { resolve } = require('path')
 const os = require('os')
-const { ipcMain } = require('electron')
+const { app, ipcMain } = require('electron')
 const pkg = require('../package.json')
 const prettierConfig = require('../prettier.config')
 
@@ -17,7 +17,11 @@ const APP_NAME = pkg.name
 
 const APP_VERSION = pkg.version
 
+const APP_USERDATA_PATH = app.getPath('userData')
+
 const STORE_CONFIG_NAME = `${APP_NAME}.config`
+
+const CODE_SNIPPETS_STORE_CONFIG_NAME = `${APP_NAME}.CodeSnippets.config`
 
 const KOA_PROT = isDevelopment ? 7598 : 7599
 
@@ -39,8 +43,10 @@ const config = {
   pkg,
   APP_NAME,
   APP_VERSION,
+  APP_USERDATA_PATH,
   prettierConfig,
   STORE_CONFIG_NAME,
+  CODE_SNIPPETS_STORE_CONFIG_NAME,
   isDevelopment,
   KOA_PROT,
   APPLICATIONS_DIR,

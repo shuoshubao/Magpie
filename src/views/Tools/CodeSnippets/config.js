@@ -1,0 +1,197 @@
+/*
+ * @Author: shuoshubao
+ * @Date:   2022-04-21 14:25:58
+ * @Last Modified by:   shuoshubao
+ * @Last Modified time: 2022-04-21 16:51:23
+ */
+import { ipcRenderer } from 'electron'
+import Store from 'electron-store'
+import { Modal } from 'antd'
+import { find, merge, cloneDeep } from 'lodash'
+import { rules, convertDataToEnum } from '@nbfe/tools'
+import hljs from 'highlight.js/lib/core'
+import { injectHighlightStyle } from '@/utils/highlight'
+
+const { required } = rules
+
+const { CODE_SNIPPETS_STORE_CONFIG_NAME } = ipcRenderer.sendSync('getMainConfig')
+
+export const store = new Store({
+  name: CODE_SNIPPETS_STORE_CONFIG_NAME
+})
+
+const ReactHooks = `
+import React, { useRef, useState, useEffect } from 'react'
+
+const Index = () => {
+  return null
+}
+
+Index.displayName = 'Demo'
+
+export default Index
+`
+
+const ReactHooksAntd = `
+import React, { useRef, useState, useEffect } from 'react'
+import { Button } from 'antd'
+
+const Index = () => {
+  return <Button type="primary">Button</Button>
+}
+
+Index.displayName = 'Demo'
+
+export default Index
+`
+
+export const BuiltInDataSource = [
+  {
+    title: ['React', 'Hooks'],
+    language: 'javascript',
+    description: 'React + Hooks',
+    code: ReactHooks
+  },
+  {
+    title: ['React', 'Hooks', 'Antd'],
+    language: 'javascript',
+    description: 'React + Hooks + Antd',
+    code: ReactHooksAntd
+  }
+].map(v => {
+  return {
+    ...v,
+    title: v.title.join('_')
+  }
+})
+
+export const getDataSource = () => {
+  const { store: allStore } = store
+  return Object.entries(allStore).reduce((prev, [k, v]) => {
+    prev.push({
+      title: k,
+      ...v
+    })
+    return prev
+  }, cloneDeep(BuiltInDataSource))
+}
+
+const LanguageList = ['javascript', 'css', 'typescript']
+
+const PrettierParser = {
+  javascript: 'babel',
+  css: 'css',
+  typescript: 'typescript'
+}
+
+export const getTableColumns = () => {
+  return [
+    {
+      title: '标题',
+      dataIndex: 'title',
+      width: 200
+    },
+    {
+      title: '语言',
+      dataIndex: 'language',
+      width: 100
+    },
+    {
+      title: '描述',
+      dataIndex: 'description'
+    },
+    {
+      title: '操作',
+      dataIndex: 'title',
+      width: 160,
+      template: {
+        tpl: 'link',
+        render: (value, record) => {
+          const { code, language } = record
+          const isBuiltIn = find(BuiltInDataSource, { title: value })
+          return [
+            {
+              text: '查看',
+              onClick: () => {
+                const { stderr, stdout } = ipcRenderer.sendSync('getPrettierFormatCode', code, {
+                  parser: PrettierParser[language],
+                  semi: false, // 不要分号
+                  singleQuote: true // 单引号
+                })
+                injectHighlightStyle('highlight.js/styles/github-dark.css')
+                const { value: highlightCode } = hljs.highlight(stdout, { language })
+                Modal.info({
+                  title: '代码',
+                  content: (
+                    <pre>
+                      <code className="hljs language-javascript">
+                        <div dangerouslySetInnerHTML={{ __html: highlightCode }}></div>
+                      </code>
+                    </pre>
+                  ),
+                  width: '90%',
+                  style: {
+                    top: 20
+                  }
+                })
+              }
+            },
+            {
+              text: '编辑',
+              visible: !isBuiltIn
+            },
+            {
+              text: '删除',
+              danger: true,
+              visible: !isBuiltIn,
+              PopconfirmConfig: {
+                title: '确定要删除吗？',
+                onConfirm: async () => {
+                  store.delete(value)
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+
+export const getFormColumns = () => {
+  return [
+    {
+      label: '标题',
+      name: 'title',
+      rules: [required]
+    },
+    {
+      label: '语言',
+      name: 'language',
+      defaultValue: LanguageList[0],
+      template: {
+        tpl: 'select',
+        options: convertDataToEnum(LanguageList)
+      }
+    },
+    {
+      label: '描述',
+      name: 'description',
+      rules: [required],
+      template: {
+        inputType: 'textarea',
+        width: 400
+      }
+    },
+    {
+      label: '代码',
+      name: 'code',
+      rules: [required],
+      template: {
+        inputType: 'textarea',
+        width: 400,
+        rows: 10
+      }
+    }
+  ]
+}

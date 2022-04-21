@@ -2,12 +2,14 @@
  * @Author: shuoshubao
  * @Date:   2022-04-11 14:37:07
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-18 18:39:14
+ * @Last Modified time: 2022-04-21 14:53:31
  * @Desc 配置
  */
 const { app, ipcMain } = require('electron')
 const Store = require('electron-store')
 const { STORE_CONFIG_NAME, prettierConfig } = require('./config')
+
+Store.initRenderer()
 
 const store = new Store({
   name: STORE_CONFIG_NAME

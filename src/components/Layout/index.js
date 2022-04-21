@@ -9,7 +9,7 @@ import { get, find } from 'lodash'
 import { classNames } from '@nbfe/tools'
 import { RouterConfig, RenderRouter } from '@/routers'
 import { checkShoulduHideSidebar, getTheme } from '@/utils'
-import Settings from '@/components/Settings'
+import Preferences from '@/components/Preferences'
 import SideMenu from './SideMenu'
 import '@/assets/styles/index.less'
 
@@ -102,7 +102,7 @@ const Index = () => {
             <RenderRouter />
           </div>
         </Content>
-        <Settings />
+        <Preferences />
       </Layout>
     </Layout>
   )

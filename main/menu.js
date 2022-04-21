@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-16 12:52:15
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-18 00:21:15
+ * @Last Modified time: 2022-04-21 13:14:58
  * @Desc 菜单
  */
 const { BrowserWindow, Menu } = require('electron')
@@ -25,7 +25,7 @@ const template = [
         label: '偏好设置',
         accelerator: 'Command+,',
         click: () => {
-          BrowserWindow.getAllWindows()[0].webContents.send('showSettingsModal')
+          BrowserWindow.getAllWindows()[0].webContents.send('showPreferencesModal')
         }
       }
     ]

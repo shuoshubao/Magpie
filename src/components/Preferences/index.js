@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:59:52
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-21 11:23:01
+ * @Last Modified time: 2022-04-21 13:15:08
  */
 import React, { useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
@@ -30,7 +30,7 @@ const Index = () => {
   }, [setTheme, setPrettierConfig, setDefaultPath])
 
   useEffect(() => {
-    ipcRenderer.on('showSettingsModal', () => {
+    ipcRenderer.on('showPreferencesModal', () => {
       setVisible(true)
     })
   }, [setVisible])
@@ -143,6 +143,6 @@ const Index = () => {
   )
 }
 
-Index.displayName = 'Settings'
+Index.displayName = 'Preferences'
 
 export default Index

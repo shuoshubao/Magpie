@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-20 17:08:11
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-21 11:33:31
+ * @Last Modified time: 2022-04-21 13:03:46
  */
 
 import React, { useRef, useState, useEffect } from 'react'
@@ -34,7 +34,7 @@ export const getColumns = () => {
     {
       name: 'color',
       label: '颜色',
-      defaultValue: '#525252',
+      defaultValue: '#000',
       template: {
         tpl: 'color-picker'
       }

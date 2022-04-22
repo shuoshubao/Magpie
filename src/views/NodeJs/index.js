@@ -2,11 +2,11 @@
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-22 14:25:42
+ * @Last Modified time: 2022-04-22 15:40:50
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
-import { Button, Modal, Alert, Typography, Divider } from 'antd'
+import { Button, Modal, Alert, Typography } from 'antd'
 import Form from '@ke/form'
 import Table from '@ke/table'
 import { getFormColumns, getTableColumns, getQueryColumns, getQueryTableColumns } from './config'
@@ -72,8 +72,8 @@ export const Index = () => {
         type="warning"
         closable
         showIcon
+        className="mgb10"
       />
-      <Divider />
       <Form
         columns={getFormColumns()}
         formProps={{ layout: 'horizontal' }}

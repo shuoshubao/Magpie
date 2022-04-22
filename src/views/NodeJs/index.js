@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-22 11:21:16
+ * @Last Modified time: 2022-04-22 11:56:15
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
@@ -13,6 +13,7 @@ import { getFormColumns, getTableColumns, getQueryColumns, getQueryTableColumns 
 
 export const Index = () => {
   const tableRef = useRef()
+  const queryFormRef = useRef()
   const queryTableRef = useRef()
   const [DependenciesDataSource, setDependenciesDataSource] = useState(false)
   const [modalVisible, setModalVisible] = useState(false)
@@ -99,11 +100,11 @@ export const Index = () => {
         destroyOnClose
         footer={null}
       >
-        <Form columns={getQueryColumns()} onSubmit={handleSearch} showResetBtn={false} />
+        <Form ref={queryFormRef} columns={getQueryColumns()} onSubmit={handleSearch} showResetBtn={false} />
         <Table
           ref={queryTableRef}
           rowKey="name"
-          columns={getQueryTableColumns({ DependenciesDataSource })}
+          columns={getQueryTableColumns({ DependenciesDataSource, setModalVisible, handleSearch, queryFormRef })}
           remoteConfig={{
             fetch: async params => {
               const { name, registry } = params

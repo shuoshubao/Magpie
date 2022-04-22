@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 14:33:27
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-21 12:16:25
+ * @Last Modified time: 2022-04-22 11:59:05
  */
 import React from 'react'
 import { ipcRenderer } from 'electron'
@@ -10,7 +10,7 @@ import ReactMarkdown from 'react-markdown'
 import RemarkGfm from 'remark-gfm'
 import { Modal, Typography, Tooltip, message } from 'antd'
 import QuestionCircleOutlined from '@ant-design/icons/QuestionCircleOutlined'
-import { rules } from '@nbfe/tools'
+import { rules, sleep } from '@nbfe/tools'
 import semver from 'semver'
 import { RegistryEnum } from '@/configs'
 
@@ -86,7 +86,7 @@ export const getTableColumns = () => {
           return [
             {
               text: '升级',
-              disabled: !semver.lt(version, latestVersion),
+              disabled: !semver.lt(version, latestVersion || version),
               visible: !loading,
               PopconfirmConfig: {
                 title: (
@@ -99,7 +99,8 @@ export const getTableColumns = () => {
                   </span>
                 ),
                 onConfirm: async () => {
-                  ipcRenderer.sendSync('execaCommandSync', `npm i -g ${name}`)
+                  ipcRenderer.send('execaCommandSync', `npm i -g ${name}`)
+                  await sleep(2)
                 }
               }
             },
@@ -117,7 +118,8 @@ export const getTableColumns = () => {
                   </span>
                 ),
                 onConfirm: async () => {
-                  ipcRenderer.sendSync('execaCommandSync', `npm un -g ${name}`)
+                  ipcRenderer.send('execaCommandSync', `npm un -g ${name}`)
+                  await sleep(2)
                 }
               }
             }
@@ -151,7 +153,7 @@ export const getQueryColumns = () => {
   ]
 }
 
-export const getQueryTableColumns = ({ DependenciesDataSource }) => {
+export const getQueryTableColumns = ({ DependenciesDataSource, setModalVisible, handleSearch, queryFormRef }) => {
   return [
     {
       title: 'name',
@@ -211,7 +213,11 @@ export const getQueryTableColumns = ({ DependenciesDataSource }) => {
                 ),
                 disabled: installed,
                 onConfirm: async () => {
-                  ipcRenderer.sendSync('execaCommandSync', `npm i -g ${name}`)
+                  const { registry } = await queryFormRef.current.getFormData()
+                  ipcRenderer.send('execaCommandSync', `npm i -g ${name} --registry=${registry}`)
+                  await sleep(2)
+                  setModalVisible(false)
+                  handleSearch()
                 }
               }
             }

@@ -1,8 +1,8 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
- * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-21 12:13:55
+ * @Last Modified by:   shuoshubao
+ * @Last Modified time: 2022-04-22 11:21:16
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
@@ -18,6 +18,7 @@ export const Index = () => {
   const [modalVisible, setModalVisible] = useState(false)
 
   const fetchDependencies = () => {
+    const npmrc = ipcRenderer.sendSync('getNpmrc')
     return new Promise((resolve, reject) => {
       const res = ipcRenderer.sendSync('execaCommandSync', 'npm list -g --depth 0 --json')
       const { dependencies } = JSON.parse(res)
@@ -26,7 +27,7 @@ export const Index = () => {
           return prev
         }
         const { version, resolved } = v
-        const registry = resolved.slice(0, resolved.indexOf('/', 10))
+        const registry = resolved ? resolved.slice(0, resolved.indexOf('/', 10)) : npmrc.registry
         prev.push({
           name,
           version,

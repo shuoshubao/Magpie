@@ -2,14 +2,16 @@
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-22 11:56:15
+ * @Last Modified time: 2022-04-22 14:25:42
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
-import { Button, Modal } from 'antd'
+import { Button, Modal, Alert, Typography, Divider } from 'antd'
 import Form from '@ke/form'
 import Table from '@ke/table'
 import { getFormColumns, getTableColumns, getQueryColumns, getQueryTableColumns } from './config'
+
+const { Text } = Typography
 
 export const Index = () => {
   const tableRef = useRef()
@@ -60,6 +62,18 @@ export const Index = () => {
 
   return (
     <>
+      <Alert
+        message="请确保有 npm install --global 的权限, 如果没有权限请在命令行执行以下代码"
+        description={
+          <Text code copyable>
+            sudo chown -R $(whoami) ~/.npm
+          </Text>
+        }
+        type="warning"
+        closable
+        showIcon
+      />
+      <Divider />
       <Form
         columns={getFormColumns()}
         formProps={{ layout: 'horizontal' }}

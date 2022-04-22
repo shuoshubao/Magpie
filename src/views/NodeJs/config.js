@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 14:33:27
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-22 11:59:05
+ * @Last Modified time: 2022-04-22 14:07:19
  */
 import React from 'react'
 import { ipcRenderer } from 'electron'
@@ -145,7 +145,7 @@ export const getQueryColumns = () => {
     },
     {
       name: 'name',
-      defaultValue: 'prettier',
+      placeholder: '请输入 npm 包名',
       template: {
         inputType: 'search'
       }

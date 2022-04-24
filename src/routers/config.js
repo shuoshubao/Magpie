@@ -2,11 +2,12 @@
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-24 14:31:43
+ * @Last Modified time: 2022-04-24 17:20:25
  * @Desc: 路由配置
  */
 
 import React from 'react'
+import DashboardOutlined from '@ant-design/icons/DashboardOutlined'
 import GitlabOutlined from '@ant-design/icons/GitlabOutlined'
 import PictureOutlined from '@ant-design/icons/PictureOutlined'
 import CloudUploadOutlined from '@ant-design/icons/CloudUploadOutlined'
@@ -18,6 +19,8 @@ import { NodeJs as NodeIcon } from '@/assets/icons'
 import Index, { NoMatch } from '@/views/Index'
 import About from '@/views/About'
 import Log from '@/views/Log'
+import DashboardAnalysis from '@/views/Dashboard/Analysis'
+import DashboardProjects from '@/views/Dashboard/Projects'
 import NodeJs from '@/views/NodeJs'
 import Git from '@/views/Git'
 import Tinify from '@/views/Tinify'
@@ -45,6 +48,22 @@ export default [
     component: Log,
     hideNav: true,
     hideSidebar: true
+  },
+  {
+    name: '项目看板',
+    icon: <DashboardOutlined />,
+    children: [
+      {
+        name: '项目列表',
+        path: '/dashboard/projects',
+        component: DashboardProjects
+      },
+      {
+        name: '项目分析',
+        path: '/dashboard/analysis',
+        component: DashboardAnalysis
+      }
+    ]
   },
   {
     name: 'Node 管理',

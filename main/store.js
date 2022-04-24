@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-11 14:37:07
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-24 13:49:06
+ * @Last Modified time: 2022-04-24 16:01:30
  * @Desc 配置
  */
 const { app, ipcMain } = require('electron')
@@ -21,7 +21,8 @@ const defaultStore = {
   theme: 'light', // 主题
   prettierConfig, // prettier配置
   defaultPath: app.getPath('downloads'), // 默认路径
-  buckets: [] // bucket 信息存储
+  buckets: [], // bucket 信息存储
+  projects: [] // 项目列表
 }
 
 // 初始化默认值

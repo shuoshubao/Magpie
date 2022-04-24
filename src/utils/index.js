@@ -2,27 +2,21 @@
  * @Author: fangt11
  * @Date:   2021-07-05 19:52:43
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-16 14:37:34
+ * @Last Modified time: 2022-04-24 17:13:46
  */
 export * from './route'
 export * from './axios'
 export * from './theme'
 
-// 格式化部分时长
-export const formatDuration = (time = 0) => {
-  const hours = Math.floor(time / 3600)
-  const minute = Math.floor(Math.floor(time % 3600) / 60)
-  const second = time % 60
-  if (hours) {
-    return [hours, minute, second]
-      .map(v => {
-        return String(v).padStart(2, '0')
-      })
-      .join(':')
+// 解析 repository.url
+export const repositoryUrlStringify = url => {
+  if (!url) {
+    return url
   }
-  return [minute, second]
-    .map(v => {
-      return String(v).padStart(2, '0')
-    })
-    .join(':')
+  if (url.startsWith('http')) {
+    return url
+  }
+  const host = url.slice(url.indexOf('@') + 1, url.indexOf(':'))
+  const pathname = url.slice(url.indexOf(':') + 1, url.indexOf('.git'))
+  return ['https://', host, pathname].join('')
 }

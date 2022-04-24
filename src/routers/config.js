@@ -2,13 +2,14 @@
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-21 14:32:33
+ * @Last Modified time: 2022-04-24 14:31:43
  * @Desc: 路由配置
  */
 
 import React from 'react'
 import GitlabOutlined from '@ant-design/icons/GitlabOutlined'
 import PictureOutlined from '@ant-design/icons/PictureOutlined'
+import CloudUploadOutlined from '@ant-design/icons/CloudUploadOutlined'
 import AntDesignOutlined from '@ant-design/icons/AntDesignOutlined'
 import AppstoreOutlined from '@ant-design/icons/AppstoreOutlined'
 import ControlOutlined from '@ant-design/icons/ControlOutlined'
@@ -20,6 +21,8 @@ import Log from '@/views/Log'
 import NodeJs from '@/views/NodeJs'
 import Git from '@/views/Git'
 import Tinify from '@/views/Tinify'
+import S3Upload from '@/views/S3/Upload'
+import S3Bucket from '@/views/S3/bucket'
 import AntDesignColors from '@/views/AntDesign/Colors'
 import AntDesignRecommendation from '@/views/AntDesign/Recommendation'
 import ToolsCarbon from '@/views/Tools/Carbon'
@@ -72,6 +75,22 @@ export default [
     icon: <PictureOutlined />,
     path: '/tinify',
     component: Tinify
+  },
+  {
+    name: 'S3服务',
+    icon: <CloudUploadOutlined />,
+    children: [
+      {
+        name: 'Bucket',
+        path: '/s3/bucket',
+        component: S3Bucket
+      },
+      {
+        name: '文件上传',
+        path: '/s3/upload',
+        component: S3Upload
+      }
+    ]
   },
   {
     name: 'Ant Design',

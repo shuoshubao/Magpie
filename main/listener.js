@@ -2,12 +2,11 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:31:01
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-18 18:42:50
+ * @Last Modified time: 2022-04-24 17:55:55
  * @Desc 事件监听
  */
 const { ipcMain, dialog } = require('electron')
 const log = require('electron-log')
-const fs = require('fs')
 const os = require('os')
 const execa = require('execa')
 const glob = require('glob')
@@ -17,9 +16,11 @@ const { isFunction } = require('lodash')
 const { execaCommandSync } = require('./util')
 require('./npm')
 require('./path')
+require('./fs')
 require('./theme')
 require('./prettier')
 require('./image')
+require('./project-analysis.js')
 
 axios.interceptors.request.use(request => {
   log.info(
@@ -44,14 +45,6 @@ ipcMain.on('getProcessVersions', (event, file, args) => {
   event.returnValue = process.versions
 })
 
-ipcMain.on('fs', (event, fsFuncName, ...args) => {
-  const res = fs[fsFuncName](...args)
-  if (fsFuncName === 'readFileSync') {
-    event.returnValue = res.toString()
-  }
-  event.returnValue = res
-})
-
 ipcMain.on('os', (event, propName) => {
   const value = os[propName]
   if (propName === 'freemem') {
@@ -61,11 +54,6 @@ ipcMain.on('os', (event, propName) => {
     event.returnValue = value()
   }
   event.returnValue = value
-})
-
-ipcMain.on('getImageBase64', (event, fullPath) => {
-  const res = fs.readFileSync(fullPath)
-  event.returnValue = res.toString('base64')
 })
 
 ipcMain.on('execaCommandSync', (event, command) => {

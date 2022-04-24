@@ -1,13 +1,18 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-18 18:42:36
- * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-19 13:46:37
+ * @Last Modified by:   shuoshubao
+ * @Last Modified time: 2022-04-24 17:56:09
  */
 const { ipcMain, clipboard, nativeImage } = require('electron')
 const { writeFileSync } = require('fs')
 const { resolve, isAbsolute } = require('path')
 const store = require('./store')
+
+ipcMain.on('getImageBase64', (event, fullPath) => {
+  const res = fs.readFileSync(fullPath)
+  event.returnValue = res.toString('base64')
+})
 
 ipcMain.on('saveImgae', (event, dataURL, fullPath) => {
   const regex = /^data:image\/png;base64,(.*)$/

@@ -4,17 +4,53 @@
  * @Last Modified by:   shuoshubao
  * @Last Modified time: 2022-04-24 17:42:15
  */
+import { map, sum } from 'lodash'
+import filesize from 'filesize'
+
 export const getColumns = () => {
   return [
-    { label: '文件总数', name: 'fileCount', span: 3 },
-    { label: 'js文件数', name: 'jsFileCount' },
-    { label: 'js代码行数', name: 'jsLineCount' },
-    { label: 'js代码体积', name: 'jsFileSize' },
-    { label: 'style文件数', name: 'styleFileCount' },
-    { label: 'style代码行数', name: 'styleLineCount' },
-    { label: 'style代码体积', name: 'styleFileSize' },
-    { label: 'image文件数', name: 'imageFileCount' },
-    { label: 'image代码行数', name: 'imageLineCount' },
-    { label: 'image代码体积', name: 'imageFileSize' }
+    { title: '分类', dataIndex: 'type', width: 100 },
+    { title: '文件数', dataIndex: 'length' },
+    { title: '代码行数', dataIndex: 'lines' },
+    { title: '代码量', dataIndex: 'count' },
+    { title: '代码体积', dataIndex: 'size', render: filesize }
+  ]
+}
+
+export const getDataSource = ({ projectInofList }) => {
+  const JsData = projectInofList.filter(v => {
+    const { ext } = v
+    return ['.js', '.jsx', '.ts', '.tsx'].includes(ext)
+  })
+  const StyleData = projectInofList.filter(v => {
+    const { ext } = v
+    return ['.css', '.less', '.scss'].includes(ext)
+  })
+  const ImageData = projectInofList.filter(v => {
+    const { ext } = v
+    return ['.png', '.jpg', '.jepg'].includes(ext)
+  })
+  return [
+    {
+      type: 'Js',
+      length: JsData.length,
+      lines: sum(map(JsData, 'lines')),
+      count: sum(map(JsData, 'count')),
+      size: sum(map(JsData, 'size'))
+    },
+    {
+      type: 'Style',
+      length: StyleData.length,
+      lines: sum(map(StyleData, 'lines')),
+      count: sum(map(StyleData, 'count')),
+      size: sum(map(StyleData, 'size'))
+    },
+    {
+      type: 'Image',
+      length: ImageData.length,
+      lines: sum(map(ImageData, 'lines')),
+      count: sum(map(ImageData, 'count')),
+      size: sum(map(ImageData, 'size'))
+    }
   ]
 }

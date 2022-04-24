@@ -6,17 +6,46 @@
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
-import { Card } from 'antd'
-import { Descriptions } from '@ke/table'
-import { Select } from '@ke/form'
-import { last } from 'lodash'
-import { getColumns } from './config'
+import { Card, Select, Result, Button } from 'antd'
+import Table from '@ke/table'
+import { last, map, sum } from 'lodash'
+import { getColumns, getDataSource } from './config'
 
 const Index = () => {
   const [project, setProject] = useState()
   const [projectList, setProjectList] = useState([])
+  const [projectInofList, setProjectInofList] = useState([])
 
-  useEffect(() => {}, [])
+  const fetchProjects = async () => {
+    const projects = ipcRenderer.sendSync('getStore', 'projects')
+    const dataSource = projects
+      .filter(v => {
+        const gitExisted = ipcRenderer.sendSync('fs', 'existsSync', [v, '.git'].join('/'))
+        const packageExisted = ipcRenderer.sendSync('fs', 'existsSync', [v, 'package.json'].join('/'))
+        return gitExisted && packageExisted
+      })
+      .map(v => {
+        const shortName = last(v.split('/'))
+        return {
+          value: v,
+          label: shortName
+        }
+      })
+    if (dataSource.length === 0) {
+      return
+    }
+    setProjectList(dataSource)
+    setProject(dataSource[0].value)
+    const res = await ipcRenderer.invoke('project-analysis', dataSource[0].value)
+    setProjectInofList(res)
+  }
+
+  useEffect(() => {
+    fetchProjects()
+  }, [setProject, setProjectList])
+
+  console.log(111, projectList.length)
+  console.log(projectInofList)
 
   return (
     <>
@@ -28,66 +57,35 @@ const Index = () => {
             onChange={value => {
               setProject(value)
             }}
-            remoteConfig={{
-              fetch: async () => {
-                const projects = ipcRenderer.sendSync('getStore', 'projects')
-                const dataSource = projects
-                  .filter(v => {
-                    const gitExisted = ipcRenderer.sendSync('fs', 'existsSync', [v, '.git'].join('/'))
-                    const packageExisted = ipcRenderer.sendSync('fs', 'existsSync', [v, 'package.json'].join('/'))
-                    return gitExisted && packageExisted
-                  })
-                  .map(v => {
-                    const shortName = last(v.split('/'))
-                    return {
-                      value: v,
-                      label: shortName
-                    }
-                  })
-                setProject(dataSource[0])
-                setProjectList(dataSource)
-
-                const res = await ipcRenderer.invoke('project-analysis', dataSource[0].value)
-                console.log(111)
-                console.log(res)
-
-                return dataSource
-              }
-            }}
+            options={projectList}
             style={{ width: 200 }}
           />
         }
       >
-        <table className="ant-table ant-table-bordered" style={{ width: '100%' }}>
-          <thead className="ant-table-thead">
-            <tr>
-              <th>分类</th>
-              <th>文件数</th>
-              <th>代码行数</th>
-              <th>代码体积</th>
-            </tr>
-          </thead>
-          <tbody className="ant-table-tbody">
-            <tr>
-              <td>js</td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>style</td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>image</td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
+        {!projectList.length && (
+          <Result
+            status="error"
+            title="你还没添加项目"
+            extra={
+              <Button
+                type="primary"
+                onClick={() => {
+                  window.location.hash = '#/dashboard/projects'
+                }}
+              >
+                添加项目
+              </Button>
+            }
+          />
+        )}
+        {!!projectInofList.length && (
+          <Table
+            rowKey="type"
+            dataSource={getDataSource({ projectInofList })}
+            columns={getColumns()}
+            pagination={false}
+          />
+        )}
       </Card>
     </>
   )

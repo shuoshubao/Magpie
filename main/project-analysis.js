@@ -5,7 +5,7 @@
  * @Last Modified time: 2022-04-24 21:03:57
  */
 const { ipcMain } = require('electron')
-const { readFileSync } = require('fs')
+const { readFileSync, statSync } = require('fs')
 const { extname, resolve } = require('path')
 const glob = require('glob')
 const ignore = require('ignore')
@@ -30,14 +30,16 @@ ipcMain.handle('project-analysis', async (event, fullPath) => {
   return files.map(v => {
     const filePath = resolve(fullPath, v)
     const content = readFileSync(filePath).toString()
+    const { size } = statSync(filePath)
     const { length: count } = content
     const { length: lines } = content.split('\n')
     const ext = extname(filePath)
     return {
       filePath: v,
+      ext,
       count,
       lines,
-      ext
+      size
     }
   })
 })

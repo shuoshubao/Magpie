@@ -8,7 +8,7 @@ import React from 'react'
 import { ipcRenderer, shell } from 'electron'
 import { Space, Typography } from 'antd'
 import FolderOpenOutlined from '@ant-design/icons/FolderOpenOutlined'
-import { last } from 'lodash'
+import { last, remove } from 'lodash'
 import { repositoryUrlStringify } from '@/utils'
 
 const { Text, Link } = Typography
@@ -17,7 +17,7 @@ export const getTableColumns = () => {
   return [
     {
       title: '排序',
-      width: 50,
+      width: 60,
       template: {
         tpl: 'sort'
       }
@@ -68,6 +68,28 @@ export const getTableColumns = () => {
             {value}
           </Link>
         )
+      }
+    },
+    {
+      title: '操作',
+      dataIndex: 'path',
+      width: 65,
+      template: {
+        tpl: 'link',
+        render: value => {
+          return {
+            text: '删除',
+            danger: true,
+            PopconfirmConfig: {
+              title: '确定要删除吗？',
+              onConfirm: async () => {
+                const projects = ipcRenderer.sendSync('getStore', 'projects')
+                remove(projects, v => v === value)
+                ipcRenderer.send('setStore', 'projects', projects)
+              }
+            }
+          }
+        }
       }
     }
   ]

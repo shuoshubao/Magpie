@@ -1,8 +1,8 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-24 17:55:38
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-24 21:03:57
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-04-25 13:53:57
  */
 const { ipcMain } = require('electron')
 const { readFileSync, statSync } = require('fs')
@@ -21,9 +21,9 @@ ipcMain.handle('project-analysis', async (event, fullPath) => {
       return ['**', v, '**'].join('/')
     })
 
-  const files = glob.sync('**/*.*', {
+  const files = glob.sync('**/*.{js,jsx,ts,tsx,vue,css,less,scss,png,jpg,jepg}', {
     cwd: fullPath,
-    ignore: gitignore,
+    ignore: [...gitignore, '**/package-lock.json', '**/mock/**', '**/node_modules/**'],
     nodir: true
   })
 

@@ -16,7 +16,7 @@
     "@ke/form": "^2.1.5",
     "@ke/table": "^2.1.1",
     "@nbfe/tools": "^0.2.14",
-    "antd": "^4.19.5",
+    "antd": "^4.20.0",
     "axios": "^0.26.1",
     "electron-log": "^4.4.6",
     "electron-store": "^8.0.1",

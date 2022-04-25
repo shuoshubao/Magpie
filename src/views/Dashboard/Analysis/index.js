@@ -1,20 +1,25 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-24 15:11:34
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-25 11:54:11
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-04-25 13:52:51
  */
 import React, { useRef, useState, useEffect } from 'react'
-import { ipcRenderer } from 'electron'
-import { Card, Select, Result, Button } from 'antd'
+import { ipcRenderer, shell } from 'electron'
+import { Modal, Card, List, Select, Result, Button, InputNumber } from 'antd'
+import SettingOutlined from '@ant-design/icons/SettingOutlined'
+import FolderOpenOutlined from '@ant-design/icons/FolderOpenOutlined'
 import Table from '@ke/table'
 import { last, map, sum } from 'lodash'
+import { sleep } from '@nbfe/tools'
 import { getColumns, getDataSource } from './config'
 
 const Index = () => {
   const [project, setProject] = useState()
   const [projectList, setProjectList] = useState([])
   const [projectInofList, setProjectInofList] = useState([])
+  const [modalVisible, setModalVisible] = useState(false)
+  const [largeFileLimit, setLargeFileLimit] = useState()
 
   const fetchProjects = async () => {
     const projects = ipcRenderer.sendSync('getStore', 'projects')
@@ -48,6 +53,11 @@ const Index = () => {
   useEffect(() => {
     fetchProjects()
   }, [setProject, setProjectList])
+
+  useEffect(() => {
+    const defaultValue = ipcRenderer.sendSync('getStore', 'largeFileLimit')
+    setLargeFileLimit(defaultValue)
+  }, [setLargeFileLimit])
 
   return (
     <>
@@ -90,6 +100,58 @@ const Index = () => {
             pagination={false}
           />
         )}
+      </Card>
+
+      <Modal
+        title="大文件阈值"
+        visible={modalVisible}
+        onCancel={() => setModalVisible(false)}
+        onOk={() => {
+          ipcRenderer.send('setStore', 'largeFileLimit', largeFileLimit)
+          setModalVisible(false)
+        }}
+      >
+        <InputNumber value={largeFileLimit} onChange={setLargeFileLimit} step={10} />
+      </Modal>
+
+      <Card
+        title="大文件"
+        extra={
+          <Button
+            type="primary"
+            icon={<SettingOutlined />}
+            onClick={() => {
+              setModalVisible(true)
+            }}
+          />
+        }
+      >
+        <List
+          size="small"
+          dataSource={projectInofList.filter(v => {
+            const { lines, ext } = v
+            return ['.js', '.jsx', '.ts', '.tsx'].includes(ext) && lines >= largeFileLimit
+          })}
+          renderItem={v => {
+            const { filePath, lines } = v
+            return (
+              <List.Item
+                extra={
+                  <FolderOpenOutlined
+                    onClick={() => {
+                      shell.showItemInFolder([project, filePath].join('/'))
+                    }}
+                  />
+                }
+              >
+                <div>
+                  {filePath} ({lines})
+                </div>
+              </List.Item>
+            )
+          }}
+          size="small"
+        />
       </Card>
     </>
   )

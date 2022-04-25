@@ -1,8 +1,8 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-12 14:33:27
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-22 14:07:19
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-04-25 15:08:32
  */
 import React from 'react'
 import { ipcRenderer } from 'electron'
@@ -10,6 +10,7 @@ import ReactMarkdown from 'react-markdown'
 import RemarkGfm from 'remark-gfm'
 import { Modal, Typography, Tooltip, message } from 'antd'
 import QuestionCircleOutlined from '@ant-design/icons/QuestionCircleOutlined'
+import { map } from 'lodash'
 import { rules, sleep } from '@nbfe/tools'
 import semver from 'semver'
 import { RegistryEnum } from '@/configs'
@@ -163,16 +164,29 @@ export const getQueryTableColumns = ({ DependenciesDataSource, setModalVisible, 
       }
     },
     {
-      title: 'version',
-      dataIndex: ['dist-tags', 'latest']
+      title: '版本号',
+      dataIndex: ['dist-tags', 'latest'],
+      width: 65
     },
     {
-      title: 'description',
+      title: '描述',
       dataIndex: 'description'
     },
     {
-      title: 'maintainers',
-      dataIndex: 'maintainers'
+      title: '主页',
+      dataIndex: 'homepage',
+      render: value => {
+        return value
+      }
+    },
+    {
+      title: '作者',
+      dataIndex: 'maintainers',
+      transform: value => map(value, 'name'),
+      width: 100,
+      template: {
+        separator: 'div'
+      }
     },
     {
       title: '操作',

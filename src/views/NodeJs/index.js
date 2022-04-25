@@ -1,17 +1,33 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-22 15:40:50
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-04-25 15:04:57
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
 import { Button, Modal, Alert, Typography } from 'antd'
 import Form from '@ke/form'
 import Table from '@ke/table'
+import { request } from '@/utils'
 import { getFormColumns, getTableColumns, getQueryColumns, getQueryTableColumns } from './config'
 
 const { Text } = Typography
+
+const fetchPkg = ({ registry, name }) => {
+  return request(
+    {
+      url: [registry, name].join('/')
+    },
+    {
+      showLoading: false,
+      checkCode: false,
+      cacheThreshold: 10 * 60 * 1000 // 10 分钟
+    }
+  ).then(res => {
+    return res.data
+  })
+}
 
 export const Index = () => {
   const tableRef = useRef()
@@ -20,36 +36,21 @@ export const Index = () => {
   const [DependenciesDataSource, setDependenciesDataSource] = useState(false)
   const [modalVisible, setModalVisible] = useState(false)
 
-  const fetchDependencies = () => {
-    const npmrc = ipcRenderer.sendSync('getNpmrc')
-    return new Promise((resolve, reject) => {
-      const res = ipcRenderer.sendSync('execaCommandSync', 'npm list -g --depth 0 --json')
-      const { dependencies } = JSON.parse(res)
-      const dataSource = Object.entries(dependencies).reduce((prev, [name, v]) => {
-        if (name === 'npm') {
-          return prev
-        }
-        const { version, resolved } = v
-        const registry = resolved ? resolved.slice(0, resolved.indexOf('/', 10)) : npmrc.registry
-        prev.push({
-          name,
-          version,
-          registry,
-          latestVersion: ''
-        })
-        return prev
-      }, [])
-      ipcRenderer.send('getPackagesLatestVersion', dataSource)
-      ipcRenderer.on('getPackagesLatestVersion', (event, list) => {
-        dataSource.forEach((v, i) => {
-          v.latestVersion = list[i]
-        })
-        setDependenciesDataSource(dataSource)
-        resolve({
-          list: dataSource
-        })
+  const fetchDependencies = async () => {
+    const dependencies = ipcRenderer.sendSync('getGlobalDependencies')
+    const res = await Promise.all(
+      dependencies.map(v => {
+        const { name, registry } = v
+        return fetchPkg({ registry, name })
       })
+    )
+    dependencies.forEach((v, i) => {
+      v.latestVersion = res[i]['dist-tags'].latest
     })
+    setDependenciesDataSource(dependencies)
+    return {
+      list: dependencies
+    }
   }
 
   useEffect(() => {
@@ -127,13 +128,9 @@ export const Index = () => {
                   list: []
                 }
               }
-              const stdout = ipcRenderer.sendSync(
-                'execaCommandSync',
-                `npm view ${name} name dist-tags maintainers description readme --json --registry=${registry}`
-              )
-              const list = [JSON.parse(stdout)]
+              const pkg = await fetchPkg({ registry, name })
               return {
-                list
+                list: [pkg]
               }
             }
           }}

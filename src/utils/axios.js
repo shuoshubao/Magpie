@@ -1,8 +1,8 @@
 /*
  * @Author: fangt11
  * @Date:   2021-07-13 20:07:26
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-18 14:35:41
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-04-25 14:58:50
  */
 
 import axios from 'axios'
@@ -13,7 +13,7 @@ import { sleep } from '@nbfe/tools'
 const defaultRequestConfig = {
   returnType: 'data', // 'data' | 'response' | 'originResponse'
   checkCode: true,
-  successCode: 2000, // code: 0 为成功
+  successCode: 200, // code: 0 为成功
   onError: null, // 错误处理函数
   showLoading: true,
   cacheThreshold: 50 // 缓存间隔 ms

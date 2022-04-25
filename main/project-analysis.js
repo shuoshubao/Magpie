@@ -2,13 +2,12 @@
  * @Author: shuoshubao
  * @Date:   2022-04-24 17:55:38
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-25 13:53:57
+ * @Last Modified time: 2022-04-25 14:07:02
  */
 const { ipcMain } = require('electron')
 const { readFileSync, statSync } = require('fs')
 const { extname, resolve } = require('path')
 const glob = require('glob')
-const ignore = require('ignore')
 const { sleep } = require('@nbfe/tools')
 
 ipcMain.handle('project-analysis', async (event, fullPath) => {

@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-24 15:11:34
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-24 19:47:18
+ * @Last Modified time: 2022-04-25 11:54:11
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
@@ -34,18 +34,20 @@ const Index = () => {
     if (dataSource.length === 0) {
       return
     }
+    const { value } = dataSource[0]
     setProjectList(dataSource)
-    setProject(dataSource[0].value)
-    const res = await ipcRenderer.invoke('project-analysis', dataSource[0].value)
+    setProject(value)
+    fetchProjectInfoList(value)
+  }
+
+  const fetchProjectInfoList = async value => {
+    const res = await ipcRenderer.invoke('project-analysis', value)
     setProjectInofList(res)
   }
 
   useEffect(() => {
     fetchProjects()
   }, [setProject, setProjectList])
-
-  console.log(111, projectList.length)
-  console.log(projectInofList)
 
   return (
     <>
@@ -54,7 +56,8 @@ const Index = () => {
         extra={
           <Select
             value={project}
-            onChange={value => {
+            onChange={async value => {
+              await fetchProjectInfoList(value)
               setProject(value)
             }}
             options={projectList}
@@ -80,6 +83,7 @@ const Index = () => {
         )}
         {!!projectInofList.length && (
           <Table
+            key={project}
             rowKey="type"
             dataSource={getDataSource({ projectInofList })}
             columns={getColumns()}

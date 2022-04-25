@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-22 15:53:59
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-24 17:18:37
+ * @Last Modified time: 2022-04-25 11:41:22
  * @Desc: 文件上传
  */
 import React, { useRef, useState, useEffect } from 'react'
@@ -61,7 +61,7 @@ const Index = () => {
     <>
       <Table
         ref={tableRef}
-        rowKey="bucket"
+        rowKey="path"
         columns={getTableColumns()}
         remoteConfig={{
           fetch: async () => {

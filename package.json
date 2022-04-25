@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "react-cli serve & node bin/copy-npm & NODE_ENV=development nodemon --exec electron ./main/index.js",
-    "build": "rm -rf dist && react-cli build && node bin && npx electron-builder build"
+    "build": "rm -rf dist && react-cli build && npx electron-builder build"
   },
   "dependencies": {
     "@electron/remote": "^2.0.8",

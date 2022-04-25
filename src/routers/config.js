@@ -1,8 +1,8 @@
 /*
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-24 17:20:25
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-04-25 17:40:06
  * @Desc: 路由配置
  */
 
@@ -66,6 +66,28 @@ export default [
     ]
   },
   {
+    name: '图片压缩',
+    icon: <PictureOutlined />,
+    path: '/tinify',
+    component: Tinify
+  },
+  {
+    name: 'S3服务',
+    icon: <CloudUploadOutlined />,
+    children: [
+      {
+        name: 'Bucket',
+        path: '/s3/bucket',
+        component: S3Bucket
+      },
+      {
+        name: '文件上传',
+        path: '/s3/upload',
+        component: S3Upload
+      }
+    ]
+  },
+  {
     name: 'Node 管理',
     icon: <NodeIcon />,
     path: '/nodejs',
@@ -88,28 +110,6 @@ export default [
     icon: <ControlOutlined />,
     path: '/plugins',
     component: Plugins
-  },
-  {
-    name: '图片压缩',
-    icon: <PictureOutlined />,
-    path: '/tinify',
-    component: Tinify
-  },
-  {
-    name: 'S3服务',
-    icon: <CloudUploadOutlined />,
-    children: [
-      {
-        name: 'Bucket',
-        path: '/s3/bucket',
-        component: S3Bucket
-      },
-      {
-        name: '文件上传',
-        path: '/s3/upload',
-        component: S3Upload
-      }
-    ]
   },
   {
     name: 'Ant Design',

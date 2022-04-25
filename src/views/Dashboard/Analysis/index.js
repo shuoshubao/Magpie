@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-24 15:11:34
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-25 13:52:51
+ * @Last Modified time: 2022-04-25 17:43:31
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer, shell } from 'electron'
@@ -95,6 +95,7 @@ const Index = () => {
           <Table
             key={project}
             rowKey="type"
+            size="small"
             dataSource={getDataSource({ projectInofList })}
             columns={getColumns()}
             pagination={false}

@@ -2,12 +2,12 @@
  * @Author: shuoshubao
  * @Date:   2022-04-14 13:09:24
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-25 15:03:35
+ * @Last Modified time: 2022-04-26 13:16:07
  */
 const { ipcMain, BrowserWindow } = require('electron')
 const { readFileSync } = require('fs')
 const { readJsonSync } = require('fs-extra')
-const { resolve, relative } = require('path')
+const { resolve } = require('path')
 const glob = require('glob')
 const ini = require('ini')
 const { execaCommandSync } = require('./util')

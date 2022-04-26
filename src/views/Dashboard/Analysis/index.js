@@ -2,17 +2,21 @@
  * @Author: shuoshubao
  * @Date:   2022-04-24 15:11:34
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-25 17:43:31
+ * @Last Modified time: 2022-04-26 18:36:43
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer, shell } from 'electron'
-import { Modal, Card, List, Select, Result, Button, InputNumber } from 'antd'
+import { Modal, Card, List, Select, Result, Button, InputNumber, Typography, Progress, message } from 'antd'
 import SettingOutlined from '@ant-design/icons/SettingOutlined'
 import FolderOpenOutlined from '@ant-design/icons/FolderOpenOutlined'
+import EyeOutlined from '@ant-design/icons/EyeOutlined'
+import BugOutlined from '@ant-design/icons/BugOutlined'
 import Table from '@ke/table'
-import { last, map, sum } from 'lodash'
-import { sleep } from '@nbfe/tools'
-import { getColumns, getDataSource } from './config'
+import { last, map, sum, sortBy } from 'lodash'
+import { sleep, div, formatters } from '@nbfe/tools'
+import { getColumns, getDataSource, getProgressPercent, getProgressFormat } from './config'
+
+const { Text } = Typography
 
 const Index = () => {
   const [project, setProject] = useState()
@@ -20,6 +24,8 @@ const Index = () => {
   const [projectInofList, setProjectInofList] = useState([])
   const [modalVisible, setModalVisible] = useState(false)
   const [largeFileLimit, setLargeFileLimit] = useState()
+  const [eslintLoading, setEslintLoading] = useState(false)
+  const [EslintData, setEslintData] = useState({})
 
   const fetchProjects = async () => {
     const projects = ipcRenderer.sendSync('getStore', 'projects')
@@ -43,21 +49,56 @@ const Index = () => {
     setProjectList(dataSource)
     setProject(value)
     fetchProjectInfoList(value)
+    fetchLocalEslintReport(value)
   }
 
   const fetchProjectInfoList = async value => {
-    const res = await ipcRenderer.invoke('project-analysis', value)
+    const res = await ipcRenderer.invoke('getProjectAnalysis', value)
     setProjectInofList(res)
+  }
+
+  const fetchEslintReport = async () => {
+    setEslintLoading(true)
+    const sTime = Date.now()
+    const res = await ipcRenderer.invoke('getEslintResults', project)
+    if (res.errMsg) {
+      message.error(res.errMsg)
+      return
+    }
+    const eTime = Date.now()
+    message.info(`已生成Eslint报告, 耗时: ${eTime - sTime} ms`)
+    setEslintLoading(false)
+    setEslintData(res)
+  }
+
+  const fetchLocalEslintReport = value => {
+    const projectName = last(value.split('/'))
+    const { ESLINT_REPORT_DIR } = ipcRenderer.sendSync('getMainConfig')
+    const localReports = ipcRenderer.sendSync('globSync', `${ESLINT_REPORT_DIR}/${projectName}/*.json`)
+    if (localReports.length) {
+      const res = ipcRenderer.sendSync('fse', 'readJsonSync', localReports[0])
+      setEslintData(res)
+    } else {
+      setEslintData({})
+    }
   }
 
   useEffect(() => {
     fetchProjects()
-  }, [setProject, setProjectList])
+  }, [setProject, setProjectList, setEslintData])
 
   useEffect(() => {
     const defaultValue = ipcRenderer.sendSync('getStore', 'largeFileLimit')
     setLargeFileLimit(defaultValue)
   }, [setLargeFileLimit])
+
+  const largeFiles = sortBy(
+    projectInofList.filter(v => {
+      const { lines, ext } = v
+      return ['.js', '.jsx', '.ts', '.tsx'].includes(ext) && lines >= largeFileLimit
+    }),
+    ['lines']
+  ).reverse()
 
   return (
     <>
@@ -69,6 +110,7 @@ const Index = () => {
             onChange={async value => {
               await fetchProjectInfoList(value)
               setProject(value)
+              fetchLocalEslintReport(value)
             }}
             options={projectList}
             style={{ width: 200 }}
@@ -112,11 +154,20 @@ const Index = () => {
           setModalVisible(false)
         }}
       >
-        <InputNumber value={largeFileLimit} onChange={setLargeFileLimit} step={10} />
+        <InputNumber value={largeFileLimit} onChange={setLargeFileLimit} step={10} min={100} />
       </Modal>
 
       <Card
-        title="大文件"
+        title={
+          <div>
+            <span>大文件</span>
+            <Text type={largeFiles.length ? 'danger' : 'success'}> {largeFiles.length}</Text>
+            <span> / </span>
+            <span>{projectInofList.length}</span>
+            <span> = </span>
+            <span>{formatters.percentage(div(largeFiles.length, projectInofList.length))}</span>
+          </div>
+        }
         extra={
           <Button
             type="primary"
@@ -126,14 +177,13 @@ const Index = () => {
             }}
           />
         }
+        bodyStyle={{ padding: 0 }}
       >
         <List
           size="small"
-          dataSource={projectInofList.filter(v => {
-            const { lines, ext } = v
-            return ['.js', '.jsx', '.ts', '.tsx'].includes(ext) && lines >= largeFileLimit
-          })}
-          renderItem={v => {
+          dataSource={largeFiles}
+          style={{ maxHeight: 40 * 10, overflow: 'auto' }}
+          renderItem={(v, i) => {
             const { filePath, lines } = v
             return (
               <List.Item
@@ -144,6 +194,7 @@ const Index = () => {
                     }}
                   />
                 }
+                style={{ padding: i === largeFiles.length - 1 ? '9px 10px' : '9px 10px 8px' }}
               >
                 <div>
                   {filePath} ({lines})
@@ -152,6 +203,35 @@ const Index = () => {
             )
           }}
           size="small"
+        />
+      </Card>
+
+      <Card
+        title="Eslint"
+        extra={
+          <>
+            <Button
+              type="primary"
+              loading={eslintLoading}
+              disabled={!EslintData.EslintReportFilePath}
+              icon={<EyeOutlined />}
+              onClick={() => {
+                ipcRenderer.invoke('electron.openBrowserWindow', EslintData.EslintReportFilePath)
+              }}
+            >
+              新窗口查看完整的报告
+            </Button>
+            <Button type="primary" loading={eslintLoading} icon={<BugOutlined />} onClick={fetchEslintReport}>
+              开始检测
+            </Button>
+          </>
+        }
+      >
+        <Progress
+          width={150}
+          percent={getProgressPercent(EslintData)}
+          format={getProgressFormat(EslintData)}
+          type="circle"
         />
       </Card>
     </>

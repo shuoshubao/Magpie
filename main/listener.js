@@ -1,15 +1,15 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:31:01
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-24 17:55:55
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-04-26 17:57:39
  * @Desc 事件监听
  */
-const { ipcMain, dialog } = require('electron')
+const { ipcMain, BrowserWindow, dialog } = require('electron')
 const log = require('electron-log')
+const { resolve } = require('path')
 const os = require('os')
 const execa = require('execa')
-const glob = require('glob')
 const ip = require('ip')
 const axios = require('axios')
 const { isFunction } = require('lodash')
@@ -20,7 +20,7 @@ require('./fs')
 require('./theme')
 require('./prettier')
 require('./image')
-require('./project-analysis.js')
+require('./project-analysis')
 
 axios.interceptors.request.use(request => {
   log.info(
@@ -45,6 +45,12 @@ ipcMain.on('getProcessVersions', (event, file, args) => {
   event.returnValue = process.versions
 })
 
+ipcMain.handle('electron.openBrowserWindow', (event, htmlFilePath) => {
+  const win = new BrowserWindow()
+  win.maximize()
+  win.loadURL(`file://${htmlFilePath}`)
+})
+
 ipcMain.on('os', (event, propName) => {
   const value = os[propName]
   if (propName === 'freemem') {
@@ -58,10 +64,6 @@ ipcMain.on('os', (event, propName) => {
 
 ipcMain.on('execaCommandSync', (event, command) => {
   event.returnValue = execaCommandSync(command)
-})
-
-ipcMain.on('globSync', (event, pattern, options) => {
-  event.returnValue = glob.sync(pattern, options)
 })
 
 ipcMain.on('getIp', event => {

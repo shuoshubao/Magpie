@@ -1,11 +1,16 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-24 15:32:51
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-24 17:42:15
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-04-26 18:19:09
  */
+import React from 'react'
+import { Typography } from 'antd'
 import { map, sum } from 'lodash'
 import filesize from 'filesize'
+import { div, mul } from '@nbfe/tools'
+
+const { Text } = Typography
 
 export const getColumns = () => {
   return [
@@ -53,4 +58,33 @@ export const getDataSource = ({ projectInofList }) => {
       size: sum(map(ImageData, 'size'))
     }
   ]
+}
+
+export const getProgressPercent = EslintData => {
+  const { results } = EslintData
+  if (!results) {
+    return 0
+  }
+  const errResults = results.filter(v => v.messages.length)
+  return mul(div(errResults.length, results.length), 100).toFixed(2)
+}
+
+export const getProgressFormat = EslintData => {
+  return (percent, successPercent) => {
+    const { results } = EslintData
+    if (!results) {
+      return '--'
+    }
+    const errResults = results.filter(v => v.messages.length)
+    return (
+      <>
+        <div>{percent}%</div>
+        <div>
+          <Text type={errResults.length ? 'danger' : 'success'}> {errResults.length}</Text>
+          <span>/</span>
+          <span>{results.length}</span>
+        </div>
+      </>
+    )
+  }
 }

@@ -36,7 +36,7 @@ module.exports = ({ isDevelopment, isProduction }) => {
     },
     dllEntry: {
       tools: ['html2canvas', 'react-markdown', 'react-json-view', 'remark-gfm'],
-      nbfe: ['@nbfe/tools', '@ke/form', '@ke/table'],
+      nbfe: ['@nbfe/tools', '@ke/form', '@ke/table']
     }
   }
 }

@@ -1,4 +1,4 @@
-const EslintConfig = require('@ke/standard/eslint')
+const EslintConfig = require('@nbfe/standard/eslint')
 
 module.exports = {
   ...EslintConfig,

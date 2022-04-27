@@ -1,11 +1,18 @@
 /*
  * @Author: fangt11
  * @Date:   2022-04-20 11:15:54
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-20 13:39:35
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-04-27 14:38:46
  */
 
 export const ChromeExtensions = [
+  {
+    title: 'Octotree - GitHub code tree',
+    name: 'octotree-github-code-tree',
+    id: 'bkhaagjahfmjljalopjnoealnfndnagc',
+    description: 'GitHub项目阅读器',
+    icon: 'wafm5uFaPRSo1RHMbhcdEghFzTPUfYo5GosPmBhkdNuYlGz8WigoAQM-8lulzuhWQBGTbbUyRvfoyIMDypJzuAVZ'
+  },
   {
     title: 'React Developer Tools',
     name: 'react-developer-tools',

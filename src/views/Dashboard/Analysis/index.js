@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-24 15:11:34
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-26 18:36:43
+ * @Last Modified time: 2022-04-27 16:29:00
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer, shell } from 'electron'
@@ -14,7 +14,15 @@ import BugOutlined from '@ant-design/icons/BugOutlined'
 import Table from '@ke/table'
 import { last, map, sum, sortBy } from 'lodash'
 import { sleep, div, formatters } from '@nbfe/tools'
-import { getColumns, getDataSource, getProgressPercent, getProgressFormat } from './config'
+import { Colors } from '@/configs'
+import {
+  getColumns,
+  getDataSource,
+  getProgressPercent,
+  getProgressFormat,
+  JsExtensions,
+  StyleExtensions
+} from './config'
 
 const { Text } = Typography
 
@@ -92,10 +100,15 @@ const Index = () => {
     setLargeFileLimit(defaultValue)
   }, [setLargeFileLimit])
 
+  const projectInofJsFileList = projectInofList.filter(v => {
+    const { ext } = v
+    return JsExtensions.includes(ext)
+  })
+
   const largeFiles = sortBy(
-    projectInofList.filter(v => {
-      const { lines, ext } = v
-      return ['.js', '.jsx', '.ts', '.tsx'].includes(ext) && lines >= largeFileLimit
+    projectInofJsFileList.filter(v => {
+      const { lines } = v
+      return lines >= largeFileLimit
     }),
     ['lines']
   ).reverse()
@@ -145,27 +158,17 @@ const Index = () => {
         )}
       </Card>
 
-      <Modal
-        title="大文件阈值"
-        visible={modalVisible}
-        onCancel={() => setModalVisible(false)}
-        onOk={() => {
-          ipcRenderer.send('setStore', 'largeFileLimit', largeFileLimit)
-          setModalVisible(false)
-        }}
-      >
-        <InputNumber value={largeFileLimit} onChange={setLargeFileLimit} step={10} min={100} />
-      </Modal>
-
       <Card
         title={
           <div>
             <span>大文件</span>
             <Text type={largeFiles.length ? 'danger' : 'success'}> {largeFiles.length}</Text>
             <span> / </span>
-            <span>{projectInofList.length}</span>
+            <span>{projectInofJsFileList.length}</span>
             <span> = </span>
-            <span>{formatters.percentage(div(largeFiles.length, projectInofList.length))}</span>
+            <Text type={largeFiles.length ? 'danger' : 'success'}>
+              {formatters.percentage(div(largeFiles.length, projectInofJsFileList.length))}
+            </Text>
           </div>
         }
         extra={
@@ -232,8 +235,23 @@ const Index = () => {
           percent={getProgressPercent(EslintData)}
           format={getProgressFormat(EslintData)}
           type="circle"
+          strokeColor={Colors.red}
+          trailColor={Colors.green}
         />
       </Card>
+
+      <Modal
+        visible={modalVisible}
+        title="大文件阈值"
+        width={400}
+        onCancel={() => setModalVisible(false)}
+        onOk={() => {
+          ipcRenderer.send('setStore', 'largeFileLimit', largeFileLimit)
+          setModalVisible(false)
+        }}
+      >
+        <InputNumber value={largeFileLimit} onChange={setLargeFileLimit} step={10} min={100} />
+      </Modal>
     </>
   )
 }

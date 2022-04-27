@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-24 15:32:51
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-26 18:19:09
+ * @Last Modified time: 2022-04-27 16:29:41
  */
 import React from 'react'
 import { Typography } from 'antd'
@@ -22,18 +22,22 @@ export const getColumns = () => {
   ]
 }
 
+export const JsExtensions = ['.js', '.jsx', '.ts', '.tsx']
+export const StyleExtensions = ['.css', '.less', '.scss']
+export const ImageExtensions = ['.png', '.jpg', '.jepg']
+
 export const getDataSource = ({ projectInofList }) => {
   const JsData = projectInofList.filter(v => {
     const { ext } = v
-    return ['.js', '.jsx', '.ts', '.tsx'].includes(ext)
+    return JsExtensions.includes(ext)
   })
   const StyleData = projectInofList.filter(v => {
     const { ext } = v
-    return ['.css', '.less', '.scss'].includes(ext)
+    return StyleExtensions.includes(ext)
   })
   const ImageData = projectInofList.filter(v => {
     const { ext } = v
-    return ['.png', '.jpg', '.jepg'].includes(ext)
+    return ImageExtensions.includes(ext)
   })
   return [
     {

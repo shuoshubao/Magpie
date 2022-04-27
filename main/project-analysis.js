@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-24 17:55:38
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-27 16:49:21
+ * @Last Modified time: 2022-04-27 17:51:32
  */
 const { ipcMain } = require('electron')
 const { readFileSync, writeFileSync, statSync } = require('fs')
@@ -90,7 +90,7 @@ ipcMain.handle('getEslintResults', async (event, fullPath) => {
     const data = { results, rulesMeta, EslintReportFilePath: htmlPath }
 
     ensureFileSync(htmlPath)
-    writeFileSync(htmlPath, html)
+    writeFileSync(htmlPath, html.replaceAll('../', '').replaceAll(fullPath, ''))
     ensureFileSync(jsonPath)
     writeJsonSync(jsonPath, data)
 

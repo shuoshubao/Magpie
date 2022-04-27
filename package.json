@@ -13,14 +13,14 @@
     "build": "rm -rf dist && react-cli build && npx electron-builder build",
     "commit": "npx git-cz",
     "prettier": "npx prettier --write",
-    "lint": "npx eslint --ext .ts,.tsx,.js,.jsx,.vue -f html -o ESLintReport.html",
+    "lint": "npx eslint --ext .ts,.tsx,.js,.jsx,.vue -f html -o ESLintReport.html --resolve-plugins-relative-to .",
     "lint:style": "npx stylelint --fix -o StyleLintReport.html --aei --custom-formatter node_modules/stylelint-formatters-html **/*.{css,less,scss,sass}"
   },
   "dependencies": {
     "@electron/remote": "^2.0.8",
     "@ke/form": "^2.1.5",
+    "@ke/standard": "^1.2.2",
     "@ke/table": "^2.1.1",
-    "@nbfe/standard": "^1.0.0",
     "@nbfe/tools": "^0.2.14",
     "antd": "^4.20.0",
     "axios": "^0.26.1",
@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@jiaoyi/s3": "^0.1.7",
-    "@ke/react-cli": "^1.2.0",
+    "@ke/react-cli": "^1.2.2",
     "electron": "^18.0.1",
     "electron-builder": "^23.0.3",
     "nodemon": "^2.0.15"

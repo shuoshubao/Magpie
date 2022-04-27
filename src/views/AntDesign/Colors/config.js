@@ -2,8 +2,9 @@
  * @Author: shuoshubao
  * @Date:   2022-04-15 15:08:20
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-27 16:52:06
+ * @Last Modified time: 2022-04-27 17:24:38
  */
+import React from 'react'
 import { message } from 'antd'
 import * as Colors from '@ant-design/colors'
 import { range } from 'lodash'
@@ -119,7 +120,7 @@ export const columns = [
   ...range(10).map(v => {
     return {
       dataIndex: ['color', v].join('_'),
-      render: (text, record, index) => {
+      render: text => {
         return (
           <div
             className={styles.colorValue}

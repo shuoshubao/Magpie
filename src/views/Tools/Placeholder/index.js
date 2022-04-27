@@ -2,10 +2,10 @@
  * @Author: shuoshubao
  * @Date:   2022-04-15 14:55:02
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-27 16:52:25
+ * @Last Modified time: 2022-04-27 17:19:40
  * @Desc 图片占位符
  */
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { ipcRenderer, shell } from 'electron'
 import { Card, Button, Space, message } from 'antd'
 import Form from '@ke/form'

@@ -93,10 +93,7 @@ const Index = () => {
           const { text, href } = v
           return (
             <div key={href}>
-              <span>{text}
-:
-{' '}
-</span>
+              <span>{text}: </span>
               <Link href={href}>{href}</Link>
             </div>
           )

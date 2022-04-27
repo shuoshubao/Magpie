@@ -1,8 +1,8 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:59:52
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-17 15:05:40
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-04-27 17:20:13
  */
 import React, { useState, useEffect } from 'react'
 import { ipcRenderer, shell } from 'electron'
@@ -23,13 +23,11 @@ export default () => {
       .map(v => {
         const [a, b, c, ...d] = v.split(' ')
         const time = [a.slice(1), b.slice(0, -1)].join(' ')
-        const type = c.slice(1, -1)
-        const text = d.join(' ')
         return {
           time,
           shortTime: time.slice(11, 19),
-          type,
-          text
+          type: c.slice(1, -1),
+          text: d.join(' ')
         }
       })
     setLogList(list)

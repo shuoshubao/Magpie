@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-24 15:32:51
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-27 16:53:51
+ * @Last Modified time: 2022-04-27 17:25:31
  */
 import React from 'react'
 import { Typography } from 'antd'
@@ -82,15 +82,10 @@ export const getProgressFormat = EslintData => {
     const errResults = results.filter(v => v.messages.length)
     return (
       <>
-        <div>{percent}
-%
-</div>
+        <div>{percent}%</div>
         <div>
-          <Text type={errResults.length ? 'danger' : 'success'}> 
-{' '}
-{errResults.length}
-</Text>
-          <span>/</span>
+          <Text type={errResults.length ? 'danger' : 'success'}>{errResults.length}</Text>
+          <span> / </span>
           <span>{results.length}</span>
         </div>
       </>

@@ -1,8 +1,8 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-14 20:38:21
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-14 20:46:33
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-04-27 17:22:33
  */
 import filesize from 'filesize'
 
@@ -37,7 +37,7 @@ export const BaseinfoColumns = [
   },
   {
     label: 'Npm 版本',
-    name: 'npm_version'
+    name: 'nodeVersion'
   }
 ]
 

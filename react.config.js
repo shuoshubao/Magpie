@@ -2,11 +2,11 @@
  * @Author: fangt11
  * @Date:   2021-11-24 10:50:57
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-25 15:10:58
+ * @Last Modified time: 2022-04-27 17:32:35
  * @Desc: 打包配置
  */
 
-module.exports = ({ isDevelopment, isProduction }) => {
+module.exports = ({ isDevelopment }) => {
   return {
     publicPath: isDevelopment ? '/' : './',
     // publicPath: isDevelopment ? '/' : 'https://storage.lianjia.com/tent/electron/dist/',

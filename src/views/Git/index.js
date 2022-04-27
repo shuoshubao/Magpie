@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-27 16:49:38
+ * @Last Modified time: 2022-04-27 17:28:55
  */
 import React, { useRef } from 'react'
 import { Button } from 'antd'
@@ -28,6 +28,7 @@ export const Index = () => {
             onClick={async () => {
               const formData = await formRef.current.getFormData()
               if (!formData) {
+                return
               }
             }}
           >

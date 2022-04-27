@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2021-07-13 20:07:26
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-25 14:58:50
+ * @Last Modified time: 2022-04-27 17:24:59
  */
 
 import axios from 'axios'
@@ -102,15 +102,17 @@ export const request = (axiosConfig = {}, requestConfig = {}) => {
         }
         // 成功
         if (code === successCode) {
-          return resolve(returnData)
+          resolve(returnData)
+          return
         }
         // 失败
         if (isFunction(onError)) {
           onError(response.data)
-          return resolve(response.data)
+          resolve(response.data)
+          return
         }
         message.error(messageText)
-        return reject(response.data)
+        reject(response.data)
       })
       .catch(e => {
         if (showLoading) {

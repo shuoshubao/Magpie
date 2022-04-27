@@ -1,8 +1,8 @@
 /*
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-21 13:36:06
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-04-27 17:22:54
  */
 
 import React, { useState, useEffect } from 'react'
@@ -30,8 +30,7 @@ const Index = () => {
     const freemem = ipcRenderer.sendSync('os', 'freemem')
     const name = ipcRenderer.sendSync('execaCommandSync', 'git config --global user.name')
     const email = ipcRenderer.sendSync('execaCommandSync', 'git config --global user.email')
-    const node_version = ipcRenderer.sendSync('execaCommandSync', 'node -v')
-    const npm_version = ipcRenderer.sendSync('execaCommandSync', 'npm -v')
+    const nodeVersion = ipcRenderer.sendSync('execaCommandSync', 'node -v')
     setUsername(userInfo.username)
     setBaseinfoDataSource({
       cpus: cpus.length,
@@ -39,8 +38,7 @@ const Index = () => {
       ip: ipcRenderer.sendSync('getIp'),
       name,
       email,
-      node_version,
-      npm_version
+      nodeVersion
     })
     setElectronDataSource(ipcRenderer.sendSync('getProcessVersions'))
   }, [setUsername, setBaseinfoDataSource, setElectronDataSource])
@@ -61,6 +59,8 @@ const Index = () => {
     return null
   }
 
+  const helloText = ['你好, ', username, '!'].join('')
+
   return (
     <>
       <Card
@@ -77,11 +77,7 @@ const Index = () => {
           </Button>
         }
       >
-        <Title level={4}>
-你好,{username}
-!
-</Title>
-        <Title level={4}>欢迎使用[前端研发工作台]</Title>
+        <Title level={4}>{helloText}</Title>
       </Card>
       <Descriptions
         title="基本信息"

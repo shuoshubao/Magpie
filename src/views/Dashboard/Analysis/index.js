@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-24 15:11:34
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-27 16:54:52
+ * @Last Modified time: 2022-04-27 17:33:41
  */
 import React, { useState, useEffect } from 'react'
 import { ipcRenderer, shell } from 'electron'
@@ -28,31 +28,6 @@ const Index = () => {
   const [eslintLoading, setEslintLoading] = useState(false)
   const [EslintData, setEslintData] = useState({})
 
-  const fetchProjects = async () => {
-    const projects = ipcRenderer.sendSync('getStore', 'projects')
-    const dataSource = projects
-      .filter(v => {
-        const gitExisted = ipcRenderer.sendSync('fs', 'existsSync', [v, '.git'].join('/'))
-        const packageExisted = ipcRenderer.sendSync('fs', 'existsSync', [v, 'package.json'].join('/'))
-        return gitExisted && packageExisted
-      })
-      .map(v => {
-        const shortName = last(v.split('/'))
-        return {
-          value: v,
-          label: shortName
-        }
-      })
-    if (dataSource.length === 0) {
-      return
-    }
-    const { value } = dataSource[0]
-    setProjectList(dataSource)
-    setProject(value)
-    fetchProjectInfoList(value)
-    fetchLocalEslintReport(value)
-  }
-
   const fetchProjectInfoList = async value => {
     const res = await ipcRenderer.invoke('getProjectAnalysis', value)
     setProjectInofList(res)
@@ -77,11 +52,36 @@ const Index = () => {
     const { ESLINT_REPORT_DIR } = ipcRenderer.sendSync('getMainConfig')
     const localReports = ipcRenderer.sendSync('globSync', `${ESLINT_REPORT_DIR}/${projectName}/*.json`)
     if (localReports.length) {
-      const res = ipcRenderer.sendSync('fse', 'readJsonSync', localReports[0])
+      const res = ipcRenderer.sendSync('fse', 'readJsonSync', last(localReports))
       setEslintData(res)
     } else {
       setEslintData({})
     }
+  }
+
+  const fetchProjects = async () => {
+    const projects = ipcRenderer.sendSync('getStore', 'projects')
+    const dataSource = projects
+      .filter(v => {
+        const gitExisted = ipcRenderer.sendSync('fs', 'existsSync', [v, '.git'].join('/'))
+        const packageExisted = ipcRenderer.sendSync('fs', 'existsSync', [v, 'package.json'].join('/'))
+        return gitExisted && packageExisted
+      })
+      .map(v => {
+        const shortName = last(v.split('/'))
+        return {
+          value: v,
+          label: shortName
+        }
+      })
+    if (dataSource.length === 0) {
+      return
+    }
+    const { value } = dataSource[0]
+    setProjectList(dataSource)
+    setProject(value)
+    fetchProjectInfoList(value)
+    fetchLocalEslintReport(value)
   }
 
   useEffect(() => {
@@ -155,10 +155,7 @@ const Index = () => {
         title={
           <div>
             <span>大文件</span>
-            <Text type={largeFiles.length ? 'danger' : 'success'}>
-              {' '}
-              {largeFiles.length}
-            </Text>
+            <Text type={largeFiles.length ? 'danger' : 'success'}> {largeFiles.length}</Text>
             <span> / </span>
             <span>{projectInofJsFileList.length}</span>
             <span> = </span>
@@ -201,7 +198,6 @@ const Index = () => {
               </List.Item>
             )
           }}
-          size="small"
         />
       </Card>
 

@@ -1,8 +1,8 @@
+const { merge } = require('lodash')
 const EslintConfig = require('@ke/standard/eslint')
 
-module.exports = {
-  ...EslintConfig,
+module.exports = merge({}, EslintConfig, {
   rules: {
-    ...EslintConfig.rules
+
   }
-}
+})

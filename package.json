@@ -19,7 +19,7 @@
   "dependencies": {
     "@electron/remote": "^2.0.8",
     "@ke/form": "^2.1.5",
-    "@ke/standard": "^1.2.2",
+    "@ke/standard": "^1.3.0",
     "@ke/table": "^2.1.1",
     "@nbfe/tools": "^0.2.14",
     "antd": "^4.20.0",

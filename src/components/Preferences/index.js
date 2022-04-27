@@ -66,7 +66,6 @@ const Index = () => {
         ipcRenderer.send('setStore', 'prettierConfig', prettierConfig)
         setVisible(false)
       }
-      return
     }
   }
 

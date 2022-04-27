@@ -65,7 +65,7 @@ export const Index = () => {
               const time = Date.now()
               const filePath = filePaths[0]
               const isFile = last(filePath.split('/')).includes('.')
-              let files = []
+              const files = []
               if (isFile) {
                 files.push(filePath)
               } else {

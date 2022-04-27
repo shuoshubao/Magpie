@@ -1,8 +1,8 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-22 15:53:59
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-25 11:41:22
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-04-27 16:40:16
  * @Desc: 文件上传
  */
 import React, { useRef, useState, useEffect } from 'react'
@@ -38,7 +38,11 @@ const Index = () => {
         message: '此目录不是 Git 存储库',
         description: (
           <div>
-            请保证所选目录下游 <Text>.git</Text> 目录 和 <Text>package.json</Text> 文件
+            <span>请保证所选目录下游</span>
+            <Text> .git </Text>
+            <span>目录和</span>
+            <Text> package.json </Text>
+            <span>文件</span>
           </div>
         ),
         style: {
@@ -58,43 +62,41 @@ const Index = () => {
   }
 
   return (
-    <>
-      <Table
-        ref={tableRef}
-        rowKey="path"
-        columns={getTableColumns()}
-        remoteConfig={{
-          fetch: async () => {
-            const projects = ipcRenderer.sendSync('getStore', 'projects')
-            const dataSource = projects
-              .filter(v => {
-                const gitExisted = ipcRenderer.sendSync('fs', 'existsSync', [v, '.git'].join('/'))
-                const packageExisted = ipcRenderer.sendSync('fs', 'existsSync', [v, 'package.json'].join('/'))
-                return gitExisted && packageExisted
-              })
-              .map(v => {
-                const pkg = ipcRenderer.sendSync('fs', 'readFileSync', [v, 'package.json'].join('/'))
-                return {
-                  path: v,
-                  pkg: JSON.parse(pkg)
-                }
-              })
-            return {
-              list: dataSource
-            }
+    <Table
+      ref={tableRef}
+      rowKey="path"
+      columns={getTableColumns()}
+      remoteConfig={{
+        fetch: async () => {
+          const projects = ipcRenderer.sendSync('getStore', 'projects')
+          const dataSource = projects
+            .filter(v => {
+              const gitExisted = ipcRenderer.sendSync('fs', 'existsSync', [v, '.git'].join('/'))
+              const packageExisted = ipcRenderer.sendSync('fs', 'existsSync', [v, 'package.json'].join('/'))
+              return gitExisted && packageExisted
+            })
+            .map(v => {
+              const pkg = ipcRenderer.sendSync('fs', 'readFileSync', [v, 'package.json'].join('/'))
+              return {
+                path: v,
+                pkg: JSON.parse(pkg)
+              }
+            })
+          return {
+            list: dataSource
           }
-        }}
-        pagination={false}
-        prependHeader={
-          <Button type="primary" icon={<FolderOpenOutlined />} onClick={handleSelectProject}>
-            新增项目
-          </Button>
         }
-        onDragSortEnd={({ newDataSource, dataSource, fromIndex, toIndex }) => {
-          ipcRenderer.send('setStore', 'projects', map(newDataSource, 'path'))
-        }}
-      />
-    </>
+      }}
+      pagination={false}
+      prependHeader={
+        <Button type="primary" icon={<FolderOpenOutlined />} onClick={handleSelectProject}>
+          新增项目
+        </Button>
+      }
+      onDragSortEnd={({ newDataSource, dataSource, fromIndex, toIndex }) => {
+        ipcRenderer.send('setStore', 'projects', map(newDataSource, 'path'))
+      }}
+    />
   )
 }
 

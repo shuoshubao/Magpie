@@ -28,7 +28,6 @@ export const Index = () => {
             onClick={async () => {
               const formData = await formRef.current.getFormData()
               if (!formData) {
-                return
               }
             }}
           >

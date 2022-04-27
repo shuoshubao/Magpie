@@ -118,7 +118,7 @@ export const getTableColumns = ({ setModalData }) => {
                   content: (
                     <pre>
                       <code className="hljs language-javascript">
-                        <div dangerouslySetInnerHTML={{ __html: highlightCode }}></div>
+                        <div dangerouslySetInnerHTML={{ __html: highlightCode }} />
                       </code>
                     </pre>
                   ),

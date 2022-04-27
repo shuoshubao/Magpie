@@ -18,7 +18,10 @@ export default () => {
     <div style={{ margin: -10, padding: 10, height: 'calc(100% + 20px)', textAlign: 'center' }}>
       <DesktopOutlined style={{ fontSize: 60, color: Colors.blue }} />
       <Title level={1}>{APP_NAME}</Title>
-      <Text>版本: {APP_VERSION}</Text>
+      <Text>
+        版本:
+        {APP_VERSION}
+      </Text>
     </div>
   )
 }

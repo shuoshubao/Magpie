@@ -23,13 +23,11 @@ const getProjectFiles = (fullPath, extensions = []) => {
       return ['**', v, '**'].join('/')
     })
 
-  const files = glob.sync(`**/*.{${extensions.join(',')}}`, {
+  return glob.sync(`**/*.{${extensions.join(',')}}`, {
     cwd: fullPath,
     ignore: [...gitignore, '**/package-lock.json', '**/mock/**', '**/node_modules/**'],
     nodir: true
   })
-
-  return files
 }
 
 ipcMain.handle('getProjectAnalysis', (event, fullPath) => {

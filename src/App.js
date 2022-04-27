@@ -1,7 +1,5 @@
 import React, { Suspense } from 'react'
-import { ConfigProvider, Button, Skeleton, notification } from 'antd'
-import LoadingOutlined from '@ant-design/icons/LoadingOutlined'
-import DownloadOutlined from '@ant-design/icons/DownloadOutlined'
+import { ConfigProvider, Skeleton } from 'antd'
 import moment from 'moment'
 import { getAntdLocaleZhCN, defineMomentLocaleZhCn } from '@nbfe/tools'
 import Layout from '@/components/Layout'

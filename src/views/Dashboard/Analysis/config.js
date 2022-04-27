@@ -82,7 +82,9 @@ export const getProgressFormat = EslintData => {
     const errResults = results.filter(v => v.messages.length)
     return (
       <>
-        <div>{percent}%</div>
+        <div>{percent}
+%
+</div>
         <div>
           <Text type={errResults.length ? 'danger' : 'success'}> {errResults.length}</Text>
           <span>/</span>

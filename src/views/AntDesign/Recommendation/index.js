@@ -18,7 +18,7 @@ const Index = () => {
           官网
         </Button>
       }
-    ></Card>
+    />
   )
 }
 

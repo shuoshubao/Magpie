@@ -86,7 +86,7 @@ export default () => {
             <span>VSCode 插件</span>
           </Space>
         }
-      ></Card>
+      />
       <Card
         title={
           <Space>
@@ -94,7 +94,7 @@ export default () => {
             <span>Sketch 插件</span>
           </Space>
         }
-      ></Card>
+      />
     </>
   )
 }

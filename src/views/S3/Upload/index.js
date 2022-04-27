@@ -9,11 +9,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import { Card, Button } from 'antd'
 
 const Index = () => {
-  return (
-    <>
-      <Card title="文件上传"></Card>
-    </>
-  )
+  return <Card title="文件上传" />
 }
 
 Index.displayName = 'Upload'

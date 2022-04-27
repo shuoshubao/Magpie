@@ -2,9 +2,9 @@
  * @Author: shuoshubao
  * @Date:   2022-04-14 13:09:24
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-26 13:16:07
+ * @Last Modified time: 2022-04-27 16:48:53
  */
-const { ipcMain, BrowserWindow } = require('electron')
+const { ipcMain } = require('electron')
 const { readFileSync } = require('fs')
 const { readJsonSync } = require('fs-extra')
 const { resolve } = require('path')

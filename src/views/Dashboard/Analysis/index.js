@@ -2,9 +2,9 @@
  * @Author: shuoshubao
  * @Date:   2022-04-24 15:11:34
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-27 16:29:00
+ * @Last Modified time: 2022-04-27 16:54:52
  */
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ipcRenderer, shell } from 'electron'
 import { Modal, Card, List, Select, Result, Button, InputNumber, Typography, Progress, message } from 'antd'
 import SettingOutlined from '@ant-design/icons/SettingOutlined'
@@ -12,17 +12,10 @@ import FolderOpenOutlined from '@ant-design/icons/FolderOpenOutlined'
 import EyeOutlined from '@ant-design/icons/EyeOutlined'
 import BugOutlined from '@ant-design/icons/BugOutlined'
 import Table from '@ke/table'
-import { last, map, sum, sortBy } from 'lodash'
-import { sleep, div, formatters } from '@nbfe/tools'
+import { last, sortBy } from 'lodash'
+import { div, formatters } from '@nbfe/tools'
 import { Colors } from '@/configs'
-import {
-  getColumns,
-  getDataSource,
-  getProgressPercent,
-  getProgressFormat,
-  JsExtensions,
-  StyleExtensions
-} from './config'
+import { getColumns, getDataSource, getProgressPercent, getProgressFormat, JsExtensions } from './config'
 
 const { Text } = Typography
 
@@ -162,7 +155,10 @@ const Index = () => {
         title={
           <div>
             <span>大文件</span>
-            <Text type={largeFiles.length ? 'danger' : 'success'}> {largeFiles.length}</Text>
+            <Text type={largeFiles.length ? 'danger' : 'success'}>
+              {' '}
+              {largeFiles.length}
+            </Text>
             <span> / </span>
             <span>{projectInofJsFileList.length}</span>
             <span> = </span>

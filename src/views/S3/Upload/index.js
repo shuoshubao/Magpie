@@ -1,12 +1,12 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-22 15:53:59
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-24 14:32:07
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-04-27 16:50:19
  * @Desc: 文件上传
  */
-import React, { useRef, useState, useEffect } from 'react'
-import { Card, Button } from 'antd'
+import React from 'react'
+import { Card } from 'antd'
 
 const Index = () => {
   return <Card title="文件上传" />

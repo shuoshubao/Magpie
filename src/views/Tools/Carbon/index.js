@@ -1,15 +1,14 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-15 14:55:02
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-21 16:46:30
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-04-27 16:49:49
  * @Desc Carbon
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer, shell } from 'electron'
 import { Card, Button, Modal, Space, message } from 'antd'
 import Form from '@ke/form'
-import Table from '@ke/table'
 import { pick } from 'lodash'
 import hljs from 'highlight.js/lib/core'
 import { classNames, copyText } from '@nbfe/tools'
@@ -30,7 +29,7 @@ const Index = () => {
   const handleSubmit = async () => {
     const formData = await formRef.current.getFormData()
     setConfig(formData)
-    const { theme, language, code } = formData
+    const { language, code } = formData
     const { value } = hljs.highlight(code, { language })
 
     setHighlightCode(value)

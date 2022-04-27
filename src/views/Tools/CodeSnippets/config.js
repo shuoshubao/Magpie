@@ -1,12 +1,12 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-21 14:25:58
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-21 20:51:38
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-04-27 16:51:50
  */
 import { ipcRenderer } from 'electron'
 import { Modal } from 'antd'
-import { find, merge, cloneDeep } from 'lodash'
+import { find, cloneDeep } from 'lodash'
 import { rules, convertDataToEnum } from '@nbfe/tools'
 import hljs from 'highlight.js/lib/core'
 import { injectHighlightStyle } from '@/utils/highlight'
@@ -106,7 +106,7 @@ export const getTableColumns = ({ setModalData }) => {
             {
               text: '查看',
               onClick: () => {
-                const { stderr, stdout } = ipcRenderer.sendSync('getPrettierFormatCode', code, {
+                const { stdout } = ipcRenderer.sendSync('getPrettierFormatCode', code, {
                   parser: PrettierParser[language],
                   semi: false, // 不要分号
                   singleQuote: true // 单引号

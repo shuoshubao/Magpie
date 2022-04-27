@@ -1,16 +1,16 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:59:52
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-21 11:24:33
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-04-27 16:52:55
  */
-import React, { useRef, useState, useEffect } from 'react'
-import { ipcRenderer, shell } from 'electron'
-import { List, Card, Button, Tag, Tooltip, Image } from 'antd'
+import React from 'react'
+import { shell } from 'electron'
+import { List, Card, Button, Tag, Image } from 'antd'
 import { presetPalettes } from '@ant-design/colors'
 import CloudDownloadOutlined from '@ant-design/icons/CloudDownloadOutlined'
 import { random } from 'lodash'
-import { getTableColumns, getAppList } from './config'
+import { getAppList } from './config'
 
 const colors = Object.keys(presetPalettes)
 
@@ -22,7 +22,7 @@ export default () => {
         grid={{ gutter: 10, column: 4 }}
         dataSource={getAppList()}
         renderItem={item => {
-          const { name, id, icon, downloadUrl, description, categories, installed } = item
+          const { name, icon, downloadUrl, description, categories, installed } = item
           let extraNode
           if (installed) {
             extraNode = <Tag color="success">已安装</Tag>

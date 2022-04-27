@@ -1,13 +1,12 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-16 12:52:15
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-21 13:14:58
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-04-27 16:49:07
  * @Desc 菜单
  */
 const { BrowserWindow, Menu } = require('electron')
-const log = require('electron-log')
-const { APP_NAME, APP_VERSION } = require('./config')
+const { APP_NAME } = require('./config')
 const { createAboutWindow } = require('./window-about')
 const { createLogWindow } = require('./window-log')
 

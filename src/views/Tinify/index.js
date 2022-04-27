@@ -1,15 +1,14 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-12 15:00:05
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-15 17:52:50
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-04-27 16:51:22
  */
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState } from 'react'
 import { ipcRenderer } from 'electron'
 import { Button, message } from 'antd'
 import Table from '@ke/table'
-import { last, flatten } from 'lodash'
-import { sleep } from '@nbfe/tools'
+import { last } from 'lodash'
 import { Extensions, columns } from './config'
 
 export const Index = () => {

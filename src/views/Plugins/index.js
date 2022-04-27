@@ -1,13 +1,13 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:59:52
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-20 13:48:54
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-04-27 16:54:30
  * @Desc: 插件
  */
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ipcRenderer, shell } from 'electron'
-import { Divider, List, Card, Button, Tag, Space } from 'antd'
+import { List, Card, Button, Tag, Space } from 'antd'
 import { last } from 'lodash'
 import ChromeOutlined from '@ant-design/icons/ChromeOutlined'
 import SketchOutlined from '@ant-design/icons/SketchOutlined'
@@ -52,7 +52,7 @@ export default () => {
           grid={{ gutter: 10, column: 4 }}
           dataSource={ChromeExtensionsData}
           renderItem={item => {
-            const { title, name, id, icon, homepage, description, installed } = item
+            const { title, icon, homepage, description, installed } = item
             return (
               <List.Item>
                 <Card

@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-24 15:32:51
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-27 16:29:41
+ * @Last Modified time: 2022-04-27 16:53:51
  */
 import React from 'react'
 import { Typography } from 'antd'
@@ -74,7 +74,7 @@ export const getProgressPercent = EslintData => {
 }
 
 export const getProgressFormat = EslintData => {
-  return (percent, successPercent) => {
+  return percent => {
     const { results } = EslintData
     if (!results) {
       return '--'
@@ -86,7 +86,10 @@ export const getProgressFormat = EslintData => {
 %
 </div>
         <div>
-          <Text type={errResults.length ? 'danger' : 'success'}> {errResults.length}</Text>
+          <Text type={errResults.length ? 'danger' : 'success'}> 
+{' '}
+{errResults.length}
+</Text>
           <span>/</span>
           <span>{results.length}</span>
         </div>

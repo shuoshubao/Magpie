@@ -2,13 +2,12 @@
  * @Author: shuoshubao
  * @Date:   2022-04-24 17:55:38
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-26 18:02:24
+ * @Last Modified time: 2022-04-27 16:49:21
  */
 const { ipcMain } = require('electron')
 const { readFileSync, writeFileSync, statSync } = require('fs')
 const { ensureFileSync, writeJsonSync } = require('fs-extra')
-const { basename, extname, resolve, relative } = require('path')
-const stripAnsi = require('strip-ansi')
+const { basename, extname, resolve } = require('path')
 const glob = require('glob')
 const { ESLint } = require('eslint')
 const { ESLINT_REPORT_DIR } = require('./config')

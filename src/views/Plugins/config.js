@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2022-04-20 11:15:54
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-27 14:38:46
+ * @Last Modified time: 2022-04-27 16:48:48
  */
 
 export const ChromeExtensions = [
@@ -42,7 +42,7 @@ export const ChromeExtensions = [
     icon: 'jxz8amlMWnjak1SmGLN_8byjMUuGdDvAczOxQ9BdtCScwNLqnHK3dR2wBfKaZQEMqNDu-RTu-pvO6-cyc5SuMX6R-48'
   }
 ].map(v => {
-  const { title, name, id, icon } = v
+  const { name, id, icon } = v
   const homepage = ['https://chrome.google.com/webstore/detail', name, id].join('/')
   return {
     ...v,

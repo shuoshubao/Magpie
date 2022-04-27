@@ -77,7 +77,10 @@ const Index = () => {
           </Button>
         }
       >
-        <Title level={4}>你好,{username}!</Title>
+        <Title level={4}>
+你好,{username}
+!
+</Title>
         <Title level={4}>欢迎使用[前端研发工作台]</Title>
       </Card>
       <Descriptions

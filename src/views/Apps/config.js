@@ -1,8 +1,8 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-14 16:26:12
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-19 19:44:17
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-04-27 16:48:39
  */
 import React from 'react'
 import { ipcRenderer, shell } from 'electron'
@@ -208,7 +208,7 @@ export const getTableColumns = () => {
     },
     {
       title: '信息',
-      render: (value, record, index) => {
+      render: (value, record) => {
         const { name, description, categories } = record
         const colors = Object.keys(presetPalettes)
         return (

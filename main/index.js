@@ -1,8 +1,8 @@
 /*
  * @Author: fangt11
  * @Date:   2022-04-07 13:47:44
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-22 13:39:34
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-04-27 16:50:38
  */
 const { resolve } = require('path')
 const { app, BrowserWindow, ipcMain, globalShortcut, session } = require('electron')
@@ -42,7 +42,7 @@ app.on('ready', () => {
     app.quit()
   })
 
-  app.on('activate', e => {
+  app.on('activate', () => {
     if (!win.isVisible()) {
       win.show()
     }

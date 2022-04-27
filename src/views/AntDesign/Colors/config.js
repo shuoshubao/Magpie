@@ -1,8 +1,8 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-15 15:08:20
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-16 22:00:54
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-04-27 16:52:06
  */
 import { message } from 'antd'
 import * as Colors from '@ant-design/colors'
@@ -117,11 +117,9 @@ export const columns = [
     }
   },
   ...range(10).map(v => {
-    const { value: color } = ColorsList[v]
     return {
       dataIndex: ['color', v].join('_'),
       render: (text, record, index) => {
-        const { value } = ColorsList[index]
         return (
           <div
             className={styles.colorValue}

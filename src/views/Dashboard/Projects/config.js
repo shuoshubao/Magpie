@@ -1,8 +1,8 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-22 18:26:29
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-24 17:14:20
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-04-27 16:48:58
  */
 import React from 'react'
 import { ipcRenderer, shell } from 'electron'
@@ -11,7 +11,7 @@ import FolderOpenOutlined from '@ant-design/icons/FolderOpenOutlined'
 import { last, remove } from 'lodash'
 import { repositoryUrlStringify } from '@/utils'
 
-const { Text, Link } = Typography
+const { Link } = Typography
 
 export const getTableColumns = () => {
   return [

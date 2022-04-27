@@ -2,14 +2,12 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:31:01
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-26 17:57:39
+ * @Last Modified time: 2022-04-27 16:50:08
  * @Desc 事件监听
  */
 const { ipcMain, BrowserWindow, dialog } = require('electron')
 const log = require('electron-log')
-const { resolve } = require('path')
 const os = require('os')
-const execa = require('execa')
 const ip = require('ip')
 const axios = require('axios')
 const { isFunction } = require('lodash')
@@ -41,7 +39,7 @@ ipcMain.handle('electron.dialog.showSaveDialogSync', (event, options) => {
   return dialog.showSaveDialogSync(options)
 })
 
-ipcMain.on('getProcessVersions', (event, file, args) => {
+ipcMain.on('getProcessVersions', event => {
   event.returnValue = process.versions
 })
 

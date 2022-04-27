@@ -2,12 +2,12 @@
  * @Author: shuoshubao
  * @Date:   2022-04-22 15:53:59
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-27 16:40:16
+ * @Last Modified time: 2022-04-27 16:53:20
  * @Desc: 文件上传
  */
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
-import { Modal, Card, Button, Typography, message, notification } from 'antd'
+import { Button, Typography, message, notification } from 'antd'
 import FolderOpenOutlined from '@ant-design/icons/FolderOpenOutlined'
 import { map } from 'lodash'
 import Table from '@ke/table'
@@ -93,7 +93,7 @@ const Index = () => {
           新增项目
         </Button>
       }
-      onDragSortEnd={({ newDataSource, dataSource, fromIndex, toIndex }) => {
+      onDragSortEnd={({ newDataSource }) => {
         ipcRenderer.send('setStore', 'projects', map(newDataSource, 'path'))
       }}
     />

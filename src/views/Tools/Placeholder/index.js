@@ -1,21 +1,19 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-15 14:55:02
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-21 12:53:01
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-04-27 16:52:25
  * @Desc 图片占位符
  */
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState } from 'react'
 import { ipcRenderer, shell } from 'electron'
-import { Card, Button, Modal, Space, message } from 'antd'
+import { Card, Button, Space, message } from 'antd'
 import Form from '@ke/form'
-import Table from '@ke/table'
 import { copyText } from '@nbfe/tools'
 import { getColumns } from './config'
 
 const Index = () => {
   const canvasRef = useRef()
-  const [imageUrl, setImageUrl] = useState()
 
   const handleSubmit = async params => {
     const { width, height, color, background, text } = params

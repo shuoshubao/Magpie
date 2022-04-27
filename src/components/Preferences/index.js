@@ -1,19 +1,18 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:59:52
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-21 16:19:53
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-04-27 16:54:12
  */
 import React, { useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
-import { Modal, Typography, Button, Input, Tabs, Radio, message } from 'antd'
+import { Modal, Input, Tabs, Radio, message } from 'antd'
 import ReactJson from 'react-json-view'
 import stripAnsi from 'strip-ansi'
 import FolderOpenOutlined from '@ant-design/icons/FolderOpenOutlined'
 import { setTheme as updateTheme } from '@/utils'
 import { ThemeOptions } from './config'
 
-const { Title } = Typography
 const { TabPane } = Tabs
 
 const Index = () => {

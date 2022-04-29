@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 14:33:27
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-25 15:08:32
+ * @Last Modified time: 2022-04-29 17:01:52
  */
 import React from 'react'
 import { ipcRenderer } from 'electron'
@@ -12,7 +12,6 @@ import { Modal, Typography, Tooltip, message } from 'antd'
 import QuestionCircleOutlined from '@ant-design/icons/QuestionCircleOutlined'
 import { map } from 'lodash'
 import { rules, sleep } from '@nbfe/tools'
-import semver from 'semver'
 import { RegistryEnum } from '@/configs'
 
 const { required } = rules
@@ -87,7 +86,7 @@ export const getTableColumns = () => {
           return [
             {
               text: '升级',
-              disabled: !semver.lt(version, latestVersion || version),
+              disabled: latestVersion !== version,
               visible: !loading,
               PopconfirmConfig: {
                 title: (

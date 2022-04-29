@@ -1,12 +1,13 @@
 /*
  * @Author: fangt11
  * @Date:   2021-07-05 19:52:43
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-24 17:13:46
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-04-29 15:19:54
  */
 export * from './route'
 export * from './axios'
 export * from './theme'
+export * from './npm'
 
 // 解析 repository.url
 export const repositoryUrlStringify = url => {

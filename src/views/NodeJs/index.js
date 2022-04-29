@@ -2,32 +2,17 @@
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-25 15:04:57
+ * @Last Modified time: 2022-04-29 15:19:41
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
 import { Button, Modal, Alert, Typography } from 'antd'
 import Form from '@ke/form'
 import Table from '@ke/table'
-import { request } from '@/utils'
+import { fetchPkg } from '@/utils'
 import { getFormColumns, getTableColumns, getQueryColumns, getQueryTableColumns } from './config'
 
 const { Text } = Typography
-
-const fetchPkg = ({ registry, name }) => {
-  return request(
-    {
-      url: [registry, name].join('/')
-    },
-    {
-      showLoading: false,
-      checkCode: false,
-      cacheThreshold: 10 * 60 * 1000 // 10 分钟
-    }
-  ).then(res => {
-    return res.data
-  })
-}
 
 export const Index = () => {
   const tableRef = useRef()

@@ -2,7 +2,7 @@ import React, { Component, useRef, useState, useEffect } from 'react'
 import { HashRouter } from 'react-router-dom'
 import { ipcRenderer } from 'electron'
 import { Layout, Result, Button } from 'antd'
-import DesktopOutlined from '@ant-design/icons/DesktopOutlined'
+import CoffeeOutlined from '@ant-design/icons/CoffeeOutlined'
 import UserOutlined from '@ant-design/icons/UserOutlined'
 import { classNames } from '@nbfe/tools'
 import { RenderRouter } from '@/routers'
@@ -104,7 +104,7 @@ const Index = () => {
               window.location.hash = '#/'
             }}
           >
-            <DesktopOutlined className="site-layout-logo-icon" />
+            <CoffeeOutlined className="site-layout-logo-icon" />
             <span className="site-layout-logo-text">{APP_NAME}</span>
           </a>
           <div className="site-layout-link">

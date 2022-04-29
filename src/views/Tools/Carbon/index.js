@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-15 14:55:02
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-27 23:39:21
+ * @Last Modified time: 2022-04-29 16:47:15
  * @Desc Carbon
  */
 import React, { useRef, useState, useEffect } from 'react'
@@ -90,7 +90,11 @@ const Index = () => {
           复制 DataURL
         </Button>
       </Space>
-      <div ref={containerRef} className={styles.containerWrap} style={pick(config, ['padding', 'background', 'width'])}>
+      <div
+        ref={containerRef}
+        className={classNames(styles.containerWrap, { hide: !config.code })}
+        style={pick(config, ['padding', 'background', 'width'])}
+      >
         <div className={styles.container}>
           <div className={classNames('hljs', styles.titleArea)}>
             <svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14">

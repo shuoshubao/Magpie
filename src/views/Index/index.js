@@ -2,13 +2,13 @@
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-27 17:22:54
+ * @Last Modified time: 2022-04-29 16:43:34
  */
 
 import React, { useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
 import { Modal, Card, Result, Button, Typography } from 'antd'
-import DesktopOutlined from '@ant-design/icons/DesktopOutlined'
+import CoffeeOutlined from '@ant-design/icons/CoffeeOutlined'
 import { Descriptions } from '@ke/table'
 import ReactMarkdown from 'react-markdown'
 import RemarkGfm from 'remark-gfm'
@@ -67,7 +67,7 @@ const Index = () => {
         style={{ padding: '10px 0' }}
         title={
           <Title level={2} type="success">
-            <DesktopOutlined />
+            <CoffeeOutlined />
             <span style={{ marginLeft: 10 }}>{APP_NAME}</span>
           </Title>
         }

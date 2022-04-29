@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-25 17:40:06
+ * @Last Modified time: 2022-04-29 13:56:37
  * @Desc: 路由配置
  */
 
@@ -24,8 +24,9 @@ import DashboardProjects from '@/views/Dashboard/Projects'
 import NodeJs from '@/views/NodeJs'
 import Git from '@/views/Git'
 import Tinify from '@/views/Tinify'
-import S3Upload from '@/views/S3/Upload'
 import S3Bucket from '@/views/S3/bucket'
+import S3Upload from '@/views/S3/Upload'
+import S3Unpkg from '@/views/S3/Unpkg'
 import AntDesignColors from '@/views/AntDesign/Colors'
 import AntDesignRecommendation from '@/views/AntDesign/Recommendation'
 import ToolsCarbon from '@/views/Tools/Carbon'
@@ -84,6 +85,11 @@ export default [
         name: '文件上传',
         path: '/s3/upload',
         component: S3Upload
+      },
+      {
+        name: 'Unpkg',
+        path: '/s3/unpkg',
+        component: S3Unpkg
       }
     ]
   },

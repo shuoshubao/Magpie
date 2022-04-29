@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-15 14:55:02
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-27 16:49:49
+ * @Last Modified time: 2022-04-27 23:39:21
  * @Desc Carbon
  */
 import React, { useRef, useState, useEffect } from 'react'
@@ -103,7 +103,7 @@ const Index = () => {
             <span className={styles.titleText}>{config.title}</span>
           </div>
           <pre>
-            <code className="hljs language-javascript">
+            <code className={`hljs language-${config.language}`}>
               <div dangerouslySetInnerHTML={{ __html: highlightCode }} />
             </code>
           </pre>

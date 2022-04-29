@@ -1,6 +1,6 @@
 {
   "name": "Magpie",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": true,
   "description": "Electron 学习",
   "main": "./main/index.js",

@@ -1,7 +1,7 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { Component, useRef, useState, useEffect } from 'react'
 import { HashRouter } from 'react-router-dom'
 import { ipcRenderer } from 'electron'
-import { Layout } from 'antd'
+import { Layout, Result, Button } from 'antd'
 import DesktopOutlined from '@ant-design/icons/DesktopOutlined'
 import UserOutlined from '@ant-design/icons/UserOutlined'
 import { classNames } from '@nbfe/tools'
@@ -12,6 +12,40 @@ import SideMenu from './SideMenu'
 import '@/assets/styles/index.less'
 
 const { Content, Sider } = Layout
+
+class ErrorBoundary extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { hasError: false }
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true }
+  }
+
+  render() {
+    if (!this.state.hasError) {
+      return this.props.children
+    }
+    return (
+      <Result
+        status="error"
+        title="代码执行报错!"
+        subTitle="请尝试刷新页面~"
+        extra={
+          <Button
+            type="primary"
+            onClick={() => {
+              window.location.reload()
+            }}
+          >
+            刷新页面
+          </Button>
+        }
+      />
+    )
+  }
+}
 
 const Index = () => {
   const contentRef = useRef()
@@ -99,7 +133,9 @@ const Index = () => {
               flexDirection: 'column'
             }}
           >
-            <RenderRouter />
+            <ErrorBoundary>
+              <RenderRouter />
+            </ErrorBoundary>
           </div>
         </Content>
         <Preferences />

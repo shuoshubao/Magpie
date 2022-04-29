@@ -133,34 +133,9 @@ pre {
   }
 }
 
-.ant-collapse {
-  background: #fff;
-  &.ant-collapse-borderless {
-    background: inherit;
-  }
-  &.ant-collapse-icon-position-right > .ant-collapse-item > .ant-collapse-header {
-    padding: 10px 40px 10px 10px;
-  }
-  & > .ant-collapse-item {
-    margin-bottom: 10px;
-    &:last-child {
-      margin-bottom: 0;
-    }
-    background: #fff;
-    & > .ant-collapse-header {
-      display: flex;
-      align-items: center;
-      padding: 10px 10px 10px 40px;
-      overflow: hidden;
-      line-height: 20px;
-      .ant-collapse-extra {
-        float: none;
-        margin-left: auto;
-      }
-    }
-  }
-  & + & {
-    margin-top: 10px;
+body {
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+    padding: 10px;
   }
   .ant-collapse-content > .ant-collapse-content-box {
     padding: 10px;

@@ -54,7 +54,7 @@
   },
   "build": {
     "productName": "Magpie",
-    "appId": "org.erb.shuoshubao",
+    "appId": "com.electron.shuoshubao",
     "files": [
       "package.json",
       "prettier.config.js",
@@ -67,7 +67,7 @@
       "node_modules"
     ],
     "mac": {
-      "category": "utilities",
+      "category": "Developer Tools",
       "target": [
         "dmg"
       ],

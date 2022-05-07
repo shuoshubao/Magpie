@@ -1,11 +1,10 @@
-const { merge } = require('lodash')
-const EslintConfig = require('@ke/standard/eslint')
+const { resolve } = require('path')
+const { getESLintConfig } = require('@ke/standard')
 
-module.exports = merge({}, EslintConfig, {
-  rules: {
-    camelcase: [0],
-    'react/jsx-wrap-multilines': [0],
-    'react/no-children-prop': [0],
-    'react/jsx-one-expression-per-line': [0]
-  }
+module.exports = getESLintConfig(['react'], {
+  parserOptions: {
+    babelOptions: {
+      configFile: resolve(__dirname, 'node_modules/@ke/react-cli/babel.config.js')
+    }
+  },
 })

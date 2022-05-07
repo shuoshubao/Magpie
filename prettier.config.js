@@ -1,5 +1,3 @@
-const PrettierConfig = require('@ke/standard/prettier.config')
+const { PrettierConfig } = require('@ke/standard')
 
-module.exports = {
-  ...PrettierConfig
-}
+module.exports = PrettierConfig

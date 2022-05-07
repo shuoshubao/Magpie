@@ -1,5 +1,3 @@
-const StylelintConfig = require('@ke/standard/stylelint.config')
+const { StylelintConfig } = require('@ke/standard')
 
-module.exports = {
-  ...StylelintConfig
-}
+module.exports = StylelintConfig

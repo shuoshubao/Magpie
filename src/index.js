@@ -11,8 +11,10 @@ if (isDevelopment && !checkShoulduHideSidebar() && memoizePath) {
   window.location.hash = memoizePath
 }
 
-;(async () => {
+const init = async () => {
   await setTheme()
 
   ReactDOM.render(<App />, document.getElementById('root'))
-})()
+}
+
+init()

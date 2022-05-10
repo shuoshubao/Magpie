@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@electron/remote": "^2.0.8",
-    "@ke/form": "^2.1.5",
+    "@ke/form": "^2.1.7",
     "@ke/standard": "^2.0.4",
     "@ke/table": "^2.1.1",
     "@nbfe/tools": "^0.2.14",
@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@jiaoyi/s3": "^0.1.7",
-    "@ke/react-cli": "^1.2.2",
+    "@ke/react-cli": "^1.2.3",
     "electron": "^18.0.1",
     "electron-builder": "^23.0.3",
     "nodemon": "^2.0.15"

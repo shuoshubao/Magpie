@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-24 15:11:34
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-27 17:33:41
+ * @Last Modified time: 2022-05-11 14:05:03
  */
 import React, { useState, useEffect } from 'react'
 import { ipcRenderer, shell } from 'electron'
@@ -192,9 +192,10 @@ const Index = () => {
                 }
                 style={{ padding: i === largeFiles.length - 1 ? '9px 10px' : '9px 10px 8px' }}
               >
-                <div>
-                  {filePath} ({lines})
-                </div>
+                <span>
+                  <Text copyable>{filePath}</Text>
+                  <span>({lines})</span>
+                </span>
               </List.Item>
             )
           }}

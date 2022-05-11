@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-18 13:30:53
+ * @Last Modified time: 2022-05-11 17:10:38
  */
 
 import React, { useState, useEffect } from 'react'
@@ -15,6 +15,8 @@ import { getPathname, getTheme } from '@/utils'
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
 const Index = () => {
+  const collapsed = JSON.parse(window.localStorage.getItem('sider-collapsed')) || false
+
   const [theme, setTheme] = useState(getTheme())
 
   const filterRouterConfig = RouterConfig.filter(v => {
@@ -32,7 +34,12 @@ const Index = () => {
   }
 
   return (
-    <Menu theme={theme} mode="inline" selectedKeys={[getPathname()]} defaultOpenKeys={map(filterRouterConfig, 'name')}>
+    <Menu
+      theme={theme}
+      mode="inline"
+      selectedKeys={[getPathname()]}
+      defaultOpenKeys={collapsed ? [] : map(filterRouterConfig, 'name')}
+    >
       {filterRouterConfig.map(v => {
         const { icon = null, hideNav = false, children = [] } = v
         if (hideNav) {

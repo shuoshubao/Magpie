@@ -1,8 +1,8 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-24 15:11:34
- * @Last Modified by:   fangt11
- * @Last Modified time: 2022-05-11 14:05:03
+ * @Last Modified by:   shuoshubao
+ * @Last Modified time: 2022-05-11 17:07:27
  */
 import React, { useState, useEffect } from 'react'
 import { ipcRenderer, shell } from 'electron'
@@ -13,7 +13,8 @@ import EyeOutlined from '@ant-design/icons/EyeOutlined'
 import BugOutlined from '@ant-design/icons/BugOutlined'
 import Table from '@ke/table'
 import { last, sortBy } from 'lodash'
-import { div, formatters } from '@nbfe/tools'
+import { div, formatters, isEmptyObject } from '@nbfe/tools'
+import Jscpd from '@/components/Jscpd'
 import { Colors } from '@/configs'
 import { getColumns, getDataSource, getProgressPercent, getProgressFormat, JsExtensions } from './config'
 
@@ -27,6 +28,7 @@ const Index = () => {
   const [largeFileLimit, setLargeFileLimit] = useState()
   const [eslintLoading, setEslintLoading] = useState(false)
   const [EslintData, setEslintData] = useState({})
+  const [JscpdData, setJscpdData] = useState({})
 
   const fetchProjectInfoList = async value => {
     const res = await ipcRenderer.invoke('getProjectAnalysis', value)
@@ -50,12 +52,36 @@ const Index = () => {
   const fetchLocalEslintReport = value => {
     const projectName = last(value.split('/'))
     const { ESLINT_REPORT_DIR } = ipcRenderer.sendSync('getMainConfig')
-    const localReports = ipcRenderer.sendSync('globSync', `${ESLINT_REPORT_DIR}/${projectName}/*.json`)
+    const localReports = ipcRenderer.sendSync('globSync', `${ESLINT_REPORT_DIR}/${projectName}/1*.json`)
     if (localReports.length) {
       const res = ipcRenderer.sendSync('fse', 'readJsonSync', last(localReports))
       setEslintData(res)
     } else {
       setEslintData({})
+    }
+  }
+
+  const fetchJscpdReport = async () => {
+    const sTime = Date.now()
+    const res = await ipcRenderer.invoke('getJscpdReport', project)
+    if (res.errMsg) {
+      message.error(res.errMsg)
+      return
+    }
+    setJscpdData(res)
+    const eTime = Date.now()
+    message.info(`已生成Jscpd报告, 耗时: ${eTime - sTime} ms`)
+  }
+
+  const fetchLocalJscpdReport = value => {
+    const projectName = last(value.split('/'))
+    const { JSCPD_REPORT_DIR } = ipcRenderer.sendSync('getMainConfig')
+    const localReports = ipcRenderer.sendSync('globSync', `${JSCPD_REPORT_DIR}/${projectName}/1*.json`)
+    if (localReports.length) {
+      const res = ipcRenderer.sendSync('fse', 'readJsonSync', last(localReports))
+      setJscpdData(res)
+    } else {
+      setJscpdData({})
     }
   }
 
@@ -82,6 +108,7 @@ const Index = () => {
     setProject(value)
     fetchProjectInfoList(value)
     fetchLocalEslintReport(value)
+    fetchLocalJscpdReport(value)
   }
 
   useEffect(() => {
@@ -117,6 +144,7 @@ const Index = () => {
               await fetchProjectInfoList(value)
               setProject(value)
               fetchLocalEslintReport(value)
+              fetchLocalJscpdReport(value)
             }}
             options={projectList}
             style={{ width: 200 }}
@@ -223,14 +251,31 @@ const Index = () => {
           </>
         }
       >
-        <Progress
-          width={150}
-          percent={getProgressPercent(EslintData)}
-          format={getProgressFormat(EslintData)}
-          type="circle"
-          strokeColor={Colors.red}
-          trailColor={Colors.green}
-        />
+        {isEmptyObject(EslintData) ? (
+          <Result title="暂无数据" />
+        ) : (
+          <Progress
+            width={150}
+            percent={getProgressPercent(EslintData)}
+            format={getProgressFormat(EslintData)}
+            type="circle"
+            strokeColor={Colors.red}
+            trailColor={Colors.green}
+          />
+        )}
+      </Card>
+
+      <Card
+        title="Jscpd"
+        extra={
+          <>
+            <Button type="primary" loading={eslintLoading} icon={<BugOutlined />} onClick={fetchJscpdReport}>
+              开始检测
+            </Button>
+          </>
+        }
+      >
+        {isEmptyObject(JscpdData) ? <Result title="暂无数据" /> : <Jscpd dataSource={JscpdData} />}
       </Card>
 
       <Modal

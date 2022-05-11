@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-11 14:37:07
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-26 18:02:13
+ * @Last Modified time: 2022-05-11 14:11:38
  * @Desc 配置
  */
 const { resolve } = require('path')
@@ -20,6 +20,8 @@ const APP_VERSION = pkg.version
 const APP_USERDATA_PATH = app.getPath('userData')
 
 const ESLINT_REPORT_DIR = resolve(APP_USERDATA_PATH, 'ESLintReport')
+
+const JSCPD_REPORT_DIR = resolve(APP_USERDATA_PATH, 'JscpdReport')
 
 const STORE_CONFIG_NAME = `${APP_NAME}.config`
 
@@ -47,6 +49,7 @@ const config = {
   APP_VERSION,
   APP_USERDATA_PATH,
   ESLINT_REPORT_DIR,
+  JSCPD_REPORT_DIR,
   prettierConfig,
   STORE_CONFIG_NAME,
   CODE_SNIPPETS_STORE_CONFIG_NAME,

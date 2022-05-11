@@ -1,16 +1,17 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-24 17:55:38
- * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-27 17:51:32
+ * @Last Modified by:   shuoshubao
+ * @Last Modified time: 2022-05-11 16:59:45
  */
 const { ipcMain } = require('electron')
-const { readFileSync, writeFileSync, statSync } = require('fs')
-const { ensureFileSync, writeJsonSync } = require('fs-extra')
+const { readFileSync, writeFileSync, statSync, existsSync } = require('fs')
+const { ensureDir, ensureFileSync, readJsonSync, writeJsonSync } = require('fs-extra')
 const { basename, extname, resolve } = require('path')
 const glob = require('glob')
 const { ESLint } = require('eslint')
-const { ESLINT_REPORT_DIR } = require('./config')
+const { jscpd } = require('jscpd')
+const { ESLINT_REPORT_DIR, JSCPD_REPORT_DIR } = require('./config')
 
 const getProjectFiles = (fullPath, extensions = []) => {
   const gitignore = readFileSync(resolve(fullPath, '.gitignore'))
@@ -95,6 +96,36 @@ ipcMain.handle('getEslintResults', async (event, fullPath) => {
     writeJsonSync(jsonPath, data)
 
     return data
+  } catch (e) {
+    return {
+      errMsg: e.message
+    }
+  }
+})
+
+ipcMain.handle('getJscpdReport', async (event, fullPath) => {
+  const JscpdReportDir = resolve(JSCPD_REPORT_DIR, basename(fullPath))
+  const src = existsSync(resolve(fullPath, 'src')) ? resolve(fullPath, 'src') : resolve(fullPath, 'client/src')
+  ensureDir(JscpdReportDir)
+  try {
+    await jscpd([
+      '',
+      '',
+      src,
+      '-o',
+      JscpdReportDir,
+      '-r',
+      'json',
+      '-s',
+      '-f',
+      'javascript,typescript,jsx,tsx,css,less,scss'
+    ])
+    const time = Date.now()
+    const content = readFileSync(resolve(JscpdReportDir, 'jscpd-report.json'))
+      .toString()
+      .replaceAll(fullPath + '/', '')
+    writeFileSync(resolve(JscpdReportDir, `${time}.json`), content)
+    return JSON.parse(content)
   } catch (e) {
     return {
       errMsg: e.message

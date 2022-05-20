@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:31:01
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-27 16:50:08
+ * @Last Modified time: 2022-05-20 11:24:05
  * @Desc 事件监听
  */
 const { ipcMain, BrowserWindow, dialog } = require('electron')
@@ -41,12 +41,6 @@ ipcMain.handle('electron.dialog.showSaveDialogSync', (event, options) => {
 
 ipcMain.on('getProcessVersions', event => {
   event.returnValue = process.versions
-})
-
-ipcMain.handle('electron.openBrowserWindow', (event, htmlFilePath) => {
-  const win = new BrowserWindow()
-  win.maximize()
-  win.loadURL(`file://${htmlFilePath}`)
 })
 
 ipcMain.on('os', (event, propName) => {

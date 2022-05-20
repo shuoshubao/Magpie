@@ -1,11 +1,12 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-24 15:11:34
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-05-11 17:07:27
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-05-20 14:30:37
  */
 import React, { useState, useEffect } from 'react'
 import { ipcRenderer, shell } from 'electron'
+import { BrowserWindow } from '@electron/remote'
 import { Modal, Card, List, Select, Result, Button, InputNumber, Typography, Progress, message } from 'antd'
 import SettingOutlined from '@ant-design/icons/SettingOutlined'
 import FolderOpenOutlined from '@ant-design/icons/FolderOpenOutlined'
@@ -240,7 +241,9 @@ const Index = () => {
               disabled={!EslintData.EslintReportFilePath}
               icon={<EyeOutlined />}
               onClick={() => {
-                ipcRenderer.invoke('electron.openBrowserWindow', EslintData.EslintReportFilePath)
+                const win = new BrowserWindow()
+                win.maximize()
+                win.loadURL(`file://${EslintData.EslintReportFilePath}`)
               }}
             >
               新窗口查看完整的报告

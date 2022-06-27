@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-01 23:11:07
+ * @Last Modified time: 2022-06-01 23:49:29
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
@@ -111,7 +111,17 @@ export const Index = () => {
                     formProps={{ layout: 'horizontal' }}
                     showResetBtn={false}
                   >
-                    <Button type="primary">保存</Button>
+                    <Button
+                      type="primary"
+                      onClick={async () => {
+                        await ipcRenderer.invoke('ssh-keygen', {
+                          location: 'Magpie',
+                          comment: 'shuoshu'
+                        })
+                      }}
+                    >
+                      保存
+                    </Button>
                   </Form>
                 </Panel>
               )

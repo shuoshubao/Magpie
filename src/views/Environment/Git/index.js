@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-01 22:21:07
+ * @Last Modified time: 2022-06-01 23:11:07
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
@@ -21,7 +21,7 @@ export const Index = () => {
 
   const [GitConfigs, setGitConfigs] = useState([])
 
-  useEffect(() => {
+  const fetchData = () => {
     const { GIT_CONFIG_DIR, SSH_CONFIG_DIR } = ipcRenderer.sendSync('getMainConfig')
     const gitConfig = parseGitDirs()
     const list = ipcRenderer.sendSync('globSync', `${GIT_CONFIG_DIR}/.gitconfig-*`).map(v => {
@@ -38,6 +38,10 @@ export const Index = () => {
       }
     })
     setGitConfigs(list)
+  }
+
+  useEffect(() => {
+    fetchData()
   }, [setGitConfigs])
 
   return (
@@ -106,7 +110,9 @@ export const Index = () => {
                     columns={getCustomerGitConfigColumns({ initialValues: v })}
                     formProps={{ layout: 'horizontal' }}
                     showResetBtn={false}
-                  />
+                  >
+                    <Button type="primary">保存</Button>
+                  </Form>
                 </Panel>
               )
             })}

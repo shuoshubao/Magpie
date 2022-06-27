@@ -2,14 +2,15 @@
  * @Author: shuoshubao
  * @Date:   2022-04-14 13:09:24
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-27 16:48:53
+ * @Last Modified time: 2022-06-06 18:34:20
  */
 const { ipcMain } = require('electron')
 const { readFileSync } = require('fs')
 const { readJsonSync } = require('fs-extra')
 const { resolve } = require('path')
-const glob = require('glob')
+const { sync: globSync } = require('glob')
 const ini = require('ini')
+const { flatten } = require('lodash')
 const { execaCommandSync } = require('./util')
 const { NPMRC_PATH } = require('./config')
 
@@ -21,22 +22,25 @@ ipcMain.on('getGlobalDependencies', event => {
   const npmrc = ini.parse(readFileSync(NPMRC_PATH).toString() || '{}')
   const prefix = execaCommandSync('npm config get prefix')
 
-  const dependencies = glob
-    .sync('lib/node_modules/*', {
-      cwd: prefix,
-      ignore: ['**/npm']
-    })
-    .map(v => {
-      const pkg = readJsonSync(resolve(prefix, v, 'package.json'))
-      const resolved = pkg._resolved
-      const registry = resolved ? resolved.slice(0, resolved.indexOf('/', 10)) : npmrc.registry
-      return {
-        name: pkg.name,
-        version: pkg.version,
-        resolved,
-        registry
-      }
-    })
+  const globOptions = {
+    cwd: prefix,
+    ignore: ['**/npm']
+  }
+
+  const dependencies = flatten([
+    globSync('lib/node_modules/!(@)*', globOptions),
+    globSync('lib/node_modules/@*/*', globOptions)
+  ]).map(v => {
+    const pkg = readJsonSync(resolve(prefix, v, 'package.json'))
+    const resolved = pkg._resolved
+    const registry = resolved ? resolved.slice(0, resolved.indexOf('/', 10)) : npmrc.registry
+    return {
+      name: pkg.name,
+      version: pkg.version,
+      resolved,
+      registry
+    }
+  })
 
   event.returnValue = dependencies
 })

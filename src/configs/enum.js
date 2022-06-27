@@ -1,8 +1,8 @@
 /*
  * @Author: fangt11
  * @Date:   2021-11-08 13:35:34
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-13 19:41:06
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-06-07 10:50:46
  */
 import React from 'react'
 import { Tag } from 'antd'
@@ -29,14 +29,18 @@ export const RegistryEnum = [
     label: '美团',
     color: '#ffc300'
   }
-].map(v => {
+]
+
+export const RegistryOptions = RegistryEnum.map(v => {
   const { value, label, color } = v
   return {
     ...v,
     label: (
       <div key={value} style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <span>{value}</span>
-        <Tag color={color}>{label}</Tag>
+        <span key="1">{value}</span>
+        <Tag key="2" color={color}>
+          {label}
+        </Tag>
       </div>
     )
   }

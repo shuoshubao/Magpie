@@ -2,17 +2,16 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 14:33:27
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-06 19:28:46
+ * @Last Modified time: 2022-06-07 10:54:22
  */
 import React from 'react'
 import { ipcRenderer } from 'electron'
 import ReactMarkdown from 'react-markdown'
 import RemarkGfm from 'remark-gfm'
-import { Modal, Typography, Tooltip, message } from 'antd'
-import QuestionCircleOutlined from '@ant-design/icons/QuestionCircleOutlined'
+import { Modal, Typography, message } from 'antd'
 import { map } from 'lodash'
 import { rules, sleep } from '@nbfe/tools'
-import { RegistryEnum } from '@/configs'
+import { RegistryEnum, RegistryOptions } from '@/configs'
 
 const { required } = rules
 
@@ -39,7 +38,7 @@ export const getFormColumns = () => {
       rules: [required],
       template: {
         tpl: 'select',
-        options: RegistryEnum,
+        options: RegistryOptions,
         width: 450,
         optionLabelProp: 'value',
         onChange: value => {
@@ -55,17 +54,15 @@ export const getTableColumns = () => {
   return [
     {
       title: 'name',
-      dataIndex: 'name',
-      render: (value, record) => {
-        const { registry } = record
-        return (
-          <>
-            <Text type="success">{value}</Text>
-            <Tooltip title={['registry', registry].join(':')} overlayStyle={{ maxWidth: 400 }}>
-              <QuestionCircleOutlined style={{ marginLeft: 4, color: '#00000073' }} />
-            </Tooltip>
-          </>
-        )
+      dataIndex: 'name'
+    },
+    {
+      title: 'registry',
+      dataIndex: 'registry',
+      template: {
+        tpl: 'enum',
+        shape: 'tag',
+        options: RegistryEnum
       }
     },
     {

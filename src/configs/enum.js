@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2021-11-08 13:35:34
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-07 10:50:46
+ * @Last Modified time: 2022-06-27 14:03:28
  */
 import React from 'react'
 import { Tag } from 'antd'
@@ -20,7 +20,7 @@ export const RegistryEnum = [
     color: '#3072f6'
   },
   {
-    value: 'https://registry.npm.taobao.org',
+    value: 'https://registry.npmmirror.com',
     label: '阿里',
     color: '#ff5000'
   },

@@ -2,14 +2,14 @@
  * @Author: fangt11
  * @Date:   2022-04-29 13:54:04
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-06 14:29:21
+ * @Last Modified time: 2022-06-27 13:52:26
  */
 import React, { useRef, useState } from 'react'
 import { Modal, Collapse, Card, List, Typography, Space, Button } from 'antd'
 import { map } from 'lodash'
 import { plus } from '@nbfe/tools'
-import Form from '@ke/form'
-import Table from '@ke/table'
+import Form from '@nbfe/form'
+import Table from '@nbfe/table'
 import { fetchPkg } from '@/utils'
 import { getFormColumns, getTableColumns } from './config'
 import { dataSource } from './data'

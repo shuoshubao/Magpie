@@ -5,8 +5,8 @@ import { getAntdLocaleZhCN, defineMomentLocaleZhCn } from '@nbfe/tools'
 import Layout from '@/components/Layout'
 import '@/utils/monitor'
 import '@/assets/styles/index.less'
-import '@ke/form/dist/index.css'
-import '@ke/table/dist/index.css'
+import '@nbfe/form/dist/index.css'
+import '@nbfe/table/dist/index.css'
 
 defineMomentLocaleZhCn(moment)
 

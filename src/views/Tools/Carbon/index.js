@@ -2,13 +2,13 @@
  * @Author: shuoshubao
  * @Date:   2022-04-15 14:55:02
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-29 16:47:15
+ * @Last Modified time: 2022-06-27 13:52:26
  * @Desc Carbon
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer, shell } from 'electron'
 import { Card, Button, Modal, Space, message } from 'antd'
-import Form from '@ke/form'
+import Form from '@nbfe/form'
 import { pick } from 'lodash'
 import hljs from 'highlight.js/lib/core'
 import { classNames, copyText } from '@nbfe/tools'

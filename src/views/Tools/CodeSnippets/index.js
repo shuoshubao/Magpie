@@ -1,15 +1,15 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-21 14:24:16
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-21 20:51:10
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-06-27 13:52:26
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
 import { Modal, Button, message } from 'antd'
 import { omit } from 'lodash'
-import Form from '@ke/form'
-import Table from '@ke/table'
+import Form from '@nbfe/form'
+import Table from '@nbfe/table'
 import { PrettierParser, getDataSource, getTableColumns, getFormColumns } from './config'
 
 const Index = () => {

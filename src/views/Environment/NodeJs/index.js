@@ -2,13 +2,13 @@
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-29 15:19:41
+ * @Last Modified time: 2022-06-27 13:52:25
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
 import { Button, Modal, Alert, Typography } from 'antd'
-import Form from '@ke/form'
-import Table from '@ke/table'
+import Form from '@nbfe/form'
+import Table from '@nbfe/table'
 import { fetchPkg } from '@/utils'
 import { getFormColumns, getTableColumns, getQueryColumns, getQueryTableColumns } from './config'
 

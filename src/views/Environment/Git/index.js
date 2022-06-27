@@ -2,12 +2,12 @@
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-06 16:11:48
+ * @Last Modified time: 2022-06-27 13:52:25
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
 import { Button, Modal, Collapse, Card, Popconfirm, message } from 'antd'
-import Form from '@ke/form'
+import Form from '@nbfe/form'
 import { map, range } from 'lodash'
 import { isEmptyArray } from '@nbfe/tools'
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'

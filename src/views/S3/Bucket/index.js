@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-22 15:53:59
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-06 14:29:08
+ * @Last Modified time: 2022-06-27 13:52:26
  * @Desc: 文件上传
  */
 import React, { useRef, useState, useEffect } from 'react'
@@ -10,8 +10,8 @@ import { ipcRenderer } from 'electron'
 import { Modal, Card, Button, Typography, message } from 'antd'
 import { some } from 'lodash'
 import { formatTime } from '@nbfe/tools'
-import Table from '@ke/table'
-import Form from '@ke/form'
+import Table from '@nbfe/table'
+import Form from '@nbfe/form'
 import { TestBucketInfo, getTableColumns, getFormColumns, References } from './config'
 
 const { Link } = Typography

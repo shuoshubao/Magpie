@@ -2,13 +2,13 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 15:00:05
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-01 16:40:23
+ * @Last Modified time: 2022-06-27 13:52:26
  */
 import React, { useRef, useState } from 'react'
 import { ipcRenderer } from 'electron'
 import { dialog } from '@electron/remote'
 import { Button, message } from 'antd'
-import Table from '@ke/table'
+import Table from '@nbfe/table'
 import { last } from 'lodash'
 import { Extensions, columns } from './config'
 

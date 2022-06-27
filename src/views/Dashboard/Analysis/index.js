@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-24 15:11:34
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-05-20 14:30:37
+ * @Last Modified time: 2022-06-27 13:52:25
  */
 import React, { useState, useEffect } from 'react'
 import { ipcRenderer, shell } from 'electron'
@@ -12,7 +12,7 @@ import SettingOutlined from '@ant-design/icons/SettingOutlined'
 import FolderOpenOutlined from '@ant-design/icons/FolderOpenOutlined'
 import EyeOutlined from '@ant-design/icons/EyeOutlined'
 import BugOutlined from '@ant-design/icons/BugOutlined'
-import Table from '@ke/table'
+import Table from '@nbfe/table'
 import { last, sortBy } from 'lodash'
 import { div, formatters, isEmptyObject } from '@nbfe/tools'
 import Jscpd from '@/components/Jscpd'

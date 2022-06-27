@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-22 15:53:59
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-01 16:39:44
+ * @Last Modified time: 2022-06-27 13:52:25
  * @Desc: 文件上传
  */
 import React, { useRef, useEffect } from 'react'
@@ -11,7 +11,7 @@ import { dialog } from '@electron/remote'
 import { Button, Typography, message, notification } from 'antd'
 import FolderOpenOutlined from '@ant-design/icons/FolderOpenOutlined'
 import { map } from 'lodash'
-import Table from '@ke/table'
+import Table from '@nbfe/table'
 import { getTableColumns } from './config'
 
 const { Text } = Typography

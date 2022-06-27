@@ -2,14 +2,14 @@
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-29 16:43:34
+ * @Last Modified time: 2022-06-27 13:52:25
  */
 
 import React, { useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
 import { Modal, Card, Result, Button, Typography } from 'antd'
 import CoffeeOutlined from '@ant-design/icons/CoffeeOutlined'
-import { Descriptions } from '@ke/table'
+import { Descriptions } from '@nbfe/table'
 import ReactMarkdown from 'react-markdown'
 import RemarkGfm from 'remark-gfm'
 import { BaseinfoColumns, ElectronColumns } from './config'

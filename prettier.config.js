@@ -1,3 +1,3 @@
-const { PrettierConfig } = require('@ke/standard')
+const { PrettierConfig } = require('@nbfe/standard')
 
 module.exports = PrettierConfig

@@ -2,14 +2,16 @@
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-01 15:30:57
+ * @Last Modified time: 2022-06-01 22:21:07
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
-import { Button, Collapse, Card } from 'antd'
+import { Button, Collapse, Card, Popconfirm, Tooltip } from 'antd'
 import Form from '@ke/form'
 import { map } from 'lodash'
 import { isEmptyArray } from '@nbfe/tools'
+import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
+import { Colors } from '@/configs'
 import { parseGitDirs, getGlobalGitConfigColumns, getCustomerGitConfigColumns } from './config'
 
 const { Panel } = Collapse
@@ -77,7 +79,29 @@ export const Index = () => {
             {GitConfigs.map((v, i) => {
               const { configName, hostName, name, email } = v
               return (
-                <Panel header={['配置', configName].join('-')} key={configName}>
+                <Panel
+                  header={['配置', configName].join('-')}
+                  key={configName}
+                  extra={
+                    <Popconfirm
+                      title="确定要删除吗？"
+                      placement="topRight"
+                      onConfirm={e => {
+                        e.stopPropagation()
+                      }}
+                      onCancel={e => {
+                        e.stopPropagation()
+                      }}
+                    >
+                      <DeleteOutlined
+                        style={{ color: Colors.red }}
+                        onClick={e => {
+                          e.stopPropagation()
+                        }}
+                      />
+                    </Popconfirm>
+                  }
+                >
                   <Form
                     columns={getCustomerGitConfigColumns({ initialValues: v })}
                     formProps={{ layout: 'horizontal' }}

@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:31:01
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-05-20 11:24:05
+ * @Last Modified time: 2022-06-01 16:40:51
  * @Desc 事件监听
  */
 const { ipcMain, BrowserWindow, dialog } = require('electron')
@@ -29,10 +29,6 @@ axios.interceptors.request.use(request => {
     request.data ? ['data', JSON.stringify(request.data, null)].join(':') : ''
   )
   return request
-})
-
-ipcMain.handle('electron.dialog.showOpenDialog', (event, options) => {
-  return dialog.showOpenDialog(options)
 })
 
 ipcMain.handle('electron.dialog.showSaveDialogSync', (event, options) => {

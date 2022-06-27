@@ -2,11 +2,12 @@
  * @Author: shuoshubao
  * @Date:   2022-04-22 15:53:59
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-27 16:53:20
+ * @Last Modified time: 2022-06-01 16:39:44
  * @Desc: 文件上传
  */
 import React, { useRef, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
+import { dialog } from '@electron/remote'
 import { Button, Typography, message, notification } from 'antd'
 import FolderOpenOutlined from '@ant-design/icons/FolderOpenOutlined'
 import { map } from 'lodash'
@@ -23,7 +24,7 @@ const Index = () => {
   }, [])
 
   const handleSelectProject = async () => {
-    const { canceled, filePaths } = await ipcRenderer.invoke('electron.dialog.showOpenDialog', {
+    const { canceled, filePaths } = await dialog.showOpenDialog({
       properties: ['openDirectory']
     })
     if (canceled) {

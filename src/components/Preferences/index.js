@@ -2,10 +2,11 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 20:59:52
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-29 16:30:30
+ * @Last Modified time: 2022-06-01 16:38:34
  */
 import React, { useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
+import { dialog } from '@electron/remote'
 import { Modal, Input, Tabs, Radio, message } from 'antd'
 import ReactJson from 'react-json-view'
 import stripAnsi from 'strip-ansi'
@@ -69,7 +70,7 @@ const Index = () => {
   }
 
   const handleSelectDefaultPath = async () => {
-    const { canceled, filePaths } = await ipcRenderer.invoke('electron.dialog.showOpenDialog', {
+    const { canceled, filePaths } = await dialog.showOpenDialog({
       properties: ['openDirectory']
     })
     if (canceled) {

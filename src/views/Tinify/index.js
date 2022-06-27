@@ -2,10 +2,11 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 15:00:05
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-27 16:51:22
+ * @Last Modified time: 2022-06-01 16:40:23
  */
 import React, { useRef, useState } from 'react'
 import { ipcRenderer } from 'electron'
+import { dialog } from '@electron/remote'
 import { Button, message } from 'antd'
 import Table from '@ke/table'
 import { last } from 'lodash'
@@ -48,7 +49,7 @@ export const Index = () => {
           <Button
             type="primary"
             onClick={async () => {
-              const { canceled, filePaths } = await ipcRenderer.invoke('electron.dialog.showOpenDialog', {
+              const { canceled, filePaths } = await dialog.showOpenDialog({
                 properties: ['openDirectory', 'openFile'],
                 filters: [
                   {

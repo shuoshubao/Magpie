@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ipcRenderer } from 'electron'
+import { dialog } from '@electron/remote'
 import { Input } from 'antd'
 import FolderOpenOutlined from '@ant-design/icons/FolderOpenOutlined'
 
@@ -7,7 +7,7 @@ const Index = props => {
   const { onChange } = props
 
   const handleSelectFolder = async () => {
-    const { canceled, filePaths } = await ipcRenderer.invoke('electron.dialog.showOpenDialog', {
+    const { canceled, filePaths } = await dialog.showOpenDialog({
       properties: ['openDirectory']
     })
     if (canceled) {

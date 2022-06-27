@@ -1,8 +1,8 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-16 14:35:33
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-18 14:44:08
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-06-06 20:04:39
  */
 // import memoizeOne from 'memoize-one'
 import { request } from '@/utils'
@@ -47,6 +47,8 @@ export const setTheme = async () => {
   const styleNode = document.createElement('style')
   styleNode.setAttribute('data-theme', theme)
   styleNode.innerHTML = text
+    .replace('/*# sourceMappingURL=antd.min.css.map*/', '')
+    .replace('/*# sourceMappingURL=antd.dark.min.css.map*/', '')
   document.head.insertBefore(styleNode, document.head.firstChild)
 
   const oldThemeNode = document.querySelector(`style[data-theme="${isDarkTheme() ? 'light' : 'dark'}"]`)

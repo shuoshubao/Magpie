@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 14:33:27
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-01 15:59:50
+ * @Last Modified time: 2022-06-01 16:19:33
  */
 import React from 'react'
 import { ipcRenderer } from 'electron'
@@ -10,7 +10,7 @@ import { message } from 'antd'
 import { merge } from 'lodash'
 import { rules, copyText } from '@nbfe/tools'
 import CopyOutlined from '@ant-design/icons/CopyOutlined'
-import FolderOpenOutlined from '@ant-design/icons/FolderOpenOutlined'
+import SelectFolder from '@/components/SelectFolder'
 
 const { required } = rules
 
@@ -74,18 +74,6 @@ export const parseGitDirs = () => {
   }, {})
 }
 
-// 选择目录
-const handleSelectFolder = async () => {
-  const { canceled, filePaths } = await ipcRenderer.invoke('electron.dialog.showOpenDialog', {
-    properties: ['openDirectory']
-  })
-  if (canceled) {
-    return
-  }
-  const [filePath] = filePaths
-  console.log(filePath)
-}
-
 export const getCustomerGitConfigColumns = ({ initialValues }) => {
   return [
     {
@@ -126,7 +114,7 @@ export const getCustomerGitConfigColumns = ({ initialValues }) => {
         record: ''
       },
       template: {
-        suffix: <FolderOpenOutlined onClick={handleSelectFolder} />,
+        tpl: SelectFolder,
         readOnly: true
       }
     }

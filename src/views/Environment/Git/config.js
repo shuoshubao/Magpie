@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 14:33:27
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-01 16:19:33
+ * @Last Modified time: 2022-06-02 16:01:31
  */
 import React from 'react'
 import { ipcRenderer } from 'electron'
@@ -72,6 +72,63 @@ export const parseGitDirs = () => {
     }
     return prev
   }, {})
+}
+
+export const getAddCustomerGitConfigColumns = () => {
+  return [
+    {
+      label: '配置名称',
+      name: 'configName',
+      rules: [
+        required,
+        {
+          pattern: /^[a-zA-Z]{2,}$/,
+          message: '仅支持大小写字母, 且至少2位字符'
+        }
+      ],
+      tooltip: '仅支持大小写字母, 如 Github'
+    },
+    {
+      label: 'Git服务器域名',
+      name: 'hostName',
+      rules: [
+        required,
+        {
+          type: 'url',
+          transform: value => {
+            return ['https://', value].join('')
+          }
+        }
+      ],
+      tooltip: 'Git服务器域名, 如 github.com'
+    },
+    {
+      label: '用户名',
+      name: 'name',
+      rules: [required]
+    },
+    {
+      label: '邮箱',
+      name: 'email',
+      rules: [
+        required,
+        {
+          type: 'email',
+          message: '邮箱不合法'
+        }
+      ]
+    }
+  ].map(v => {
+    return merge(
+      {},
+      {
+        template: {
+          width: 300
+        }
+      },
+      v
+    )
+  })
 }
 
 export const getCustomerGitConfigColumns = ({ initialValues }) => {

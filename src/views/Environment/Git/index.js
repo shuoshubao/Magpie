@@ -2,24 +2,31 @@
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-01 23:49:29
+ * @Last Modified time: 2022-06-02 22:58:58
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
-import { Button, Collapse, Card, Popconfirm, Tooltip } from 'antd'
+import { Button, Modal, Collapse, Card, Popconfirm, Tooltip } from 'antd'
 import Form from '@ke/form'
 import { map } from 'lodash'
 import { isEmptyArray } from '@nbfe/tools'
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import { Colors } from '@/configs'
-import { parseGitDirs, getGlobalGitConfigColumns, getCustomerGitConfigColumns } from './config'
+import {
+  parseGitDirs,
+  getGlobalGitConfigColumns,
+  getAddCustomerGitConfigColumns,
+  getCustomerGitConfigColumns
+} from './config'
 
 const { Panel } = Collapse
 
 export const Index = () => {
   const formRef = useRef()
+  const addFormRef = useRef()
 
   const [GitConfigs, setGitConfigs] = useState([])
+  const [visible, setVisible] = useState(true)
 
   const fetchData = () => {
     const { GIT_CONFIG_DIR, SSH_CONFIG_DIR } = ipcRenderer.sendSync('getMainConfig')
@@ -44,6 +51,21 @@ export const Index = () => {
     fetchData()
   }, [setGitConfigs])
 
+  const handleAdd = async () => {
+    const formData = await addFormRef.current.getFormData()
+    if (!formData) {
+      return
+    }
+    // await ipcRenderer.invoke('ssh-keygen', {
+    //   location: formData.configName,
+    //   comment: formData.name
+    // })
+    await ipcRenderer.invoke('ssh-config', {})
+    message.success('成功新增用户配置!')
+    setVisible(false)
+    fetchData()
+  }
+
   return (
     <>
       <Form
@@ -53,8 +75,6 @@ export const Index = () => {
         showResetBtn={false}
         cardProps={{
           title: 'Git 全局配置',
-          size: 'default',
-          bordered: true,
           extra: (
             <Button
               type="primary"
@@ -73,7 +93,12 @@ export const Index = () => {
       <Card
         title="用户配置"
         extra={
-          <Button type="primary" onClick={() => {}}>
+          <Button
+            type="primary"
+            onClick={() => {
+              setVisible(true)
+            }}
+          >
             新增配置
           </Button>
         }
@@ -111,15 +136,7 @@ export const Index = () => {
                     formProps={{ layout: 'horizontal' }}
                     showResetBtn={false}
                   >
-                    <Button
-                      type="primary"
-                      onClick={async () => {
-                        await ipcRenderer.invoke('ssh-keygen', {
-                          location: 'Magpie',
-                          comment: 'shuoshu'
-                        })
-                      }}
-                    >
+                    <Button type="primary" onClick={async () => {}}>
                       保存
                     </Button>
                   </Form>
@@ -129,6 +146,22 @@ export const Index = () => {
           </Collapse>
         )}
       </Card>
+      <Modal
+        title="新增用户配置"
+        visible={visible}
+        destroyOnClose
+        onOk={handleAdd}
+        onCancel={() => {
+          setVisible(false)
+        }}
+      >
+        <Form
+          ref={addFormRef}
+          columns={getAddCustomerGitConfigColumns()}
+          formProps={{ layout: 'horizontal' }}
+          showResetBtn={false}
+        />
+      </Modal>
     </>
   )
 }

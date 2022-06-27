@@ -10,7 +10,7 @@ import '@ke/table/dist/index.css'
 
 defineMomentLocaleZhCn(moment)
 
-moment.locale('zh-cn', {
+moment.updateLocale('zh-cn', {
   week: {
     dow: 1
   }

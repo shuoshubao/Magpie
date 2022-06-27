@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2021-11-24 10:50:57
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-05-20 14:17:38
+ * @Last Modified time: 2022-05-20 12:05:07
  * @Desc: 打包配置
  */
 
@@ -37,11 +37,6 @@ module.exports = ({ isDevelopment }) => {
     dllEntry: {
       tools: ['react-router-dom', 'axios', 'html2canvas', 'react-markdown', 'react-json-view', 'remark-gfm'],
       nbfe: ['@nbfe/tools', '@ke/form', '@ke/table']
-    },
-    chainWebpack: (config) => {
-       config.plugin('NodePolyfillPlugin').tap(() => {
-         return [{ excludeAliases: ['process'] }]
-       })
     }
   }
 }

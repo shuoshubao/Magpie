@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-24 17:55:38
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-05-12 20:40:50
+ * @Last Modified time: 2022-05-11 16:59:45
  */
 const { ipcMain } = require('electron')
 const { readFileSync, writeFileSync, statSync, existsSync } = require('fs')
@@ -114,7 +114,6 @@ ipcMain.handle('getJscpdReport', async (event, fullPath) => {
       src,
       '-o',
       JscpdReportDir,
-      '-a',
       '-r',
       'json',
       '-s',

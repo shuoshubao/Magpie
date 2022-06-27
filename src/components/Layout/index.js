@@ -1,7 +1,7 @@
 import React, { Component, useRef, useState, useEffect } from 'react'
 import { HashRouter } from 'react-router-dom'
 import { ipcRenderer } from 'electron'
-import { Layout, Result, Button } from 'antd'
+import { Layout, Result, Card, Button } from 'antd'
 import CoffeeOutlined from '@ant-design/icons/CoffeeOutlined'
 import UserOutlined from '@ant-design/icons/UserOutlined'
 import { classNames } from '@nbfe/tools'
@@ -16,33 +16,43 @@ const { Content, Sider } = Layout
 class ErrorBoundary extends Component {
   constructor(props) {
     super(props)
-    this.state = { hasError: false }
+    this.state = {
+      hasError: false,
+      error: null
+    }
   }
 
-  static getDerivedStateFromError() {
-    return { hasError: true }
+  static getDerivedStateFromError(error) {
+    return {
+      hasError: true,
+      error
+    }
   }
 
   render() {
-    if (!this.state.hasError) {
+    const { hasError, error } = this.state
+    if (!hasError) {
       return this.props.children
     }
     return (
-      <Result
-        status="error"
-        title="代码执行报错!"
-        subTitle="请尝试刷新页面~"
-        extra={
-          <Button
-            type="primary"
-            onClick={() => {
-              window.location.reload()
-            }}
-          >
-            刷新页面
-          </Button>
-        }
-      />
+      <>
+        <Result
+          status="error"
+          title="代码执行报错!"
+          subTitle="请尝试刷新页面~"
+          extra={
+            <Button
+              type="primary"
+              onClick={() => {
+                window.location.reload()
+              }}
+            >
+              刷新页面
+            </Button>
+          }
+        />
+        <Card title="错误信息">{error?.message}</Card>
+      </>
     )
   }
 }

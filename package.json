@@ -20,7 +20,7 @@
     "@electron/remote": "^2.0.8",
     "@ke/form": "^2.1.7",
     "@ke/standard": "^2.0.4",
-    "@ke/table": "^2.1.1",
+    "@ke/table": "^2.1.2",
     "@nbfe/tools": "^0.2.14",
     "antd": "^4.20.0",
     "axios": "^0.26.1",

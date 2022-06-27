@@ -2,10 +2,14 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 14:33:27
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-05-31 17:35:36
+ * @Last Modified time: 2022-06-01 11:39:28
  */
+import React from 'react'
 import { ipcRenderer } from 'electron'
-import { rules } from '@nbfe/tools'
+import { message } from 'antd'
+import { merge } from 'lodash'
+import { rules, copyText } from '@nbfe/tools'
+import CopyOutlined from '@ant-design/icons/CopyOutlined'
 
 const { required } = rules
 
@@ -55,28 +59,44 @@ export const getCustomerGitConfigColumns = ({ initialValues }) => {
     {
       label: 'Git服务器域名',
       name: 'hostName',
-      template: {
-        width: 300
-      }
+      rules: [required]
     },
     {
       label: '用户名',
       name: 'name',
-      template: {
-        width: 300
-      }
+      rules: [required]
     },
     {
       label: '邮箱',
       name: 'email',
+      rules: [required]
+    },
+    {
+      label: 'SSH公钥',
+      name: 'sshPublicKey',
+      tooltip: '自动生成, 不可手动更改',
       template: {
-        width: 300
+        suffix: (
+          <CopyOutlined
+            onClick={() => {
+              copyText(initialValues.sshPublicKey)
+              message.success('复制成功')
+            }}
+          />
+        ),
+        readOnly: true
       }
     }
   ].map(v => {
-    return {
-      ...v,
-      defaultValue: initialValues[v.name]
-    }
+    return merge(
+      {},
+      {
+        defaultValue: initialValues[v.name],
+        template: {
+          width: 400
+        }
+      },
+      v
+    )
   })
 }

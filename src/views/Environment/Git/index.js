@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-05-31 18:04:03
+ * @Last Modified time: 2022-06-01 11:28:46
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
@@ -20,20 +20,17 @@ export const Index = () => {
   const [GitConfigs, setGitConfigs] = useState([])
 
   useEffect(() => {
-    const { GIT_CONFIG_DIR } = ipcRenderer.sendSync('getMainConfig')
-    console.log(111)
-    console.log(GIT_CONFIG_DIR)
-    const dirs = ipcRenderer.sendSync('globSync', `${GIT_CONFIG_DIR}/.gitconfig-*`)
-    const list = dirs.map(v => {
-      console.log(222)
-      console.log(v)
+    const { GIT_CONFIG_DIR, SSH_CONFIG_DIR } = ipcRenderer.sendSync('getMainConfig')
+    const list = ipcRenderer.sendSync('globSync', `${GIT_CONFIG_DIR}/.gitconfig-*`).map(v => {
       const content = ipcRenderer.sendSync('fs', 'readFileSync', v)
-      console.log(content)
       const config = ipcRenderer.sendSync('ini', 'parse', content)
-      console.log(config)
+      const configName = v.replace(`${GIT_CONFIG_DIR}/.gitconfig-`, '')
+      const SshPubPath = ipcRenderer.sendSync('path', 'resolve', SSH_CONFIG_DIR, `${configName}.pub`)
+      const sshPublicKey = ipcRenderer.sendSync('fs', 'readFileSync', SshPubPath).trim()
       return {
-        configName: v.replace(`${GIT_CONFIG_DIR}/.gitconfig-`, ''),
-        ...config.user
+        configName,
+        ...config.user,
+        sshPublicKey
       }
     })
     setGitConfigs(list)

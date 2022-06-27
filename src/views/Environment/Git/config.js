@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 14:33:27
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-02 16:01:31
+ * @Last Modified time: 2022-06-06 12:14:36
  */
 import React from 'react'
 import { ipcRenderer } from 'electron'
@@ -136,7 +136,10 @@ export const getCustomerGitConfigColumns = ({ initialValues }) => {
     {
       label: 'Git服务器域名',
       name: 'hostName',
-      rules: [required]
+      rules: [required],
+      template: {
+        disabled: true
+      }
     },
     {
       label: '用户名',

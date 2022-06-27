@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-02 22:58:58
+ * @Last Modified time: 2022-06-02 23:19:15
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
@@ -26,7 +26,7 @@ export const Index = () => {
   const addFormRef = useRef()
 
   const [GitConfigs, setGitConfigs] = useState([])
-  const [visible, setVisible] = useState(true)
+  const [visible, setVisible] = useState(false)
 
   const fetchData = () => {
     const { GIT_CONFIG_DIR, SSH_CONFIG_DIR } = ipcRenderer.sendSync('getMainConfig')
@@ -56,11 +56,16 @@ export const Index = () => {
     if (!formData) {
       return
     }
-    // await ipcRenderer.invoke('ssh-keygen', {
-    //   location: formData.configName,
-    //   comment: formData.name
-    // })
-    await ipcRenderer.invoke('ssh-config', {})
+    const { configName, hostName, name, email } = formData
+    await ipcRenderer.invoke('ssh-keygen', {
+      location: configName,
+      comment: name
+    })
+    await ipcRenderer.invoke('ssh-config', 'append', {
+      hostName,
+      name,
+      configName
+    })
     message.success('成功新增用户配置!')
     setVisible(false)
     fetchData()
@@ -115,8 +120,11 @@ export const Index = () => {
                     <Popconfirm
                       title="确定要删除吗？"
                       placement="topRight"
-                      onConfirm={e => {
+                      onConfirm={async e => {
                         e.stopPropagation()
+                        await ipcRenderer.invoke('ssh-config', 'remove', {
+                          hostName
+                        })
                       }}
                       onCancel={e => {
                         e.stopPropagation()

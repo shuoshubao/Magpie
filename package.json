@@ -44,7 +44,8 @@
     "react-json-view": "^1.21.3",
     "react-markdown": "^8.0.2",
     "react-router-dom": "5.2.0",
-    "remark-gfm": "^3.0.1"
+    "remark-gfm": "^3.0.1",
+    "ssh-config": "^4.1.4"
   },
   "devDependencies": {
     "@jiaoyi/s3": "^0.1.7",

@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-02 23:19:15
+ * @Last Modified time: 2022-06-06 12:11:55
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
@@ -22,7 +22,7 @@ import {
 const { Panel } = Collapse
 
 export const Index = () => {
-  const formRef = useRef()
+  const gitFormRef = useRef()
   const addFormRef = useRef()
 
   const [GitConfigs, setGitConfigs] = useState([])
@@ -74,7 +74,7 @@ export const Index = () => {
   return (
     <>
       <Form
-        ref={formRef}
+        ref={gitFormRef}
         columns={getGlobalGitConfigColumns()}
         formProps={{ layout: 'horizontal' }}
         showResetBtn={false}
@@ -84,7 +84,7 @@ export const Index = () => {
             <Button
               type="primary"
               onClick={async () => {
-                const formData = await formRef.current.getFormData()
+                const formData = await gitFormRef.current.getFormData()
                 if (!formData) {
                   return
                 }

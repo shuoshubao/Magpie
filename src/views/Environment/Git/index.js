@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-06 14:11:22
+ * @Last Modified time: 2022-06-06 14:26:21
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
@@ -12,12 +12,7 @@ import { map, range } from 'lodash'
 import { isEmptyArray } from '@nbfe/tools'
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import { Colors } from '@/configs'
-import {
-  parseGitDirs,
-  getGlobalGitConfigColumns,
-  getAddCustomerGitConfigColumns,
-  getCustomerGitConfigColumns
-} from './config'
+import { getGlobalGitConfigColumns, getAddCustomerGitConfigColumns, getCustomerGitConfigColumns } from './config'
 
 const { Panel } = Collapse
 
@@ -31,22 +26,8 @@ export const Index = () => {
   const [GitConfigs, setGitConfigs] = useState([])
   const [visible, setVisible] = useState(false)
 
-  const fetchData = () => {
-    const { GIT_CONFIG_DIR, SSH_CONFIG_DIR } = ipcRenderer.sendSync('getMainConfig')
-    const gitConfig = parseGitDirs()
-    const list = ipcRenderer.sendSync('globSync', `${GIT_CONFIG_DIR}/.gitconfig-*`).map(v => {
-      const content = ipcRenderer.sendSync('fs', 'readFileSync', v)
-      const config = ipcRenderer.sendSync('ini', 'parse', content)
-      const configName = v.replace(`${GIT_CONFIG_DIR}/.gitconfig-`, '')
-      const sshPubPath = ipcRenderer.sendSync('path', 'resolve', SSH_CONFIG_DIR, `${configName}.pub`)
-      const sshPublicKey = ipcRenderer.sendSync('fs', 'readFileSync', sshPubPath).trim()
-      return {
-        configName,
-        ...config.user,
-        sshPublicKey,
-        gitdirs: gitConfig[v] || []
-      }
-    })
+  const fetchData = async () => {
+    const list = await ipcRenderer.invoke('get-git-ssh-config')
     setGitConfigs(list)
   }
 

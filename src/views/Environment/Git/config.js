@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 14:33:27
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-06 13:38:49
+ * @Last Modified time: 2022-06-06 14:26:26
  */
 import React from 'react'
 import { ipcRenderer } from 'electron'
@@ -53,25 +53,6 @@ export const getGlobalGitConfigColumns = () => {
       }
     }
   ]
-}
-
-export const parseGitDirs = () => {
-  const { GIT_CONFIG_PATH } = ipcRenderer.sendSync('getMainConfig')
-  const gitConfigContent = ipcRenderer.sendSync('fs', 'readFileSync', GIT_CONFIG_PATH)
-  const gitConfig = ipcRenderer.sendSync('ini', 'parse', gitConfigContent)
-  return Object.entries(gitConfig).reduce((prev, [k, v]) => {
-    if (!k.startsWith('includeIf')) {
-      return prev
-    }
-    const gitdir = k.slice(18, -1)
-    const { path } = v
-    if (prev[path]) {
-      prev[path].push(gitdir)
-    } else {
-      prev[path] = [gitdir]
-    }
-    return prev
-  }, {})
 }
 
 export const getAddCustomerGitConfigColumns = () => {

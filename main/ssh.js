@@ -2,17 +2,55 @@
  * @Author: fangt11
  * @Date:   2022-06-01 23:11:57
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-06 13:58:55
+ * @Last Modified time: 2022-06-06 14:25:58
  */
 const { ipcMain } = require('electron')
 const { existsSync, readFileSync, writeFileSync } = require('fs')
 const { removeSync } = require('fs-extra')
 const { resolve } = require('path')
+const glob = require('glob')
 const { execFileSync } = require('child_process')
 const ini = require('ini')
 const SSHConfig = require('ssh-config')
 const { cloneDeep } = require('lodash')
-const { GIT_CONFIG_DIR, SSH_CONFIG_DIR } = require('./config')
+const { GIT_CONFIG_PATH, GIT_CONFIG_DIR, SSH_CONFIG_DIR } = require('./config')
+
+// gitdirs
+const parseGitDirs = () => {
+  const gitConfigContent = readFileSync(GIT_CONFIG_PATH).toString()
+  const gitConfig = ini.parse(gitConfigContent)
+  return Object.entries(gitConfig).reduce((prev, [k, v]) => {
+    if (!k.startsWith('includeIf')) {
+      return prev
+    }
+    const gitdir = k.slice(18, -1)
+    const { path } = v
+    if (prev[path]) {
+      prev[path].push(gitdir)
+    } else {
+      prev[path] = [gitdir]
+    }
+    return prev
+  }, {})
+}
+
+// 获取 git ssh 配置
+ipcMain.handle('get-git-ssh-config', event => {
+  const gitConfig = parseGitDirs()
+  return glob.sync(`${GIT_CONFIG_DIR}/.gitconfig-*`).map(v => {
+    const content = readFileSync(v).toString()
+    const config = ini.parse(content)
+    const configName = v.replace(`${GIT_CONFIG_DIR}/.gitconfig-`, '')
+    const sshPubPath = resolve(SSH_CONFIG_DIR, `${configName}.pub`)
+    const sshPublicKey = readFileSync(sshPubPath).toString().trim()
+    return {
+      configName,
+      ...config.user,
+      sshPublicKey,
+      gitdirs: gitConfig[v] || []
+    }
+  })
+})
 
 ipcMain.handle('ssh-keygen', (event, config) => {
   const { location, comment } = config

@@ -2,17 +2,17 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 14:33:27
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-06 15:50:56
+ * @Last Modified time: 2022-06-07 11:20:16
  */
 import React from 'react'
 import { ipcRenderer } from 'electron'
 import { message } from 'antd'
-import { merge, uniqWith, isEqual } from 'lodash'
+import { merge } from 'lodash'
 import { rules, copyText } from '@nbfe/tools'
 import CopyOutlined from '@ant-design/icons/CopyOutlined'
 import SelectFolder from '@/components/SelectFolder'
 
-const { required } = rules
+const { required, uniq } = rules
 
 export const getGlobalGitConfigColumns = () => {
   const name = ipcRenderer.sendSync('execaCommandSync', 'git config --global user.name')
@@ -152,16 +152,7 @@ export const getCustomerGitConfigColumns = ({ initialValues }) => {
       name: 'gitdirs',
       formListConfig: {
         record: '',
-        rules: [
-          {
-            validator: (rule, value) => {
-              if (!isEqual(uniqWith(value, isEqual), value)) {
-                return Promise.reject('不能重复')
-              }
-              return Promise.resolve()
-            }
-          }
-        ]
+        rules: [uniq]
       },
       template: {
         tpl: SelectFolder,

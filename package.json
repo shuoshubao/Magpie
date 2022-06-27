@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "react-cli serve & node bin/copy-npm & NODE_ENV=development nodemon --exec electron ./main/index.js",
-    "build": "rm -rf dist && react-cli build & node bin/copy-npm && npx electron-builder build",
+    "build": "rm -rf dist && react-cli build && npx electron-builder build",
     "commit": "npx git-cz",
     "prettier": "npx prettier --write",
     "lint": "npx eslint --ext .ts,.tsx,.js,.jsx,.vue -f html -o ESLintReport.html",
@@ -18,9 +18,9 @@
   },
   "dependencies": {
     "@electron/remote": "^2.0.8",
-    "@nbfe/form": "^2.1.9",
+    "@nbfe/form": "^1.0.0",
     "@nbfe/standard": "^1.0.1",
-    "@nbfe/table": "^0.2.6",
+    "@nbfe/table": "^1.0.0",
     "@nbfe/tools": "^0.2.15",
     "antd": "^4.20.0",
     "axios": "^0.26.1",

@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2022-06-01 23:11:57
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-06 15:50:11
+ * @Last Modified time: 2022-06-06 15:59:26
  */
 const { ipcMain } = require('electron')
 const { existsSync, readFileSync, writeFileSync } = require('fs')
@@ -99,6 +99,7 @@ ipcMain.handle('ssh-config', (event, action, config) => {
       IdentityFile: resolve(SSH_CONFIG_DIR, configName)
     }
     sshConfig.append(section)
+    writeFileSync(sshConfigPath, SSHConfig.stringify(sshConfig))
     // git
     const gitConfig = {
       user: {
@@ -114,6 +115,7 @@ ipcMain.handle('ssh-config', (event, action, config) => {
     sshConfig.remove({ Host: hostName })
     removeSync(resolve(SSH_CONFIG_DIR, configName))
     removeSync(resolve(SSH_CONFIG_DIR, `${configName}.pub`))
+    writeFileSync(sshConfigPath, SSHConfig.stringify(sshConfig))
     // git
     removeSync(gitConfigPath)
     updateGitDirs(configName, [])
@@ -127,6 +129,7 @@ ipcMain.handle('ssh-config', (event, action, config) => {
         line.value = name
       }
     }
+    writeFileSync(sshConfigPath, SSHConfig.stringify(sshConfig))
     // git
     updateGitDirs(configName, gitdirs)
     const gitConfig = ini.parse(readFileSync(gitConfigPath).toString())
@@ -134,5 +137,4 @@ ipcMain.handle('ssh-config', (event, action, config) => {
     gitConfig.user.email = email
     writeFileSync(gitConfigPath, ini.stringify(gitConfig))
   }
-  writeFileSync(sshConfigPath, SSHConfig.stringify(sshConfig))
 })

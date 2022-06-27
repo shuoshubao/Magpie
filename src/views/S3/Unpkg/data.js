@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2022-04-29 15:37:40
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-05-31 10:49:57
+ * @Last Modified time: 2022-04-29 15:37:52
  */
 export const dataSource = [
   {
@@ -1190,45 +1190,6 @@ export const dataSource = [
           'README.md',
           'README_CN.md',
           'dist/vconsole.min.js'
-        ]
-      }
-    ]
-  },
-  {
-    name: 'vue',
-    versions: [
-      {
-        version: '3.2.36',
-        files: [
-          'compiler-sfc/index.d.ts',
-          'compiler-sfc/package.json',
-          'compiler-sfc/index.mjs',
-          'compiler-sfc/index.js',
-          'dist/vue.d.ts',
-          'dist/vue.cjs.js',
-          'dist/vue.cjs.prod.js',
-          'dist/vue.esm-bundler.js',
-          'server-renderer/index.js',
-          'server-renderer/package.json',
-          'server-renderer/index.mjs',
-          'ref-macros.d.ts',
-          'dist/vue.runtime.esm-bundler.js',
-          'server-renderer/index.d.ts',
-          'index.mjs',
-          'index.js',
-          'macros-global.d.ts',
-          'package.json',
-          'LICENSE',
-          'README.md',
-          'dist/vue.esm-browser.prod.js',
-          'macros.d.ts',
-          'dist/vue.runtime.esm-browser.prod.js',
-          'dist/vue.runtime.global.prod.js',
-          'dist/vue.global.prod.js',
-          'dist/vue.runtime.esm-browser.js',
-          'dist/vue.runtime.global.js',
-          'dist/vue.global.js',
-          'dist/vue.esm-browser.js'
         ]
       }
     ]

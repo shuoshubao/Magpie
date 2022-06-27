@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2022-04-29 13:54:04
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-05-31 10:51:05
+ * @Last Modified time: 2022-04-29 16:26:19
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { Modal, Collapse, Card, List, Typography, Space, Button } from 'antd'
@@ -70,7 +70,7 @@ const Index = () => {
                                     text: url
                                   }}
                                 >
-                                  {item}
+                                  {url}
                                 </Text>
                               </List.Item>
                             )

@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2022-06-01 23:11:57
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-06 14:25:58
+ * @Last Modified time: 2022-06-06 14:39:01
  */
 const { ipcMain } = require('electron')
 const { existsSync, readFileSync, writeFileSync } = require('fs')
@@ -91,8 +91,11 @@ ipcMain.handle('ssh-config', (event, action, config) => {
   // 删除
   if (action === 'remove') {
     sshConfig.remove({ Host: hostName })
+    removeSync(resolve(SSH_CONFIG_DIR, configName))
+    removeSync(resolve(SSH_CONFIG_DIR, `${configName}.pub`))
     // git
     removeSync(gitConfigPath)
+    return
   }
   // 更新
   if (action === 'update') {

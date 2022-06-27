@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-06 14:33:18
+ * @Last Modified time: 2022-06-06 14:40:41
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
@@ -122,7 +122,7 @@ export const Index = () => {
                   key={configName}
                   extra={
                     <Popconfirm
-                      title="确定要删除吗？"
+                      title={['确定要删除【', configName, '】吗？'].join('')}
                       placement="topRight"
                       onConfirm={async e => {
                         e.stopPropagation()

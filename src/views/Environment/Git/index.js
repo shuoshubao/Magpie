@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-06 14:44:02
+ * @Last Modified time: 2022-06-06 15:52:15
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
@@ -28,6 +28,7 @@ export const Index = () => {
 
   const fetchData = async () => {
     const list = await ipcRenderer.invoke('get-git-ssh-config')
+    console.log(list)
     setGitConfigs(list)
   }
 
@@ -45,7 +46,8 @@ export const Index = () => {
       configName,
       hostName,
       name,
-      email
+      email,
+      gitdirs
     })
     message.success('更新成功')
   }

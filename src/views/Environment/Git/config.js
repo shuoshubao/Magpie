@@ -2,12 +2,12 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 14:33:27
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-06 14:26:26
+ * @Last Modified time: 2022-06-06 15:50:56
  */
 import React from 'react'
 import { ipcRenderer } from 'electron'
 import { message } from 'antd'
-import { merge } from 'lodash'
+import { merge, uniqWith, isEqual } from 'lodash'
 import { rules, copyText } from '@nbfe/tools'
 import CopyOutlined from '@ant-design/icons/CopyOutlined'
 import SelectFolder from '@/components/SelectFolder'
@@ -151,11 +151,22 @@ export const getCustomerGitConfigColumns = ({ initialValues }) => {
       label: '目录',
       name: 'gitdirs',
       formListConfig: {
-        record: ''
+        record: '',
+        rules: [
+          {
+            validator: (rule, value) => {
+              if (!isEqual(uniqWith(value, isEqual), value)) {
+                return Promise.reject('不能重复')
+              }
+              return Promise.resolve()
+            }
+          }
+        ]
       },
       template: {
         tpl: SelectFolder,
-        readOnly: true
+        readOnly: true,
+        allowClear: true
       }
     }
   ].map(v => {

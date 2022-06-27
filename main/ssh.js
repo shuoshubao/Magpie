@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2022-06-01 23:11:57
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-06 14:39:01
+ * @Last Modified time: 2022-06-06 15:50:11
  */
 const { ipcMain } = require('electron')
 const { existsSync, readFileSync, writeFileSync } = require('fs')
@@ -34,6 +34,27 @@ const parseGitDirs = () => {
   }, {})
 }
 
+const updateGitDirs = (configName, gitdirs) => {
+  const gitConfigContent = readFileSync(GIT_CONFIG_PATH).toString()
+  const gitConfig = ini.parse(gitConfigContent)
+  const gitConfigPath = resolve(GIT_CONFIG_DIR, `.gitconfig-${configName}`)
+  Object.entries(gitConfig).forEach(([k, v]) => {
+    if (k.startsWith('includeIf')) {
+      const { path } = v
+      if (gitConfigPath === path) {
+        delete gitConfig[k]
+      }
+    }
+  })
+  gitdirs.filter(Boolean).forEach(v => {
+    const key = `includeIf "gitdir:${v}"`
+    gitConfig[key] = {
+      path: gitConfigPath
+    }
+  })
+  writeFileSync(GIT_CONFIG_PATH, ini.stringify(gitConfig))
+}
+
 // 获取 git ssh 配置
 ipcMain.handle('get-git-ssh-config', event => {
   const gitConfig = parseGitDirs()
@@ -47,7 +68,7 @@ ipcMain.handle('get-git-ssh-config', event => {
       configName,
       ...config.user,
       sshPublicKey,
-      gitdirs: gitConfig[v] || []
+      gitdirs: gitConfig[v] || ['']
     }
   })
 })
@@ -63,7 +84,7 @@ ipcMain.handle('ssh-keygen', (event, config) => {
 })
 
 ipcMain.handle('ssh-config', (event, action, config) => {
-  const { configName, hostName, name, email } = config
+  const { configName, hostName, name, email, gitdirs } = config
   const sshConfigPath = resolve(SSH_CONFIG_DIR, 'config')
   const content = readFileSync(sshConfigPath).toString()
   const sshConfig = SSHConfig.parse(content)
@@ -95,6 +116,7 @@ ipcMain.handle('ssh-config', (event, action, config) => {
     removeSync(resolve(SSH_CONFIG_DIR, `${configName}.pub`))
     // git
     removeSync(gitConfigPath)
+    updateGitDirs(configName, [])
     return
   }
   // 更新
@@ -106,6 +128,7 @@ ipcMain.handle('ssh-config', (event, action, config) => {
       }
     }
     // git
+    updateGitDirs(configName, gitdirs)
     const gitConfig = ini.parse(readFileSync(gitConfigPath).toString())
     gitConfig.user.name = name
     gitConfig.user.email = email

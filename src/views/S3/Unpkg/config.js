@@ -2,12 +2,12 @@
  * @Author: fangt11
  * @Date:   2022-04-29 14:01:22
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-06 14:29:58
+ * @Last Modified time: 2022-06-06 14:45:14
  */
 import React from 'react'
 import { ipcRenderer } from 'electron'
 import { Space, Typography } from 'antd'
-import { sleep, rules } from '@nbfe/tools'
+import { sleep } from '@nbfe/tools'
 import { RegistryEnum } from '@/configs'
 
 const { Text } = Typography

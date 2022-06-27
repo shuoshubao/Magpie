@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { dialog } from '@electron/remote'
 import { Input } from 'antd'
 import FolderOpenOutlined from '@ant-design/icons/FolderOpenOutlined'

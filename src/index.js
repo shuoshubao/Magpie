@@ -10,6 +10,7 @@ const memoizePath = window.localStorage.getItem('path')
 
 if (isDevelopment) {
   const config = ipcRenderer.sendSync('getMainConfig')
+  // eslint-disable-next-line no-console
   console.log(config)
   if (!checkShoulduHideSidebar() && memoizePath) {
     window.location.hash = memoizePath

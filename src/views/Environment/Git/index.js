@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-06 14:26:21
+ * @Last Modified time: 2022-06-06 14:33:18
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
@@ -34,6 +34,21 @@ export const Index = () => {
   useEffect(() => {
     fetchData()
   }, [setGitConfigs])
+
+  const handleUpdate = async ({ index, configName, hostName }) => {
+    const formData = await customerGitConfigRefs[index].current.getFormData()
+    if (!formData) {
+      return
+    }
+    const { name, email, gitdirs } = formData
+    await ipcRenderer.invoke('ssh-config', 'update', {
+      configName,
+      hostName,
+      name,
+      email
+    })
+    message.success('更新成功')
+  }
 
   const handleAdd = async () => {
     const formData = await addFormRef.current.getFormData()
@@ -139,19 +154,8 @@ export const Index = () => {
                   >
                     <Button
                       type="primary"
-                      onClick={async () => {
-                        const formData = await customerGitConfigRefs[i].current.getFormData()
-                        if (!formData) {
-                          return
-                        }
-                        const { name, email, gitdirs } = formData
-                        await ipcRenderer.invoke('ssh-config', 'update', {
-                          configName,
-                          hostName,
-                          name,
-                          email
-                        })
-                        message.success('更新成功')
+                      onClick={() => {
+                        handleUpdate({ index: i, configName, hostName })
                       }}
                     >
                       保存

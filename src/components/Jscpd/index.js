@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Table, Tabs, Collapse, Card, Result, Typography } from 'antd'
+import { Table, Tabs, Collapse, Result, Typography } from 'antd'
 import { isEmptyObject, add, formatTime } from '@nbfe/tools'
 import { filter, pick, sortBy } from 'lodash'
 import hljs from 'highlight.js/lib/core'
@@ -131,9 +131,8 @@ export default props => {
           selectedRowKeys,
           onChange: setSelectedRowKeys,
           getCheckboxProps: record => {
-            const { language } = record
             return {
-              disabled: selectedRowKeys.length && !selectedRowKeys.includes(language)
+              disabled: selectedRowKeys.length && !selectedRowKeys.includes(record.language)
             }
           }
         }}
@@ -217,7 +216,7 @@ export default props => {
           return (
             <>
               <Table.Summary.Row>
-                <Table.Summary.Cell></Table.Summary.Cell>
+                <Table.Summary.Cell />
                 <Table.Summary.Cell>合计</Table.Summary.Cell>
                 <Table.Summary.Cell>{total.sources}</Table.Summary.Cell>
                 <Table.Summary.Cell>{total.lines}</Table.Summary.Cell>

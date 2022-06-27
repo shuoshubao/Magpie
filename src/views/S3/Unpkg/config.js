@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2022-04-29 14:01:22
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-29 15:42:04
+ * @Last Modified time: 2022-06-06 14:29:58
  */
 import React from 'react'
 import { ipcRenderer } from 'electron'
@@ -11,8 +11,6 @@ import { sleep, rules } from '@nbfe/tools'
 import { RegistryEnum } from '@/configs'
 
 const { Text } = Typography
-
-const { required } = rules
 
 export const getFormColumns = () => {
   const npmrc = ipcRenderer.sendSync('getNpmrc')
@@ -55,7 +53,7 @@ export const getTableColumns = ({ setModalVisible }) => {
       template: {
         tpl: 'link',
         render: (value, record) => {
-          const { name, version } = record
+          const { name } = record
           return {
             text: '发布',
             PopconfirmConfig: {

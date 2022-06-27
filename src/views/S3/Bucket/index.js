@@ -1,8 +1,8 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-22 15:53:59
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-24 14:31:24
+ * @Last Modified by:   fangt11
+ * @Last Modified time: 2022-06-06 14:29:08
  * @Desc: 文件上传
  */
 import React, { useRef, useState, useEffect } from 'react'
@@ -41,7 +41,8 @@ const Index = () => {
     const format = 'YYYY-MM-DD hh:mm:ss'
     if (isAdd) {
       if (some([...buckets, ...TestBucketInfo], { bucket })) {
-        return message.error(`bucket【${bucket}】 已存在, 不可重复添加`)
+        message.error(`bucket【${bucket}】 已存在, 不可重复添加`)
+        return
       }
       buckets.unshift({
         ...formData,

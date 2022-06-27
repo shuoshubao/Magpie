@@ -2,11 +2,11 @@
  * @Author: fangt11
  * @Date:   2022-04-07 13:47:44
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-05-20 11:26:41
+ * @Last Modified time: 2022-05-20 12:15:13
  */
-require('@electron/remote/main').initialize()
 const { resolve } = require('path')
 const { app, BrowserWindow, ipcMain, globalShortcut, session } = require('electron')
+const remote = require('@electron/remote/main')
 const log = require('electron-log')
 const glob = require('glob')
 const { isDevelopment, Chrome_Extensions_PATH, Chrome_Extensions_IDS } = require('./config')
@@ -31,7 +31,8 @@ app.on('ready', () => {
 
   win.maximize()
 
-  require("@electron/remote/main").enable(win.webContents)
+  remote.initialize()
+  remote.enable(win.webContents)
 
   if (isDevelopment) {
     win.loadURL('http://localhost:8080/')

@@ -214,17 +214,15 @@ export default props => {
           const duplicatedTokensText = `${total.duplicatedTokens}(${total.percentageTokens}%)`
 
           return (
-            <>
-              <Table.Summary.Row>
-                <Table.Summary.Cell />
-                <Table.Summary.Cell>合计</Table.Summary.Cell>
-                <Table.Summary.Cell>{total.sources}</Table.Summary.Cell>
-                <Table.Summary.Cell>{total.lines}</Table.Summary.Cell>
-                <Table.Summary.Cell>{total.clones}</Table.Summary.Cell>
-                <Table.Summary.Cell>{duplicatedLinesText}</Table.Summary.Cell>
-                <Table.Summary.Cell>{duplicatedTokensText}</Table.Summary.Cell>
-              </Table.Summary.Row>
-            </>
+            <Table.Summary.Row>
+              <Table.Summary.Cell />
+              <Table.Summary.Cell>合计</Table.Summary.Cell>
+              <Table.Summary.Cell>{total.sources}</Table.Summary.Cell>
+              <Table.Summary.Cell>{total.lines}</Table.Summary.Cell>
+              <Table.Summary.Cell>{total.clones}</Table.Summary.Cell>
+              <Table.Summary.Cell>{duplicatedLinesText}</Table.Summary.Cell>
+              <Table.Summary.Cell>{duplicatedTokensText}</Table.Summary.Cell>
+            </Table.Summary.Row>
           )
         }}
       />

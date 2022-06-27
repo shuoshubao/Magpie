@@ -2,11 +2,11 @@
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-06 14:40:41
+ * @Last Modified time: 2022-06-06 14:44:02
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
-import { Button, Modal, Collapse, Card, Popconfirm, Tooltip, message } from 'antd'
+import { Button, Modal, Collapse, Card, Popconfirm, message } from 'antd'
 import Form from '@ke/form'
 import { map, range } from 'lodash'
 import { isEmptyArray } from '@nbfe/tools'
@@ -115,7 +115,7 @@ export const Index = () => {
         {!isEmptyArray(GitConfigs) && (
           <Collapse defaultActiveKey={map(GitConfigs, 'configName')}>
             {GitConfigs.map((v, i) => {
-              const { configName, hostName, name, email } = v
+              const { configName, hostName } = v
               return (
                 <Panel
                   header={['配置', configName].join('-')}

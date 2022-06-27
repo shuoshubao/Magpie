@@ -271,11 +271,9 @@ const Index = () => {
       <Card
         title="Jscpd"
         extra={
-          <>
-            <Button type="primary" loading={eslintLoading} icon={<BugOutlined />} onClick={fetchJscpdReport}>
-              开始检测
-            </Button>
-          </>
+          <Button type="primary" loading={eslintLoading} icon={<BugOutlined />} onClick={fetchJscpdReport}>
+            开始检测
+          </Button>
         }
       >
         {isEmptyObject(JscpdData) ? <Result title="暂无数据" /> : <Jscpd dataSource={JscpdData} />}

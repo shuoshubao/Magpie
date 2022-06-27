@@ -2,16 +2,17 @@
  * @Author: fangt11
  * @Date:   2022-06-01 23:11:57
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-02 23:18:21
+ * @Last Modified time: 2022-06-06 13:58:55
  */
 const { ipcMain } = require('electron')
 const { existsSync, readFileSync, writeFileSync } = require('fs')
 const { removeSync } = require('fs-extra')
 const { resolve } = require('path')
-const SSHConfig = require('ssh-config')
 const { execFileSync } = require('child_process')
+const ini = require('ini')
+const SSHConfig = require('ssh-config')
 const { cloneDeep } = require('lodash')
-const { SSH_CONFIG_DIR } = require('./config')
+const { GIT_CONFIG_DIR, SSH_CONFIG_DIR } = require('./config')
 
 ipcMain.handle('ssh-keygen', (event, config) => {
   const { location, comment } = config
@@ -24,24 +25,50 @@ ipcMain.handle('ssh-keygen', (event, config) => {
 })
 
 ipcMain.handle('ssh-config', (event, action, config) => {
-  const { configName, hostName, name } = config
+  const { configName, hostName, name, email } = config
   const sshConfigPath = resolve(SSH_CONFIG_DIR, 'config')
   const content = readFileSync(sshConfigPath).toString()
   const sshConfig = SSHConfig.parse(content)
+  const gitConfigPath = resolve(GIT_CONFIG_DIR, `.gitconfig-${configName}`)
   // 新增
   if (action === 'append') {
-    const newSSHConfigSection = {
+    const section = {
       Host: hostName,
       HostName: hostName,
       User: name,
       PreferredAuthentications: 'publickey',
       IdentityFile: resolve(SSH_CONFIG_DIR, configName)
     }
-    sshConfig.append(newSSHConfigSection)
+    sshConfig.append(section)
+    // git
+    const gitConfig = {
+      user: {
+        hostName,
+        name,
+        email
+      }
+    }
+    writeFileSync(gitConfigPath, ini.stringify(gitConfig))
   }
   // 删除
   if (action === 'remove') {
     sshConfig.remove({ Host: hostName })
+    // git
+    removeSync(gitConfigPath)
+  }
+  // 更新
+  if (action === 'update') {
+    const section = sshConfig.find({ Host: hostName })
+    for (const line of section.config) {
+      if (line.param === 'User') {
+        line.value = name
+      }
+    }
+    // git
+    const gitConfig = ini.parse(readFileSync(gitConfigPath).toString())
+    gitConfig.user.name = name
+    gitConfig.user.email = email
+    writeFileSync(gitConfigPath, ini.stringify(gitConfig))
   }
   writeFileSync(sshConfigPath, SSHConfig.stringify(sshConfig))
 })

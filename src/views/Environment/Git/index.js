@@ -2,13 +2,13 @@
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-06 12:11:55
+ * @Last Modified time: 2022-06-06 14:11:22
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
-import { Button, Modal, Collapse, Card, Popconfirm, Tooltip } from 'antd'
+import { Button, Modal, Collapse, Card, Popconfirm, Tooltip, message } from 'antd'
 import Form from '@ke/form'
-import { map } from 'lodash'
+import { map, range } from 'lodash'
 import { isEmptyArray } from '@nbfe/tools'
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import { Colors } from '@/configs'
@@ -24,6 +24,9 @@ const { Panel } = Collapse
 export const Index = () => {
   const gitFormRef = useRef()
   const addFormRef = useRef()
+  const customerGitConfigRefs = range(10).map(() => {
+    return useRef()
+  })
 
   const [GitConfigs, setGitConfigs] = useState([])
   const [visible, setVisible] = useState(false)
@@ -57,18 +60,23 @@ export const Index = () => {
       return
     }
     const { configName, hostName, name, email } = formData
+    if (map(GitConfigs, 'hostName').includes(hostName)) {
+      message.error(`服务器域名${hostName}已存在, 不可重复添加`)
+      return
+    }
     await ipcRenderer.invoke('ssh-keygen', {
       location: configName,
       comment: name
     })
     await ipcRenderer.invoke('ssh-config', 'append', {
+      configName,
       hostName,
       name,
-      configName
+      email
     })
-    message.success('成功新增用户配置!')
     setVisible(false)
     fetchData()
+    message.success('新增成功')
   }
 
   return (
@@ -123,8 +131,11 @@ export const Index = () => {
                       onConfirm={async e => {
                         e.stopPropagation()
                         await ipcRenderer.invoke('ssh-config', 'remove', {
+                          configName,
                           hostName
                         })
+                        fetchData()
+                        message.success('删除成功')
                       }}
                       onCancel={e => {
                         e.stopPropagation()
@@ -140,11 +151,28 @@ export const Index = () => {
                   }
                 >
                   <Form
+                    ref={customerGitConfigRefs[i]}
                     columns={getCustomerGitConfigColumns({ initialValues: v })}
                     formProps={{ layout: 'horizontal' }}
                     showResetBtn={false}
                   >
-                    <Button type="primary" onClick={async () => {}}>
+                    <Button
+                      type="primary"
+                      onClick={async () => {
+                        const formData = await customerGitConfigRefs[i].current.getFormData()
+                        if (!formData) {
+                          return
+                        }
+                        const { name, email, gitdirs } = formData
+                        await ipcRenderer.invoke('ssh-config', 'update', {
+                          configName,
+                          hostName,
+                          name,
+                          email
+                        })
+                        message.success('更新成功')
+                      }}
+                    >
                       保存
                     </Button>
                   </Form>

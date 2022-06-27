@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-11 14:37:07
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-05-31 17:09:03
+ * @Last Modified time: 2022-06-01 11:16:00
  * @Desc 配置
  */
 const { ensureDirSync } = require('fs-extra')
@@ -63,6 +63,9 @@ const NPMRC_PATH = resolve(HOME_DIR, '.npmrc')
 // .gitconfig
 const GIT_CONFIG_PATH = resolve(HOME_DIR, '.gitconfig')
 
+// .ssh
+const SSH_CONFIG_DIR = resolve(HOME_DIR, '.ssh')
+
 const config = {
   pkg,
   APP_NAME,
@@ -82,7 +85,8 @@ const config = {
   Chrome_Extensions_PATH,
   Chrome_Extensions_IDS,
   NPMRC_PATH,
-  GIT_CONFIG_PATH
+  GIT_CONFIG_PATH,
+  SSH_CONFIG_DIR
 }
 
 ipcMain.on('getMainConfig', event => {

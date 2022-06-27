@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 14:33:27
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-04-29 17:01:52
+ * @Last Modified time: 2022-06-06 19:28:46
  */
 import React from 'react'
 import { ipcRenderer } from 'electron'
@@ -86,7 +86,7 @@ export const getTableColumns = () => {
           return [
             {
               text: '升级',
-              disabled: latestVersion !== version,
+              disabled: latestVersion === version,
               visible: !loading,
               PopconfirmConfig: {
                 title: (

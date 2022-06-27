@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-06 15:52:15
+ * @Last Modified time: 2022-06-06 16:11:48
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
@@ -35,6 +35,18 @@ export const Index = () => {
   useEffect(() => {
     fetchData()
   }, [setGitConfigs])
+
+  const handleSaveGlobalGitConfig = async () => {
+    const formData = await gitFormRef.current.getFormData()
+    if (!formData) {
+      return
+    }
+    const { name, email, ignorecase } = formData
+    ipcRenderer.sendSync('execaCommandSync', `git config --global user.name ${name}`)
+    ipcRenderer.sendSync('execaCommandSync', `git config --global user.email ${email}`)
+    ipcRenderer.sendSync('execaCommandSync', `git config --global core.ignorecase ${JSON.stringify(ignorecase)}`)
+    message.success('更新成功')
+  }
 
   const handleUpdate = async ({ index, configName, hostName }) => {
     const formData = await customerGitConfigRefs[index].current.getFormData()
@@ -87,15 +99,7 @@ export const Index = () => {
         cardProps={{
           title: 'Git 全局配置',
           extra: (
-            <Button
-              type="primary"
-              onClick={async () => {
-                const formData = await gitFormRef.current.getFormData()
-                if (!formData) {
-                  return
-                }
-              }}
-            >
+            <Button type="primary" onClick={handleSaveGlobalGitConfig}>
               保存
             </Button>
           )

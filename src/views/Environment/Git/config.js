@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-12 14:33:27
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-01 11:39:28
+ * @Last Modified time: 2022-06-01 15:59:50
  */
 import React from 'react'
 import { ipcRenderer } from 'electron'
@@ -10,6 +10,7 @@ import { message } from 'antd'
 import { merge } from 'lodash'
 import { rules, copyText } from '@nbfe/tools'
 import CopyOutlined from '@ant-design/icons/CopyOutlined'
+import FolderOpenOutlined from '@ant-design/icons/FolderOpenOutlined'
 
 const { required } = rules
 
@@ -54,6 +55,37 @@ export const getGlobalGitConfigColumns = () => {
   ]
 }
 
+export const parseGitDirs = () => {
+  const { GIT_CONFIG_PATH } = ipcRenderer.sendSync('getMainConfig')
+  const gitConfigContent = ipcRenderer.sendSync('fs', 'readFileSync', GIT_CONFIG_PATH)
+  const gitConfig = ipcRenderer.sendSync('ini', 'parse', gitConfigContent)
+  return Object.entries(gitConfig).reduce((prev, [k, v]) => {
+    if (!k.startsWith('includeIf')) {
+      return prev
+    }
+    const gitdir = k.slice(18, -1)
+    const { path } = v
+    if (prev[path]) {
+      prev[path].push(gitdir)
+    } else {
+      prev[path] = [gitdir]
+    }
+    return prev
+  }, {})
+}
+
+// 选择目录
+const handleSelectFolder = async () => {
+  const { canceled, filePaths } = await ipcRenderer.invoke('electron.dialog.showOpenDialog', {
+    properties: ['openDirectory']
+  })
+  if (canceled) {
+    return
+  }
+  const [filePath] = filePaths
+  console.log(filePath)
+}
+
 export const getCustomerGitConfigColumns = ({ initialValues }) => {
   return [
     {
@@ -84,6 +116,17 @@ export const getCustomerGitConfigColumns = ({ initialValues }) => {
             }}
           />
         ),
+        readOnly: true
+      }
+    },
+    {
+      label: '目录',
+      name: 'gitdirs',
+      formListConfig: {
+        record: ''
+      },
+      template: {
+        suffix: <FolderOpenOutlined onClick={handleSelectFolder} />,
         readOnly: true
       }
     }

@@ -2,7 +2,7 @@
  * @Author: fangt11
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-27 13:52:25
+ * @Last Modified time: 2022-06-27 23:07:14
  */
 
 import React, { useState, useEffect } from 'react'
@@ -22,7 +22,7 @@ const Index = () => {
   const [BaseinfoDataSource, setBaseinfoDataSource] = useState({})
   const [ElectronDataSource, setElectronDataSource] = useState({})
 
-  const { APP_NAME } = ipcRenderer.sendSync('getMainConfig')
+  const { APP_NAME, CHANGELOG_APTH } = ipcRenderer.sendSync('getMainConfig')
 
   useEffect(() => {
     const userInfo = ipcRenderer.sendSync('os', 'userInfo')
@@ -44,7 +44,7 @@ const Index = () => {
   }, [setUsername, setBaseinfoDataSource, setElectronDataSource])
 
   const handleOpenChangeLog = () => {
-    const ChangelogContent = ipcRenderer.sendSync('fs', 'readFileSync', 'CHANGELOG.md')
+    const ChangelogContent = ipcRenderer.sendSync('fs', 'readFileSync', CHANGELOG_APTH)
     Modal.info({
       content: <ReactMarkdown children={ChangelogContent} remarkPlugins={[RemarkGfm]} />,
       icon: null,

@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-11 14:37:07
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-01 11:16:00
+ * @Last Modified time: 2022-06-27 23:09:10
  * @Desc 配置
  */
 const { ensureDirSync } = require('fs-extra')
@@ -49,6 +49,9 @@ const APPLICATIONS_DIR = '/Applications'
 // 日志文件
 const LOG_APTH = resolve(HOME_DIR, 'Library/Logs', APP_NAME, 'main.log')
 
+// 更新日志文件
+const CHANGELOG_APTH = resolve(__dirname, '../CHANGELOG.md')
+
 // Chrome 插件
 const Chrome_Extensions_PATH = resolve(HOME_DIR, 'Library/ApplicationSupport/Google/Chrome/Default/Extensions')
 
@@ -82,6 +85,7 @@ const config = {
   APPLICATIONS_DIR,
   HOME_DIR,
   LOG_APTH,
+  CHANGELOG_APTH,
   Chrome_Extensions_PATH,
   Chrome_Extensions_IDS,
   NPMRC_PATH,

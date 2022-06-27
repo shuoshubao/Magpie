@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-18 21:18:10
  * @Last Modified by:   fangt11
- * @Last Modified time: 2022-06-27 14:06:39
+ * @Last Modified time: 2022-06-27 23:05:01
  */
 const { copySync } = require('fs-extra')
 const { resolve, basename } = require('path')
@@ -36,5 +36,3 @@ HighlightFiles.forEach(v => {
 
 copySync('node_modules/antd/dist/antd.min.css', resolve(basepath, 'antd/dist/antd.min.css'))
 copySync('node_modules/antd/dist/antd.dark.min.css', resolve(basepath, 'antd/dist/antd.dark.min.css'))
-
-copySync('CHANGELOG.md', 'dist/CHANGELOG.md')

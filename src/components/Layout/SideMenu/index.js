@@ -1,8 +1,8 @@
 /*
- * @Author: fangt11
+ * @Author: shuoshubao
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-05-11 17:10:38
+ * @Last Modified time: 2022-08-22 16:37:07
  */
 
 import React, { useState, useEffect } from 'react'
@@ -39,6 +39,7 @@ const Index = () => {
       mode="inline"
       selectedKeys={[getPathname()]}
       defaultOpenKeys={collapsed ? [] : map(filterRouterConfig, 'name')}
+      style={{ overflow: 'scroll', height: 'calc(100% - 147px)' }}
     >
       {filterRouterConfig.map(v => {
         const { icon = null, hideNav = false, children = [] } = v

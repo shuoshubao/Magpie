@@ -1,7 +1,7 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-18 11:34:35
- * @Last Modified by:   fangt11
+ * @Last Modified by:   shuoshubao
  * @Last Modified time: 2022-04-27 16:51:08
  */
 const { ipcMain, BrowserWindow, nativeTheme } = require('electron')

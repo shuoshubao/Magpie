@@ -1,9 +1,9 @@
 /*
  * @Description: 文件描述
- * @Author: fangt11
+ * @Author: shuoshubao
  * @Date: 2022-04-02 15:34:42
  * @LastEditTime: 2022-04-02 15:55:15
- * @LastEditors: fangt11
+ * @LastEditors: shuoshubao
  */
 
 //引入两个模块：app 和 BrowserWindow

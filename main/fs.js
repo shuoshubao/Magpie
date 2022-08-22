@@ -1,7 +1,7 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-24 17:54:38
- * @Last Modified by:   fangt11
+ * @Last Modified by:   shuoshubao
  * @Last Modified time: 2022-04-26 17:48:55
  */
 const { ipcMain } = require('electron')

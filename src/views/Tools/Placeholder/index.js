@@ -8,7 +8,7 @@
 import React, { useRef } from 'react'
 import { ipcRenderer, shell } from 'electron'
 import { Card, Button, Space, message } from 'antd'
-import Form from '@nbfe/form'
+import { Form } from '@nbfe/components'
 import { copyText } from '@nbfe/tools'
 import { getColumns } from './config'
 

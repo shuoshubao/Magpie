@@ -7,7 +7,7 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
 import { Button, Modal, Collapse, Card, Popconfirm, message } from 'antd'
-import Form from '@nbfe/form'
+import { Form } from '@nbfe/components'
 import { map, range } from 'lodash'
 import { isEmptyArray } from '@nbfe/tools'
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'

@@ -18,9 +18,8 @@
   },
   "dependencies": {
     "@electron/remote": "^2.0.8",
-    "@nbfe/form": "^1.0.0",
+    "@nbfe/components": "^0.1.2",
     "@nbfe/standard": "^1.0.1",
-    "@nbfe/table": "^1.0.0",
     "@nbfe/tools": "^0.2.15",
     "antd": "^4.20.0",
     "axios": "^0.26.1",

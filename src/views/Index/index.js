@@ -9,7 +9,7 @@ import React, { useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
 import { Modal, Card, Result, Button, Typography } from 'antd'
 import CoffeeOutlined from '@ant-design/icons/CoffeeOutlined'
-import { Descriptions } from '@nbfe/table'
+import { Descriptions } from '@nbfe/components'
 import ReactMarkdown from 'react-markdown'
 import RemarkGfm from 'remark-gfm'
 import { BaseinfoColumns, ElectronColumns } from './config'
@@ -81,13 +81,13 @@ const Index = () => {
       </Card>
       <Descriptions
         title="基本信息"
-        data={BaseinfoDataSource}
+        dataSource={BaseinfoDataSource}
         columns={BaseinfoColumns}
         style={{ padding: 10, marginTop: 10 }}
       />
       <Descriptions
         title="Electron"
-        data={ElectronDataSource}
+        dataSource={ElectronDataSource}
         columns={ElectronColumns}
         style={{ padding: 10, marginTop: 10 }}
       />

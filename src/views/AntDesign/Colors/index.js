@@ -7,7 +7,7 @@
  */
 import React from 'react'
 import { Card, Button } from 'antd'
-import Table from '@nbfe/table'
+import { Table } from '@nbfe/components'
 import { columns, dataSource } from './config'
 import styles from './index.module.less'
 

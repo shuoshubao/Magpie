@@ -8,7 +8,7 @@ import React, { useRef, useState } from 'react'
 import { ipcRenderer } from 'electron'
 import { dialog } from '@electron/remote'
 import { Button, message } from 'antd'
-import Table from '@nbfe/table'
+import { Table } from '@nbfe/components'
 import { last } from 'lodash'
 import { Extensions, columns } from './config'
 

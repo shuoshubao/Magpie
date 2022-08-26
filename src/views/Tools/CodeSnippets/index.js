@@ -8,8 +8,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
 import { Modal, Button, message } from 'antd'
 import { omit } from 'lodash'
-import Form from '@nbfe/form'
-import Table from '@nbfe/table'
+import { Table, Form } from '@nbfe/components'
 import { PrettierParser, getDataSource, getTableColumns, getFormColumns } from './config'
 
 const Index = () => {

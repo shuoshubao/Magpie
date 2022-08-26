@@ -15,11 +15,6 @@ export const RegistryEnum = [
     color: '#231f20'
   },
   {
-    value: 'http://artifactory.ke.com/artifactory/api/npm/npm-virtual/',
-    label: '贝壳',
-    color: '#3072f6'
-  },
-  {
     value: 'https://registry.npmmirror.com',
     label: '阿里',
     color: '#ff5000'

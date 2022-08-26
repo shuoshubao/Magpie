@@ -7,8 +7,7 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
 import { Button, Modal, Alert, Typography } from 'antd'
-import Form from '@nbfe/form'
-import Table from '@nbfe/table'
+import { Form, Table } from '@nbfe/components'
 import { fetchPkg } from '@/utils'
 import { getFormColumns, getTableColumns, getQueryColumns, getQueryTableColumns } from './config'
 

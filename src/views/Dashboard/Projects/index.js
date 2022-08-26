@@ -11,7 +11,7 @@ import { dialog } from '@electron/remote'
 import { Button, Typography, message, notification } from 'antd'
 import FolderOpenOutlined from '@ant-design/icons/FolderOpenOutlined'
 import { map } from 'lodash'
-import Table from '@nbfe/table'
+import { Table } from '@nbfe/components'
 import { getTableColumns } from './config'
 
 const { Text } = Typography

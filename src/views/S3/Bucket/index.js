@@ -10,8 +10,7 @@ import { ipcRenderer } from 'electron'
 import { Modal, Card, Button, Typography, message } from 'antd'
 import { some } from 'lodash'
 import { formatTime } from '@nbfe/tools'
-import Table from '@nbfe/table'
-import Form from '@nbfe/form'
+import { Table, Form } from '@nbfe/components'
 import { TestBucketInfo, getTableColumns, getFormColumns, References } from './config'
 
 const { Link } = Typography

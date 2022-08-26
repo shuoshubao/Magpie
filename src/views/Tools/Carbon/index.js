@@ -8,7 +8,7 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer, shell } from 'electron'
 import { Card, Button, Modal, Space, message } from 'antd'
-import Form from '@nbfe/form'
+import { Form } from '@nbfe/components'
 import { pick } from 'lodash'
 import hljs from 'highlight.js/lib/core'
 import { classNames, copyText } from '@nbfe/tools'

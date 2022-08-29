@@ -19,19 +19,9 @@ const defaultRequestConfig = {
   cacheThreshold: 50 // 缓存间隔 ms
 }
 
-const store = {
-  // 正在进行的请求数量
-  loadingCount: 0,
-  loadingInstance: null
-}
-
-// 手动关闭 message.loading
-const hideLoading = () => {
-  if (store.loadingInstance && store.loadingCount <= 0) {
-    // store.loadingInstance();
-    message.destroy('request-loading')
-  }
-}
+message.config({
+  maxCount: 1
+})
 
 // 缓存请求
 const CacheRequest = []
@@ -48,12 +38,7 @@ export const request = (axiosConfig = {}, requestConfig = {}) => {
   const memoizeOne = cacheThreshold === Infinity
 
   if (showLoading) {
-    if (store.loadingCount === 0) {
-      store.loadingInstance = message.loading({ key: 'request-loading', content: '接口请求中...', duration: 0 })
-    }
-    if (!memoizeOne) {
-      store.loadingCount++
-    }
+    message.loading({ content: '接口请求中...', duration: 0 })
   }
 
   const usedCacheRequest = memoizeOne ? memoizeOneCacheRequest : CacheRequest
@@ -64,11 +49,9 @@ export const request = (axiosConfig = {}, requestConfig = {}) => {
 
   if (item) {
     if (memoizeOne) {
-      store.loadingCount--
       return item.request
     }
     if (Date.now() - item.timestap <= cacheThreshold) {
-      store.loadingCount--
       return item.request
     }
   }
@@ -81,8 +64,7 @@ export const request = (axiosConfig = {}, requestConfig = {}) => {
     axios(axiosConfig)
       .then(response => {
         if (showLoading) {
-          store.loadingCount--
-          hideLoading()
+          message.destroy()
         }
         if (response.config.responseType === 'text') {
           resolve(response.data)
@@ -116,8 +98,7 @@ export const request = (axiosConfig = {}, requestConfig = {}) => {
       })
       .catch(e => {
         if (showLoading) {
-          store.loadingCount--
-          hideLoading()
+          message.destroy()
         }
         reject(e)
         message.error(e.message || '接口请求失败!')

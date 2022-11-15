@@ -19,6 +19,7 @@
   "dependencies": {
     "@electron/remote": "^2.0.8",
     "@nbfe/components": "^0.1.2",
+    "@nbfe/react-cli": "^0.2.8",
     "@nbfe/standard": "^1.0.1",
     "@nbfe/tools": "^0.2.15",
     "antd": "^4.20.0",
@@ -47,7 +48,6 @@
     "ssh-config": "^4.1.4"
   },
   "devDependencies": {
-    "@nbfe/react-cli": "^0.2.4",
     "electron": "^18.0.1",
     "electron-builder": "^23.0.3",
     "nodemon": "^2.0.15"

@@ -26,6 +26,11 @@ const template = [
         click: () => {
           BrowserWindow.getAllWindows()[0].webContents.send('showPreferencesModal')
         }
+      },
+      {
+        label: ['退出', APP_NAME].join(' '),
+        role: 'quit',
+        accelerator: 'Command+Q'
       }
     ]
   },

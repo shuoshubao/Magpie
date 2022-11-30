@@ -19,13 +19,13 @@
   "dependencies": {
     "@electron/remote": "^2.0.8",
     "@nbfe/components": "^0.1.2",
-    "@nbfe/react-cli": "^0.3.1",
+    "@nbfe/react-cli": "^0.3.4",
     "@nbfe/standard": "^1.0.6",
-    "@nbfe/tools": "^0.2.15",
+    "@nbfe/tools": "^0.2.18",
     "antd": "^4.20.0",
     "axios": "^0.26.1",
-    "electron-log": "^4.4.6",
-    "electron-store": "^8.0.1",
+    "electron-log": "^4.4.8",
+    "electron-store": "^8.1.0",
     "execa": "^5.0.0",
     "fix-path": "3.0.0",
     "fs-extra": "^10.1.0",
@@ -48,8 +48,8 @@
     "ssh-config": "^4.1.4"
   },
   "devDependencies": {
-    "electron": "^18.0.1",
-    "electron-builder": "^23.0.3",
+    "electron": "^22.0.0",
+    "electron-builder": "^23.6.0",
     "nodemon": "^2.0.15"
   },
   "build": {

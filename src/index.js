@@ -20,7 +20,7 @@ if (isDevelopment) {
 const init = async () => {
   await setTheme()
 
-  ReactDOM.render(<App />, document.getElementById('root'))
+  ReactDOM.render(<App />, document.querySelector('#app'))
 }
 
 init()

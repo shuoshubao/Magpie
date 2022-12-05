@@ -20,7 +20,7 @@
     "@electron/remote": "^2.0.8",
     "@nbfe/components": "^0.1.2",
     "@nbfe/react-cli": "^0.3.4",
-    "@nbfe/standard": "^1.0.6",
+    "@nbfe/standard": "^1.0.9",
     "@nbfe/tools": "^0.2.18",
     "antd": "^4.20.0",
     "axios": "^0.26.1",

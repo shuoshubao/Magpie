@@ -36,11 +36,6 @@ module.exports = ({ isDevelopment }) => {
     dllEntry: {
       tools: ['react-router-dom', 'axios', 'html2canvas', 'react-markdown', 'react-json-view', 'remark-gfm'],
       nbfe: ['@nbfe/tools', '@nbfe/components']
-    },
-    chainWebpack: config => {
-      config.plugin('NodePolyfillPlugin').tap(() => {
-        return [{ excludeAliases: ['process'] }]
-      })
     }
   }
 }

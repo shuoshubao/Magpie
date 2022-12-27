@@ -20,17 +20,15 @@ module.exports = ({ isDevelopment }) => {
       }
     },
     assets: {
-      // css: ['https://file.ljcdn.com/bs/antd/4.20.0/dist/antd.min.css'],
+      // css: ['https://unpkg.com/antd@4.20.0/dist/antd.min.css'],
       js: [
-        'https://file.ljcdn.com/bs/lodash/4.17.21/lodash.min.js',
-        `https://file.ljcdn.com/bs/react/17.0.2/umd/${
-          isDevelopment ? 'react.development.js' : 'react.production.min.js'
-        }`,
-        `https://file.ljcdn.com/bs/react-dom/17.0.2/umd/${
+        'https://unpkg.com/lodash@4.17.21/lodash.min.js',
+        `https://unpkg.com/react@18.2.0/umd/${isDevelopment ? 'react.development.js' : 'react.production.min.js'}`,
+        `https://unpkg.com/react-dom@18.2.0/umd/${
           isDevelopment ? 'react-dom.development.js' : 'react-dom.production.min.js'
         }`,
-        'https://file.ljcdn.com/bs/moment/2.25.3/min/moment.min.js',
-        'https://file.ljcdn.com/bs/antd/4.20.0/dist/antd.min.js'
+        'https://unpkg.com/moment@2.25.3/min/moment.min.js',
+        'https://unpkg.com/antd@4.20.0/dist/antd.min.js'
       ]
     },
     dllEntry: {

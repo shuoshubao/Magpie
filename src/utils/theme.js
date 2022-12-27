@@ -21,7 +21,7 @@ export const getTheme = () => {
   return 'light'
 }
 
-const antdStyleCdnPrefix = 'https://file.ljcdn.com/bs/antd/4.18.7/dist'
+const antdStyleCdnPrefix = 'https://unpkg.com/antd@4.18.7/dist'
 
 const DarkThemeAntdStyleCdnUrl = [antdStyleCdnPrefix, 'antd.dark.min.css'].join('/')
 const LightThemeAntdStyleCdnUrl = [antdStyleCdnPrefix, 'antd.min.css'].join('/')

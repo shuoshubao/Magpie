@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { ipcRenderer } from 'electron'
 import { isDevelopment } from '@/configs'
 import { checkShoulduHideSidebar, setTheme } from '@/utils'
@@ -20,7 +20,7 @@ if (isDevelopment) {
 const init = async () => {
   await setTheme()
 
-  ReactDOM.render(<App />, document.querySelector('#app'))
+  createRoot(document.querySelector('#app')).render(<App />)
 }
 
 init()

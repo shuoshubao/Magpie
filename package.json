@@ -19,9 +19,9 @@
   "dependencies": {
     "@electron/remote": "^2.0.8",
     "@nbfe/components": "^0.1.2",
-    "@nbfe/react-cli": "^0.3.4",
-    "@nbfe/standard": "^1.0.9",
-    "@nbfe/tools": "^0.2.18",
+    "@nbfe/react-cli": "^0.3.5",
+    "@nbfe/standard": "^1.1.1",
+    "@nbfe/tools": "^0.2.19",
     "antd": "^4.20.0",
     "axios": "^0.26.1",
     "electron-log": "^4.4.8",

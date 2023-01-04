@@ -6,7 +6,7 @@
  * @Desc: 路由配置
  */
 
-import React, { lazy } from 'react'
+import React from 'react'
 import DashboardOutlined from '@ant-design/icons/DashboardOutlined'
 import PictureOutlined from '@ant-design/icons/PictureOutlined'
 import CloudUploadOutlined from '@ant-design/icons/CloudUploadOutlined'
@@ -14,24 +14,23 @@ import AntDesignOutlined from '@ant-design/icons/AntDesignOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
 import AppleOutlined from '@ant-design/icons/AppleOutlined'
 import Index, { NoMatch } from '@/views/Index'
-
-const About = lazy(() => import('@/views/About'))
-const Log = lazy(() => import('@/views/Log'))
-const DashboardAnalysis = lazy(() => import('@/views/Dashboard/Analysis'))
-const DashboardProjects = lazy(() => import('@/views/Dashboard/Projects'))
-const Tinify = lazy(() => import('@/views/Tinify'))
-const EnvironmentNodeJs = lazy(() => import('@/views/Environment/NodeJs'))
-const EnvironmentGit = lazy(() => import('@/views/Environment/Git'))
-const EnvironmentApps = lazy(() => import('@/views/Environment/Apps'))
-const EnvironmentPlugins = lazy(() => import('@/views/Environment/Plugins'))
-const S3Bucket = lazy(() => import('@/views/S3/bucket'))
-const S3Upload = lazy(() => import('@/views/S3/Upload'))
-const S3Unpkg = lazy(() => import('@/views/S3/Unpkg'))
-const AntDesignColors = lazy(() => import('@/views/AntDesign/Colors'))
-const AntDesignRecommendation = lazy(() => import('@/views/AntDesign/Recommendation'))
-const ToolsCarbon = lazy(() => import('@/views/Tools/Carbon'))
-const ToolsPlaceholder = lazy(() => import('@/views/Tools/Placeholder'))
-const ToolsCodeSnippets = lazy(() => import('@/views/Tools/CodeSnippets'))
+import About from '@/views/About'
+import Log from '@/views/Log'
+import DashboardAnalysis from '@/views/Dashboard/Analysis'
+import DashboardProjects from '@/views/Dashboard/Projects'
+import Tinify from '@/views/Tinify'
+import EnvironmentNodeJs from '@/views/Environment/NodeJs'
+import EnvironmentGit from '@/views/Environment/Git'
+import EnvironmentApps from '@/views/Environment/Apps'
+import EnvironmentPlugins from '@/views/Environment/Plugins'
+import S3Bucket from '@/views/S3/bucket'
+import S3Upload from '@/views/S3/Upload'
+import S3Unpkg from '@/views/S3/Unpkg'
+import AntDesignColors from '@/views/AntDesign/Colors'
+import AntDesignRecommendation from '@/views/AntDesign/Recommendation'
+import ToolsCarbon from '@/views/Tools/Carbon'
+import ToolsPlaceholder from '@/views/Tools/Placeholder'
+import ToolsCodeSnippets from '@/views/Tools/CodeSnippets'
 
 export default [
   {

@@ -9,6 +9,7 @@ import css from 'highlight.js/lib/languages/css'
 import less from 'highlight.js/lib/languages/less'
 import scss from 'highlight.js/lib/languages/scss'
 import 'highlight.js/styles/monokai.css'
+import { Logo } from './config'
 
 hljs.registerLanguage('javascript', javascript)
 hljs.registerLanguage('jsx', javascript)
@@ -119,7 +120,7 @@ export default props => {
   }
 
   return (
-    <div style={{ padding: 20 }}>
+    <>
       <Table
         rowKey="language"
         columns={TotalColumns}
@@ -127,66 +128,18 @@ export default props => {
         size="small"
         pagination={false}
         rowSelection={{
+          type: 'radio',
           hideSelectAll: true,
           selectedRowKeys,
-          onChange: setSelectedRowKeys,
-          getCheckboxProps: record => {
-            return {
-              disabled: selectedRowKeys.length && !selectedRowKeys.includes(record.language)
-            }
-          }
+          onChange: setSelectedRowKeys
         }}
         title={() => {
           return (
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <div style={{ width: 120, height: 50 }}>
-                <svg
-                  width="204"
-                  height="85"
-                  xmlns="http://www.w3.org/2000/svg"
-                  style={{ transform: 'scale(calc(120 / 204))', transformOrigin: 'left top' }}
-                >
-                  <g>
-                    <text
-                      fontWeight="normal"
-                      textAnchor="start"
-                      fontSize="70"
-                      id="svg_1"
-                      y="58.5"
-                      x="0"
-                      strokeWidth="0"
-                      stroke="#000"
-                      fill="#007bff"
-                    >
-                      js
-                    </text>
-                    <text
-                      fontWeight="normal"
-                      textAnchor="start"
-                      fontSize="70"
-                      id="svg_3"
-                      y="58.5"
-                      x="78"
-                      strokeWidth="0"
-                      stroke="#000"
-                      fill="#B200B2"
-                    >
-                      cpd
-                    </text>
-                    <text
-                      textAnchor="start"
-                      fontSize="12"
-                      id="version"
-                      y="82"
-                      x="47"
-                      strokeWidth="0"
-                      stroke="#000"
-                      fill="#c0c0c0"
-                    >
-                      Copy/Paste Detector
-                    </text>
-                  </g>
-                </svg>
+              <div style={{ height: 45, fontSize: 0 }}>
+                <div style={{ transform: `scale(${45 / 85})`, transformOrigin: 'left top' }}>
+                  <Logo />
+                </div>
               </div>
               <Typography.Text type="secondary">{formatTime(detectionDate, 'YYYY-MM-DD HH:mm:ss')}</Typography.Text>
             </div>
@@ -266,6 +219,6 @@ export default props => {
           </Tabs.TabPane>
         </Tabs>
       )}
-    </div>
+    </>
   )
 }

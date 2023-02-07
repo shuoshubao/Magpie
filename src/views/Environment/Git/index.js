@@ -28,7 +28,6 @@ export const Index = () => {
 
   const fetchData = async () => {
     const list = await ipcRenderer.invoke('get-git-ssh-config')
-    console.log(list)
     setGitConfigs(list)
   }
 

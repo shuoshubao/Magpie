@@ -6,18 +6,19 @@
  */
 
 import React, { useState, useEffect } from 'react'
-import { Link, withRouter } from 'react-router-dom'
+import { HashRouter, Link } from 'react-router-dom'
 import { ipcRenderer } from 'electron'
 import { Menu } from 'antd'
 import { map } from 'lodash'
 import { RouterConfig } from '@/routers'
-import { getPathname, getTheme } from '@/utils'
+import { getPathname, getTheme, checkShoulduHideSidebar } from '@/utils'
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
 const Index = () => {
   const collapsed = JSON.parse(window.localStorage.getItem('sider-collapsed')) || false
 
   const [theme, setTheme] = useState(getTheme())
+  const [selectedKeys, setSelectedKeys] = useState(getPathname())
 
   const filterRouterConfig = RouterConfig.filter(v => {
     return !!v.name
@@ -37,8 +38,16 @@ const Index = () => {
     <Menu
       theme={theme}
       mode="inline"
-      selectedKeys={[getPathname()]}
+      selectedKeys={[selectedKeys]}
       defaultOpenKeys={collapsed ? [] : map(filterRouterConfig, 'name')}
+      onClick={({ key }) => {
+        setSelectedKeys(key)
+        const { hash } = window.location
+        const hashPath = hash.slice(0, hash.includes('?') ? hash.indexOf('?') : Infinity)
+        if (!checkShoulduHideSidebar()) {
+          window.localStorage.setItem('path', hashPath)
+        }
+      }}
       style={{ overflow: 'scroll', height: 'calc(100% - 147px)' }}
     >
       {filterRouterConfig.map(v => {
@@ -75,4 +84,4 @@ const Index = () => {
 
 Index.displayName = 'SideMenu'
 
-export default withRouter(Index)
+export default Index

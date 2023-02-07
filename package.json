@@ -42,7 +42,7 @@
     "react-dom": "^18.2.0",
     "react-json-view": "^1.21.3",
     "react-markdown": "^8.0.2",
-    "react-router-dom": "5.2.0",
+    "react-router-dom": "^6.8.0",
     "remark-gfm": "^3.0.1",
     "ssh-config": "^4.1.4"
   },

@@ -5,8 +5,9 @@
  * @Last Modified time: 2022-04-13 14:04:13
  */
 
-import React from 'react'
-import { HashRouter, Switch, Route, Redirect } from 'react-router-dom'
+import React, { Suspense } from 'react'
+import { Routes, Route } from 'react-router-dom'
+import { Skeleton } from 'antd'
 import RouterConfig from './config'
 
 const dealRouter = () => {
@@ -28,27 +29,24 @@ const RouterConfigList = dealRouter()
 
 export const RenderRouter = () => {
   return (
-    <HashRouter>
-      <Switch>
-        {RouterConfigList.map((item, index) => {
-          const { path, to, exact } = item
-          const key = [index, path, item.from, to].join('_')
-          if (to) {
-            // 重定向
-            if (item.from) {
-              return <Redirect key={key} from={item.from} to={to} exact={exact} />
+    <Routes>
+      {RouterConfigList.map((item, index) => {
+        const { path, to, exact } = item
+        const key = [index, path, item.from, to].join('_')
+        const Component = item.component
+        return (
+          <Route
+            key={path}
+            path={path}
+            element={
+              <Suspense fallback={<Skeleton active />}>
+                <Component />
+              </Suspense>
             }
-            // 默认页面
-            return <Redirect key={key} to={to} />
-          }
-          const Component = item.component
-          const component = () => {
-            return <Component routes={item.routes} redirect={item.redirect} />
-          }
-          return <Route path={path} key={key} exact={exact} render={component} />
-        })}
-      </Switch>
-    </HashRouter>
+          />
+        )
+      })}
+    </Routes>
   )
 }
 

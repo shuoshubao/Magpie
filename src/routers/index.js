@@ -30,10 +30,8 @@ const RouterConfigList = dealRouter()
 export const RenderRouter = () => {
   return (
     <Routes>
-      {RouterConfigList.map((item, index) => {
-        const { path, to, exact } = item
-        const key = [index, path, item.from, to].join('_')
-        const Component = item.component
+      {RouterConfigList.map(item => {
+        const { path, component: Component } = item
         return (
           <Route
             key={path}

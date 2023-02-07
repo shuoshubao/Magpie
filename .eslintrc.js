@@ -6,5 +6,5 @@ module.exports = getESLintConfig(['react'], {
     babelOptions: {
       configFile: resolve(__dirname, 'node_modules/@nbfe/react-cli/babel.config.js')
     }
-  },
+  }
 })

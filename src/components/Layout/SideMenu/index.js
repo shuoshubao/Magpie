@@ -6,7 +6,7 @@
  */
 
 import React, { useState, useEffect } from 'react'
-import { HashRouter, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { ipcRenderer } from 'electron'
 import { Menu } from 'antd'
 import { map } from 'lodash'

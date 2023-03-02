@@ -7,7 +7,7 @@
  */
 const { app, ipcMain } = require('electron')
 const Store = require('electron-store')
-const { STORE_CONFIG_NAME, CODE_SNIPPETS_STORE_CONFIG_NAME, prettierConfig } = require('./config')
+const { STORE_CONFIG_NAME, CODE_SNIPPETS_STORE_CONFIG_NAME } = require('./config')
 
 const store = new Store({
   name: STORE_CONFIG_NAME
@@ -19,7 +19,6 @@ const codeSnippetsStore = new Store({
 
 const defaultStore = {
   theme: 'light', // 主题
-  prettierConfig, // prettier配置
   defaultPath: app.getPath('downloads'), // 默认路径
   buckets: [], // bucket 信息存储
   projects: [], // 项目列表

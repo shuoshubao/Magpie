@@ -7,9 +7,7 @@
 import React, { useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
 import { dialog } from '@electron/remote'
-import { Modal, Input, Tabs, Radio, message } from 'antd'
-import ReactJson from 'react-json-view'
-import stripAnsi from 'strip-ansi'
+import { Modal, Input, Tabs, Radio } from 'antd'
 import FolderOpenOutlined from '@ant-design/icons/FolderOpenOutlined'
 import { setTheme as updateTheme } from '@/utils'
 import { ThemeOptions } from './config'
@@ -20,14 +18,12 @@ const Index = () => {
   const [activeKey, setActiveKey] = useState('appearance')
   const [visible, setVisible] = useState(false)
   const [theme, setTheme] = useState()
-  const [prettierConfig, setPrettierConfig] = useState({})
   const [defaultPath, setDefaultPath] = useState()
 
   useEffect(() => {
     setTheme(ipcRenderer.sendSync('getStore', 'theme'))
-    setPrettierConfig(ipcRenderer.sendSync('getStore', 'prettierConfig'))
     setDefaultPath(ipcRenderer.sendSync('getStore', 'defaultPath'))
-  }, [setTheme, setPrettierConfig, setDefaultPath])
+  }, [setTheme, setDefaultPath])
 
   useEffect(() => {
     ipcRenderer.on('showPreferencesModal', () => {
@@ -39,34 +35,12 @@ const Index = () => {
     ipcRenderer.on('native-theme-updated', () => {})
   }, [])
 
-  const getFooter = () => {
-    if (activeKey === 'pretter') {
-      return
-    }
-    return null
-  }
-
   const handleChangeTheme = async e => {
     const { value } = e.target
     ipcRenderer.send('changeTheme', value)
     window.localStorage.setItem('theme', value)
     setTheme(value)
     updateTheme()
-  }
-
-  const handleConfirm = () => {
-    if (activeKey === 'pretter') {
-      const { stderr } = ipcRenderer.sendSync('getPrettierFormatCode', '', prettierConfig)
-      if (stderr) {
-        message.warning('无效配置, 请按提示检查输入')
-        message.error(stripAnsi(stderr))
-        // eslint-disable-next-line
-        console.log(stderr)
-      } else {
-        ipcRenderer.send('setStore', 'prettierConfig', prettierConfig)
-        setVisible(false)
-      }
-    }
   }
 
   const handleSelectDefaultPath = async () => {
@@ -89,14 +63,13 @@ const Index = () => {
     <Modal
       visible={visible}
       title="偏好设置"
-      footer={getFooter()}
+      footer={null}
       width={600}
       destroyOnClose
       bodyStyle={{
         padding: '20px 10px 10px 0',
         minHeight: 200
       }}
-      onOk={handleConfirm}
       onCancel={() => {
         setVisible(false)
       }}
@@ -113,21 +86,6 @@ const Index = () => {
               )
             })}
           </Radio.Group>
-        </TabPane>
-        <TabPane tab="Pretter" key="pretter">
-          <ReactJson
-            src={prettierConfig}
-            theme="summerfruit:inverted"
-            enableClipboard={false}
-            onEdit={({ name, new_value, updated_src }) => {
-              const { stderr } = ipcRenderer.sendSync('getPrettierFormatCode', '', updated_src)
-              if (stderr) {
-                message.error(`${name} = ${new_value}(${typeof new_value}) 不合法`)
-                return false
-              }
-              setPrettierConfig(updated_src)
-            }}
-          />
         </TabPane>
         <TabPane tab="默认路径" key="defaultPath">
           <Input

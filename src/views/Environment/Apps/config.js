@@ -6,8 +6,9 @@
  */
 import React from 'react'
 import { ipcRenderer, shell } from 'electron'
-import { Typography, Tag } from 'antd'
+import { Card, Typography, Tag, Image, Button } from 'antd'
 import { presetPalettes } from '@ant-design/colors'
+import CloudDownloadOutlined from '@ant-design/icons/CloudDownloadOutlined'
 import { random } from 'lodash'
 import VSCode from '@/assets/icns/VSCode.png'
 import Chrome from '@/assets/icns/Chrome.png'
@@ -28,6 +29,8 @@ import Lemon from '@/assets/icns/Lemon.png'
 import TencentDocs from '@/assets/icns/TencentDocs.png'
 import TencentMeeting from '@/assets/icns/TencentMeeting.png'
 import Yuque from '@/assets/icns/Yuque.png'
+
+const colors = Object.keys(presetPalettes)
 
 const { Text } = Typography
 
@@ -111,7 +114,7 @@ export const getAppList = () => {
       description: '思维导图',
       categories: ['思维导图'],
       icon: XMind,
-      downloadUrl: 'https://www.xmind.net/'
+      downloadUrl: 'https://xmind.app'
     },
     {
       id: 'Sourcetree.app',
@@ -210,7 +213,6 @@ export const getTableColumns = () => {
       title: '信息',
       render: (value, record) => {
         const { name, description, categories } = record
-        const colors = Object.keys(presetPalettes)
         return (
           <div>
             <div>
@@ -266,4 +268,44 @@ export const getTableColumns = () => {
       }
     }
   ]
+}
+
+export const renderItem = item => {
+  const { name, icon, downloadUrl, description, categories, installed } = item
+  let extraNode
+  if (installed) {
+    extraNode = <Tag color="success">已安装</Tag>
+  } else {
+    extraNode = (
+      <Button
+        size="small"
+        danger
+        type="primary"
+        icon={<CloudDownloadOutlined />}
+        onClick={() => {
+          shell.openExternal(downloadUrl)
+        }}
+      >
+        去下载
+      </Button>
+    )
+  }
+  return (
+    <Card title={name} extra={extraNode}>
+      <div style={{ display: 'flex' }}>
+        <Image style={{ width: 60, height: 60 }} src={icon} />
+        <div style={{ paddingLeft: 5 }}>{description}</div>
+      </div>
+      <div className="ant-card-footer">
+        {categories.map((v, i) => {
+          const color = presetPalettes[colors[random(colors.length - 1)]].primary
+          return (
+            <Tag color={color} key={i} style={{ lineHeight: '14px', fontSize: 11 }}>
+              {v}
+            </Tag>
+          )
+        })}
+      </div>
+    </Card>
+  )
 }

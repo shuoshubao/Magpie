@@ -49,49 +49,6 @@ export default [
     hideSidebar: true
   },
   {
-    name: '项目看板',
-    icon: <DashboardOutlined />,
-    children: [
-      {
-        name: '项目列表',
-        path: '/dashboard/projects',
-        component: DashboardProjects
-      },
-      {
-        name: '项目分析',
-        path: '/dashboard/analysis',
-        component: DashboardAnalysis
-      }
-    ]
-  },
-  {
-    name: '图片压缩',
-    icon: <PictureOutlined />,
-    path: '/tinify',
-    component: Tinify
-  },
-  {
-    name: 'S3服务',
-    icon: <CloudUploadOutlined />,
-    children: [
-      {
-        name: 'Bucket',
-        path: '/s3/bucket',
-        component: S3Bucket
-      },
-      {
-        name: '文件上传',
-        path: '/s3/upload',
-        component: S3Upload
-      },
-      {
-        name: 'Unpkg',
-        path: '/s3/unpkg',
-        component: S3Unpkg
-      }
-    ]
-  },
-  {
     name: '环境配置',
     icon: <AppleOutlined />,
     children: [
@@ -116,6 +73,28 @@ export default [
         component: EnvironmentPlugins
       }
     ]
+  },
+  {
+    name: '项目看板',
+    icon: <DashboardOutlined />,
+    children: [
+      {
+        name: '项目列表',
+        path: '/dashboard/projects',
+        component: DashboardProjects
+      },
+      {
+        name: '项目分析',
+        path: '/dashboard/analysis',
+        component: DashboardAnalysis
+      }
+    ]
+  },
+  {
+    name: '图片压缩',
+    icon: <PictureOutlined />,
+    path: '/tinify',
+    component: Tinify
   },
   {
     name: 'Ant Design',
@@ -152,6 +131,27 @@ export default [
         name: '代码片段',
         path: '/tools/codesnippets',
         component: ToolsCodeSnippets
+      }
+    ]
+  },
+  {
+    name: 'S3服务',
+    icon: <CloudUploadOutlined />,
+    children: [
+      {
+        name: 'Bucket',
+        path: '/s3/bucket',
+        component: S3Bucket
+      },
+      {
+        name: '文件上传',
+        path: '/s3/upload',
+        component: S3Upload
+      },
+      {
+        name: 'Unpkg',
+        path: '/s3/unpkg',
+        component: S3Unpkg
       }
     ]
   },

@@ -2,7 +2,7 @@
   "name": "Magpie",
   "version": "1.2.0",
   "private": true,
-  "description": "Electron 学习",
+  "description": "前端工作台",
   "main": "./main/index.js",
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@electron/remote": "^2.0.8",
-    "@nbfe/components": "^0.1.2",
+    "@nbfe/components": "^0.3.0",
     "@nbfe/standard": "^1.1.1",
     "@nbfe/tools": "^0.2.19",
     "antd": "^4.20.0",

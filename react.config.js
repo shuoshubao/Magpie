@@ -32,8 +32,7 @@ module.exports = ({ isDevelopment }) => {
       ]
     },
     dllEntry: {
-      tools: ['react-router-dom', 'axios', 'html2canvas', 'react-markdown', 'remark-gfm'],
-      nbfe: ['@nbfe/tools', '@nbfe/components']
+      tools: ['react-router-dom', 'axios', 'html2canvas', 'react-markdown', 'remark-gfm']
     }
   }
 }

@@ -1,6 +1,6 @@
 body {
-  .ant-tag {
-    margin: 0;
+  .ant-tag:last-child {
+    margin-right: 0;
   }
 
   .ant-layout {
@@ -16,12 +16,15 @@ pre {
   .ant-card-body {
     padding: 10px;
   }
+
   .ant-form-item {
     margin-bottom: 0;
+
     .ant-col {
       padding: 0;
     }
   }
+
   .ant-tabs-bar {
     margin: 0;
   }
@@ -36,6 +39,7 @@ pre {
   .ant-descriptions-row > th {
     padding: 5px 0;
   }
+
   .ant-descriptions-item > span {
     min-height: 24px;
   }
@@ -45,11 +49,14 @@ pre {
   .ant-transfer-list {
     width: 400px;
     height: 500px;
+
     .ant-transfer-list-content > .LazyLoad {
       height: auto !important;
     }
+
     .ant-transfer-list-content-item {
       display: flex;
+
       .ant-transfer-list-content-item-text {
         line-height: 20px;
       }
@@ -59,16 +66,20 @@ pre {
 
 .ant-table-wrapper {
   background: #fff;
+
   .ant-table-tbody > tr > td,
   .ant-table-thead > tr > th {
     padding: 10px;
   }
+
   .ant-table-footer {
     padding: 10px 0;
     background: #fff;
+
     &::before {
       display: none;
     }
+
     &:empty {
       display: none;
     }
@@ -87,30 +98,37 @@ pre {
   .ant-card-head::before {
     display: none;
   }
+
   .ant-card-head {
     display: flex;
     padding: 10px;
+
     .ant-card-head-wrapper {
       display: flex;
       align-items: center;
       width: 100%;
     }
+
     .ant-card-head-title,
     .ant-card-extra {
       padding: 0 !important;
     }
+
     .ant-card-head-title {
       display: flex;
       align-items: center;
       line-height: 20px;
+
       & > * {
         &:not(:first-child) {
           margin-left: 10px;
         }
       }
     }
+
     .ant-card-extra {
       float: none;
+
       & > * {
         &:not(:first-child) {
           margin-left: 10px;
@@ -118,16 +136,19 @@ pre {
       }
     }
   }
+
   & > .ant-card-body {
     padding: 10px;
   }
+
   .ant-card-footer {
-    border-top: 1px solid rgba(0, 0, 0, 0.06);
-    padding-top: 10px;
-    margin-top: 10px;
     display: flex;
     grid-gap: 4px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgb(0 0 0 / 6%);
   }
+
   .ant-col {
     padding: 5px 0;
   }
@@ -145,6 +166,7 @@ body {
   .ant-collapse > .ant-collapse-item > .ant-collapse-header {
     padding: 10px;
   }
+
   .ant-collapse-content > .ant-collapse-content-box {
     padding: 10px;
   }
@@ -153,19 +175,23 @@ body {
 .ant-drawer {
   .ant-drawer-header {
     padding: 10px;
+
     .ant-drawer-close {
       width: 43px;
       height: 43px;
       line-height: 43px;
     }
   }
+
   .ant-drawer-body {
     height: calc(100vh - 43px);
     padding: 10px;
     overflow-y: auto;
   }
+
   .ant-drawer-footer {
     height: 53px;
+
     .ant-drawer-footer-wrap {
       position: absolute;
       right: 0;
@@ -177,6 +203,7 @@ body {
       background: #fff;
       border-top: 1px solid #e8e8e8;
       border-radius: 0 0 4px 4px;
+
       .ant-btn + .ant-btn {
         margin-left: 10px;
       }
@@ -192,37 +219,46 @@ body {
       line-height: 42px;
     }
   }
+
   .ant-modal-header {
     padding: 10px;
+
     .ant-modal-title {
       display: flex;
       align-items: center;
     }
+
     .ant-tag {
       margin-left: 10px !important;
     }
   }
+
   .ant-modal-body {
-    padding: 10px;
     max-height: 100vh;
+    padding: 10px;
   }
+
   .ant-modal-footer {
     padding: 10px;
   }
+
   &:not(.ant-modal-confirm) {
     .ant-modal-body {
       max-height: calc(100vh - 42px - 53px - 20px * 2);
       overflow-y: auto;
     }
   }
+
   &.ant-modal-confirm {
     .ant-modal-body {
       padding: 20px 20px 10px;
     }
+
     .ant-modal-confirm-content {
       max-height: calc(100vh - 20px * 2 - 20px - 10px - 25px - 32px - 10px);
       overflow-y: auto;
     }
+
     .ant-modal-confirm-btns {
       margin-top: 10px;
     }

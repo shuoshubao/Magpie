@@ -17,7 +17,10 @@ export default () => {
         dataSource={getAppList()}
         columns={getTableColumns()}
         renderItem={renderItem}
-        extraConfig={{ showViewMode: true }}
+        extraConfig={{
+          showViewMode: true,
+          defaultViewMode: 'list'
+        }}
         listProps={{
           grid: {
             gutter: 10,

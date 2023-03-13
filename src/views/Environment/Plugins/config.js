@@ -4,6 +4,9 @@
  * @Last Modified by:   shuoshubao
  * @Last Modified time: 2022-04-27 16:48:48
  */
+import React from 'react'
+import { shell } from 'electron'
+import { Card, Button, Tag, Avatar } from 'antd'
 
 export const ChromeExtensions = [
   {
@@ -51,3 +54,27 @@ export const ChromeExtensions = [
     installed: null
   }
 })
+
+export const renderItem = item => {
+  const { title, icon, homepage, description, installed } = item
+  return (
+    <Card
+      bodyStyle={{ display: 'flex', height: 60, maxHeight: 60, overflowY: 'auto' }}
+      title={
+        <Button
+          type="link"
+          size="small"
+          onClick={() => {
+            shell.openExternal(homepage)
+          }}
+        >
+          {title}
+        </Button>
+      }
+      extra={<Tag color={installed ? 'success' : 'error'}>{installed ? '已安装' : '未安装'}</Tag>}
+    >
+      <Avatar src={icon} />
+      <div style={{ paddingLeft: 5, flex: 1 }}>{description}</div>
+    </Card>
+  )
+}

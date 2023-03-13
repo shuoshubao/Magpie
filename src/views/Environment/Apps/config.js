@@ -203,32 +203,32 @@ export const getAppList = () => {
 export const getTableColumns = () => {
   return [
     {
-      title: 'Icon',
+      title: 'Logo',
       dataIndex: 'icon',
       template: {
         tpl: 'image'
       }
     },
     {
-      title: '信息',
-      render: (value, record) => {
-        const { name, description, categories } = record
-        return (
-          <div>
-            <div>
-              <span>{name}</span>
-              {categories.map(v => {
-                const color = presetPalettes[colors[random(colors.length - 1)]].primary
-                return (
-                  <Tag key={v} color={color} style={{ marginLeft: 4, lineHeight: '14px', fontSize: 11 }}>
-                    {v}
-                  </Tag>
-                )
-              })}
-            </div>
-            <div>{description}</div>
-          </div>
-        )
+      title: '名称',
+      dataIndex: 'name'
+    },
+    {
+      title: '描述',
+      dataIndex: 'description'
+    },
+    {
+      title: '分类',
+      dataIndex: 'categories',
+      render: value => {
+        return value.map(v => {
+          const color = presetPalettes[colors[random(colors.length - 1)]].primary
+          return (
+            <Tag key={v} color={color}>
+              {v}
+            </Tag>
+          )
+        })
       }
     },
     {

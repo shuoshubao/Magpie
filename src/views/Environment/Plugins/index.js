@@ -6,13 +6,13 @@
  * @Desc: 插件
  */
 import React, { useState, useEffect } from 'react'
-import { ipcRenderer, shell } from 'electron'
-import { List, Card, Button, Tag, Space } from 'antd'
+import { ipcRenderer } from 'electron'
+import { Card, Space } from 'antd'
+import { List } from '@nbfe/components'
 import { last } from 'lodash'
 import ChromeOutlined from '@ant-design/icons/ChromeOutlined'
-import SketchOutlined from '@ant-design/icons/SketchOutlined'
 import { VSCode } from '@/assets/icons'
-import { ChromeExtensions } from './config'
+import { ChromeExtensions, renderItem } from './config'
 
 export default () => {
   const [ChromeExtensionsData, setChromeExtensionsData] = useState(ChromeExtensions)
@@ -47,51 +47,13 @@ export default () => {
           </Space>
         }
       >
-        <List
-          rowKey="id"
-          grid={{ gutter: 10, column: 4 }}
-          dataSource={ChromeExtensionsData}
-          renderItem={item => {
-            const { title, icon, homepage, description, installed } = item
-            return (
-              <List.Item>
-                <Card
-                  title={
-                    <Button
-                      type="link"
-                      size="small"
-                      onClick={() => {
-                        shell.openExternal(homepage)
-                      }}
-                    >
-                      {title}
-                    </Button>
-                  }
-                  extra={<Tag color={installed ? 'success' : 'error'}>{installed ? '已安装' : '未安装'}</Tag>}
-                >
-                  <div style={{ display: 'flex' }}>
-                    <img style={{ width: 60, height: 60 }} src={icon} />
-                    <div style={{ paddingLeft: 5 }}>{description}</div>
-                  </div>
-                </Card>
-              </List.Item>
-            )
-          }}
-        />
+        <List rowKey="id" grid={{ gutter: 10, column: 3 }} dataSource={ChromeExtensionsData} renderItem={renderItem} />
       </Card>
       <Card
         title={
           <Space>
             <VSCode />
             <span>VSCode 插件</span>
-          </Space>
-        }
-      />
-      <Card
-        title={
-          <Space>
-            <SketchOutlined />
-            <span>Sketch 插件</span>
           </Space>
         }
       />

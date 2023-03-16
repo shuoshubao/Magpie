@@ -17,9 +17,20 @@ const { required } = rules
 
 const { Text } = Typography
 
+// 去掉尾部的 /
+export const formatRegistry = registry => {
+  if (registry.endsWith('/')) {
+    return registry.slice(0, -1)
+  }
+  return registry
+}
+
 export const getFormColumns = () => {
   const version = ipcRenderer.sendSync('execaCommandSync', 'node -v')
   const npmrc = ipcRenderer.sendSync('getNpmrc')
+
+  console.log(npmrc)
+
   return [
     {
       label: 'version',
@@ -34,7 +45,7 @@ export const getFormColumns = () => {
     {
       label: 'registry',
       name: 'registry',
-      defaultValue: npmrc.registry,
+      defaultValue: formatRegistry(npmrc.registry),
       rules: [required],
       template: {
         tpl: 'select',

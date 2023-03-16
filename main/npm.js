@@ -14,6 +14,14 @@ const { flatten } = require('lodash')
 const { execaCommandSync } = require('./util')
 const { NPMRC_PATH } = require('./config')
 
+// 去掉尾部的 /
+const formatRegistry = registry => {
+  if (registry.endsWith('/')) {
+    return registry.slice(0, -1)
+  }
+  return registry
+}
+
 ipcMain.on('getNpmrc', event => {
   event.returnValue = ini.parse(readFileSync(NPMRC_PATH).toString() || '{}')
 })
@@ -38,7 +46,7 @@ ipcMain.on('getGlobalDependencies', event => {
       name: pkg.name,
       version: pkg.version,
       resolved,
-      registry
+      registry: formatRegistry(registry)
     }
   })
 

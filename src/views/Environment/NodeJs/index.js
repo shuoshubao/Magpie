@@ -32,6 +32,8 @@ export const Index = () => {
       v.latestVersion = res[i]['dist-tags'].latest
     })
     setDependenciesDataSource(dependencies)
+    console.log(111)
+    console.log(dependencies)
     return {
       list: dependencies
     }
@@ -64,8 +66,7 @@ export const Index = () => {
         formProps={{ layout: 'horizontal' }}
         showResetBtn={false}
         cardProps={{
-          title: 'Node 全局配置',
-          size: 'default'
+          title: 'Node 全局配置'
         }}
         autoSubmit={false}
       />

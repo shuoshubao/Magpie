@@ -6,7 +6,7 @@
  */
 const { ipcMain } = require('electron')
 const { existsSync, readFileSync, writeFileSync } = require('fs')
-const { removeSync } = require('fs-extra')
+const { ensureFileSync, removeSync } = require('fs-extra')
 const { resolve } = require('path')
 const glob = require('glob')
 const { execFileSync } = require('child_process')
@@ -52,6 +52,7 @@ const updateGitDirs = (configName, gitdirs) => {
       path: gitConfigPath
     }
   })
+  ensureFileSync(GIT_CONFIG_PATH)
   writeFileSync(GIT_CONFIG_PATH, ini.stringify(gitConfig))
 }
 
@@ -89,6 +90,8 @@ ipcMain.handle('ssh-config', (event, action, config) => {
   const content = readFileSync(sshConfigPath).toString()
   const sshConfig = SSHConfig.parse(content)
   const gitConfigPath = resolve(GIT_CONFIG_DIR, `.gitconfig-${configName}`)
+  ensureFileSync(sshConfigPath)
+  ensureFileSync(gitConfigPath)
   // 新增
   if (action === 'append') {
     const section = {

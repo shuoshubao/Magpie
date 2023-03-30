@@ -94,8 +94,8 @@ const Index = () => {
           新增项目
         </Button>
       }
-      onDragSortEnd={({ newDataSource }) => {
-        ipcRenderer.send('setStore', 'projects', map(newDataSource, 'path'))
+      onDragSortEnd={({ dataSource }) => {
+        ipcRenderer.send('setStore', 'projects', map(dataSource, 'path'))
       }}
     />
   )

@@ -4,7 +4,7 @@
  * @Last Modified by:   shuoshubao
  * @Last Modified time: 2022-06-27 13:52:25
  */
-import React, { useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer, shell } from 'electron'
 import { BrowserWindow } from '@electron/remote'
 import { Modal, Card, List, Select, Result, Button, InputNumber, Typography, Progress, message } from 'antd'
@@ -12,19 +12,24 @@ import SettingOutlined from '@ant-design/icons/SettingOutlined'
 import FolderOpenOutlined from '@ant-design/icons/FolderOpenOutlined'
 import EyeOutlined from '@ant-design/icons/EyeOutlined'
 import BugOutlined from '@ant-design/icons/BugOutlined'
+import { Column } from '@antv/g2plot'
 import { Table } from '@nbfe/components'
 import { last, sortBy } from 'lodash'
-import { div, formatters, isEmptyObject } from '@nbfe/tools'
+import { sleep, div, formatters, isEmptyObject } from '@nbfe/tools'
 import Jscpd from '@/components/Jscpd'
 import { Colors } from '@/configs'
-import { getColumns, getDataSource, getProgressPercent, getProgressFormat, JsExtensions } from './config'
+import { getColumns, getDataSource, getProgressPercent, getProgressFormat, JsExtensions, getColumnData } from './config'
 
 const { Text } = Typography
 
 const Index = () => {
+  const chartRef = useRef()
+
+  const [loading, setLoading] = useState(true)
   const [project, setProject] = useState()
   const [projectList, setProjectList] = useState([])
   const [projectInofList, setProjectInofList] = useState([])
+  const [columnPlot, setColumnPlot] = useState()
   const [modalVisible, setModalVisible] = useState(false)
   const [largeFileLimit, setLargeFileLimit] = useState()
   const [eslintLoading, setEslintLoading] = useState(false)
@@ -33,7 +38,28 @@ const Index = () => {
 
   const fetchProjectInfoList = async value => {
     const res = await ipcRenderer.invoke('getProjectAnalysis', value)
+
     setProjectInofList(res)
+
+    await sleep(0)
+
+    columnPlot?.destroy()
+
+    const plot = new Column(chartRef.current, {
+      data: getColumnData(res),
+      xField: 'label',
+      yField: 'value',
+      label: true,
+      meta: {
+        value: {
+          alias: '数量'
+        }
+      }
+    })
+
+    setColumnPlot(plot)
+
+    plot.render()
   }
 
   const fetchEslintReport = async () => {
@@ -86,7 +112,7 @@ const Index = () => {
     }
   }
 
-  const fetchProjects = async () => {
+  const fetchProjects = () => {
     const projects = ipcRenderer.sendSync('getStore', 'projects')
     const dataSource = projects
       .filter(v => {
@@ -105,6 +131,7 @@ const Index = () => {
       return
     }
     const { value } = dataSource[0]
+    setLoading(false)
     setProjectList(dataSource)
     setProject(value)
     fetchProjectInfoList(value)
@@ -134,6 +161,29 @@ const Index = () => {
     ['lines']
   ).reverse()
 
+  if (loading) {
+    return null
+  }
+
+  if (!projectList.length) {
+    return (
+      <Result
+        status="error"
+        title="你还没添加项目"
+        extra={
+          <Button
+            type="primary"
+            onClick={() => {
+              window.location.hash = '#/dashboard/projects'
+            }}
+          >
+            添加项目
+          </Button>
+        }
+      />
+    )
+  }
+
   return (
     <>
       <Card
@@ -152,29 +202,13 @@ const Index = () => {
           />
         }
       >
-        {!projectList.length && (
-          <Result
-            status="error"
-            title="你还没添加项目"
-            extra={
-              <Button
-                type="primary"
-                onClick={() => {
-                  window.location.hash = '#/dashboard/projects'
-                }}
-              >
-                添加项目
-              </Button>
-            }
-          />
-        )}
         {!!projectInofList.length && (
           <Table
             key={project}
             rowKey="type"
             size="small"
-            dataSource={getDataSource({ projectInofList })}
             columns={getColumns()}
+            dataSource={getDataSource({ projectInofList })}
             pagination={false}
           />
         )}
@@ -182,7 +216,7 @@ const Index = () => {
 
       <Card
         title={
-          <div>
+          <>
             <span>大文件</span>
             <Text type={largeFiles.length ? 'danger' : 'success'}> {largeFiles.length}</Text>
             <span> / </span>
@@ -191,7 +225,7 @@ const Index = () => {
             <Text type={largeFiles.length ? 'danger' : 'success'}>
               {formatters.percentage(div(largeFiles.length, projectInofJsFileList.length))}
             </Text>
-          </div>
+          </>
         }
         extra={
           <Button
@@ -229,6 +263,10 @@ const Index = () => {
             )
           }}
         />
+      </Card>
+
+      <Card title="代码行数分布图">
+        <div ref={chartRef} style={{ height: 300 }} />
       </Card>
 
       <Card

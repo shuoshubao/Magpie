@@ -92,3 +92,52 @@ export const getProgressFormat = EslintData => {
     )
   }
 }
+
+export const getColumnData = projectList => {
+  const xFieldList = [
+    {
+      label: 100,
+      value: 0
+    },
+    {
+      label: 200,
+      value: 0
+    },
+    {
+      label: 300,
+      value: 0
+    },
+    {
+      label: 400,
+      value: 0
+    },
+    {
+      label: 500,
+      value: 0
+    },
+    {
+      label: 600,
+      value: 0
+    },
+    {
+      label: 700,
+      value: 0
+    }
+  ]
+  const moreItem = { label: '>=700', value: 0 }
+  projectList
+    .filter(v => {
+      const { ext } = v
+      return JsExtensions.includes(ext)
+    })
+    .forEach(v => {
+      const { lines } = v
+      const index = xFieldList.findLastIndex(v2 => lines > v2.label) + 1
+      if (index >= xFieldList.length) {
+        moreItem.value++
+      } else {
+        xFieldList[index].value++
+      }
+    })
+  return xFieldList.concat(moreItem.value ? moreItem : null).filter(Boolean)
+}

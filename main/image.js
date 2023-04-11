@@ -2,12 +2,12 @@
  * @Author: shuoshubao
  * @Date:   2022-04-18 18:42:36
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-27 17:16:15
+ * @Last Modified time: 2023-04-11 22:11:12
  */
 const { ipcMain, clipboard, nativeImage } = require('electron')
 const { readFileSync, writeFileSync } = require('fs')
 const { resolve, isAbsolute } = require('path')
-const store = require('./store')
+const { appStore } = require('./store')
 
 ipcMain.on('getImageBase64', (event, fullPath) => {
   const res = readFileSync(fullPath)
@@ -23,7 +23,7 @@ ipcMain.on('saveImgae', (event, dataURL, fullPath) => {
   if (isAbsolute(fullPath)) {
     filePath = fullPath
   } else {
-    const defaultPath = store.get('defaultPath')
+    const defaultPath = appStore.get('defaultPath')
     filePath = resolve(defaultPath, fullPath)
   }
   writeFileSync(filePath, buffer)

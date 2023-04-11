@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-21 14:24:16
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-06-27 13:52:26
+ * @Last Modified time: 2023-04-11 22:40:40
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
@@ -30,7 +30,7 @@ const Index = () => {
       return
     }
     const { title, code, language } = formData
-    const allCodeSnippets = ipcRenderer.sendSync('getAllCodeSnippetsStore')
+    const allCodeSnippets = ipcRenderer.sendSync('getGistStore')
     if (modalData.action === 'add' && Object.keys(allCodeSnippets).includes(title)) {
       message.error('标题已存在, 不可新增')
       return
@@ -45,7 +45,7 @@ const Index = () => {
       return
     }
     formData.code = stdout
-    ipcRenderer.send('setCodeSnippetsStore', title, omit(formData, ['title']))
+    ipcRenderer.send('setGistStore', title, omit(formData, ['title']))
     setModalData({ visible: false })
     message.success('提交成功')
     tableRef.current.search()

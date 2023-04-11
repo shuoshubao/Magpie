@@ -2,21 +2,21 @@
  * @Author: shuoshubao
  * @Date:   2022-04-18 11:34:35
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-27 16:51:08
+ * @Last Modified time: 2023-04-11 22:11:03
  */
 const { ipcMain, BrowserWindow, nativeTheme } = require('electron')
-const store = require('./store')
+const { appStore } = require('./store')
 
 ipcMain.on('getNativeThemeSource', event => {
   event.returnValue = nativeTheme.themeSource
 })
 
 ipcMain.on('getTheme', event => {
-  event.returnValue = store.get('theme')
+  event.returnValue = appStore.get('theme')
 })
 
 ipcMain.on('changeTheme', (event, theme) => {
-  store.set({ theme })
+  appStore.set({ theme })
   BrowserWindow.getAllWindows()[0].webContents.send('theme-updated')
 })
 

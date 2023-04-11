@@ -32,8 +32,6 @@ export const Index = () => {
       v.latestVersion = res[i]['dist-tags'].latest
     })
     setDependenciesDataSource(dependencies)
-    console.log(111)
-    console.log(dependencies)
     return {
       list: dependencies
     }

@@ -2,19 +2,23 @@
  * @Author: shuoshubao
  * @Date:   2022-04-11 14:37:07
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-25 12:20:40
+ * @Last Modified time: 2023-04-11 22:43:06
  * @Desc 配置
  */
 const { app, ipcMain } = require('electron')
 const Store = require('electron-store')
-const { STORE_CONFIG_NAME, CODE_SNIPPETS_STORE_CONFIG_NAME } = require('./config')
+const { APP_USERDATA_PATH, STORE_CONFIG_NAME, GIST_STORE_CONFIG_NAME } = require('./config')
 
-const store = new Store({
+// 用户配置
+const appStore = new Store({
+  cwd: APP_USERDATA_PATH,
   name: STORE_CONFIG_NAME
 })
 
-const codeSnippetsStore = new Store({
-  name: CODE_SNIPPETS_STORE_CONFIG_NAME
+// 代码片段
+const gistStore = new Store({
+  cwd: APP_USERDATA_PATH,
+  name: GIST_STORE_CONFIG_NAME
 })
 
 const defaultStore = {
@@ -27,34 +31,30 @@ const defaultStore = {
 
 // 初始化默认值
 Object.entries(defaultStore).forEach(([k, v]) => {
-  if (store.has(k)) {
+  if (appStore.has(k)) {
     return
   }
-  store.set(k, v)
+  appStore.set(k, v)
 })
 
 ipcMain.on('getStore', (event, name) => {
-  event.returnValue = store.get(name)
+  event.returnValue = appStore.get(name)
 })
 
 ipcMain.on('setStore', (event, name, value) => {
-  store.set({ [name]: value })
+  appStore.set({ [name]: value })
 })
 
-ipcMain.on('getCodeSnippetsStore', (event, name) => {
-  event.returnValue = codeSnippetsStore.get(name)
+ipcMain.on('getGistStore', (event, name) => {
+  event.returnValue = gistStore.get(name)
 })
 
-ipcMain.on('getAllCodeSnippetsStore', event => {
-  event.returnValue = codeSnippetsStore.store
+ipcMain.on('setGistStore', (event, name, value) => {
+  gistStore.set({ [name]: value })
 })
 
-ipcMain.on('setCodeSnippetsStore', (event, name, value) => {
-  codeSnippetsStore.set({ [name]: value })
+ipcMain.on('deleteGistStore', (event, name) => {
+  gistStore.delete(name)
 })
 
-ipcMain.on('deleteCodeSnippetsStore', (event, name) => {
-  codeSnippetsStore.delete(name)
-})
-
-module.exports = store
+module.exports = { appStore, gistStore }

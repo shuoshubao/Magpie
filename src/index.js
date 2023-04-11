@@ -8,10 +8,8 @@ import App from './App'
 
 const memoizePath = window.localStorage.getItem('path')
 
+// eslint-disable-next-line sonarjs/no-collapsible-if
 if (isDevelopment) {
-  const config = ipcRenderer.sendSync('getMainConfig')
-  // eslint-disable-next-line no-console
-  console.log(config)
   if (!checkShoulduHideSidebar() && memoizePath) {
     window.location.hash = memoizePath
   }
@@ -24,3 +22,7 @@ const init = async () => {
 }
 
 init()
+
+const config = ipcRenderer.sendSync('getMainConfig')
+// eslint-disable-next-line no-console
+console.log(config)

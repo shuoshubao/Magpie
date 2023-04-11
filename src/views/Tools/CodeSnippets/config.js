@@ -2,7 +2,7 @@
  * @Author: shuoshubao
  * @Date:   2022-04-21 14:25:58
  * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-04-27 17:21:36
+ * @Last Modified time: 2023-04-11 22:43:22
  */
 import React from 'react'
 import { ipcRenderer } from 'electron'
@@ -60,7 +60,7 @@ export const BuiltInDataSource = [
 })
 
 export const getDataSource = () => {
-  const allCodeSnippets = ipcRenderer.sendSync('getAllCodeSnippetsStore')
+  const allCodeSnippets = ipcRenderer.sendSync('getGistStore')
   return Object.entries(allCodeSnippets).reduce((prev, [k, v]) => {
     prev.push({
       title: k,
@@ -148,7 +148,7 @@ export const getTableColumns = ({ setModalData }) => {
               PopconfirmConfig: {
                 title: '确定要删除吗？',
                 onConfirm: async () => {
-                  ipcRenderer.send('deleteCodeSnippetsStore', value)
+                  ipcRenderer.send('deleteGistStore', value)
                 }
               }
             }

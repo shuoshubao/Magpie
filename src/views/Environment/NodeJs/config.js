@@ -1,8 +1,8 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-12 14:33:27
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-06-07 10:54:22
+ * @Last Modified by:   fangtao
+ * @Last Modified time: 2023-06-27 18:15:17
  */
 import React from 'react'
 import { ipcRenderer } from 'electron'
@@ -28,8 +28,6 @@ export const formatRegistry = registry => {
 export const getFormColumns = () => {
   const version = ipcRenderer.sendSync('execaCommandSync', 'node -v')
   const npmrc = ipcRenderer.sendSync('getNpmrc')
-
-  console.log(npmrc)
 
   return [
     {
@@ -66,15 +64,6 @@ export const getTableColumns = () => {
     {
       title: 'name',
       dataIndex: 'name'
-    },
-    {
-      title: 'registry',
-      dataIndex: 'registry',
-      template: {
-        tpl: 'enum',
-        shape: 'tag',
-        options: RegistryEnum
-      }
     },
     {
       title: '当前版本',

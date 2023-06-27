@@ -1,8 +1,8 @@
 /*
  * @Author: shuoshubao
  * @Date:   2022-04-07 21:05:13
- * @Last Modified by:   shuoshubao
- * @Last Modified time: 2022-06-27 13:52:25
+ * @Last Modified by:   fangtao
+ * @Last Modified time: 2023-06-27 18:16:45
  */
 import React, { useRef, useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
@@ -11,7 +11,7 @@ import { Form, Table } from '@nbfe/components'
 import { fetchPkg } from '@/utils'
 import { getFormColumns, getTableColumns, getQueryColumns, getQueryTableColumns } from './config'
 
-const { Text } = Typography
+const { Paragraph } = Typography
 
 export const Index = () => {
   const tableRef = useRef()
@@ -50,9 +50,14 @@ export const Index = () => {
       <Alert
         message="请确保有 npm install --global 的权限, 如果没有权限请在命令行执行以下代码"
         description={
-          <Text code copyable>
-            sudo chown -R $(whoami) ~/.npm
-          </Text>
+          <>
+            <Paragraph code copyable>
+              sudo chown -R $(whoami) ~/.npm
+            </Paragraph>
+            <Paragraph code copyable>
+              sudo chown -R $(whoami) /usr/local/lib/node_modules
+            </Paragraph>
+          </>
         }
         type="warning"
         closable

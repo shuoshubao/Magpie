@@ -52,7 +52,7 @@ const LOG_APTH = resolve(HOME_DIR, 'Library/Logs', APP_NAME, 'main.log')
 const CHANGELOG_APTH = resolve(__dirname, '../CHANGELOG.md')
 
 // Chrome 插件
-const Chrome_Extensions_PATH = resolve(HOME_DIR, 'Library/ApplicationSupport/Google/Chrome/Default/Extensions')
+const Chrome_Extensions_PATH = resolve(HOME_DIR, 'Library/Application Support/Google/Chrome/Default/Extensions')
 
 // Chrome 插件 id
 const Chrome_Extensions_IDS = {

@@ -79,7 +79,7 @@ app
       const versions = glob.sync(`${Chrome_Extensions_PATH}/${Chrome_Extensions_IDS.ReactDevTools}/*`)
       const latestVersion = versions[0]
       if (latestVersion) {
-        await session.defaultSession.loadExtension(latestVersion)
+        // await session.defaultSession.loadExtension(latestVersion)
       }
     }
   })

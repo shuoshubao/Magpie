@@ -4,18 +4,11 @@
  * @Last Modified by:   shuoshubao
  * @Last Modified time: 2022-04-27 16:48:48
  */
-import React from 'react'
+import { Avatar, Button, Card, Tag } from 'antd'
 import { shell } from 'electron'
-import { Card, Button, Tag, Avatar } from 'antd'
+import React from 'react'
 
 export const ChromeExtensions = [
-  {
-    title: 'Octotree - GitHub code tree',
-    name: 'octotree-github-code-tree',
-    id: 'bkhaagjahfmjljalopjnoealnfndnagc',
-    description: 'GitHub项目阅读器',
-    icon: 'wafm5uFaPRSo1RHMbhcdEghFzTPUfYo5GosPmBhkdNuYlGz8WigoAQM-8lulzuhWQBGTbbUyRvfoyIMDypJzuAVZ'
-  },
   {
     title: 'React Developer Tools',
     name: 'react-developer-tools',

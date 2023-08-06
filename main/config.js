@@ -5,6 +5,7 @@
  * @Last Modified time: 2023-04-11 22:02:10
  * @Desc 配置
  */
+const { existsSync } = require('fs')
 const { resolve } = require('path')
 const { homedir } = require('os')
 const { app, ipcMain } = require('electron')
@@ -52,7 +53,12 @@ const LOG_APTH = resolve(HOME_DIR, 'Library/Logs', APP_NAME, 'main.log')
 const CHANGELOG_APTH = resolve(__dirname, '../CHANGELOG.md')
 
 // Chrome 插件
-const Chrome_Extensions_PATH = resolve(HOME_DIR, 'Library/Application Support/Google/Chrome/Default/Extensions')
+let Chrome_Extensions_PATH = resolve(HOME_DIR, 'Library/Application Support/Google/Chrome/Default/Extensions')
+
+if (!existsSync(Chrome_Extensions_PATH)) {
+  // Chrome_Extensions_PATH = resolve(HOME_DIR, 'Library/Application Support/Google/Chrome/Profile 1/Extensions')
+  Chrome_Extensions_PATH = Chrome_Extensions_PATH.replace('Default', 'Profile 1')
+}
 
 // Chrome 插件 id
 const Chrome_Extensions_IDS = {

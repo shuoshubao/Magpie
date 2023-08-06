@@ -4,11 +4,11 @@
  * @Last Modified by:   shuoshubao
  * @Last Modified time: 2022-04-27 17:19:25
  */
-import React from 'react'
-import { ipcRenderer, shell } from 'electron'
-import { Space } from 'antd'
 import SearchOutlined from '@ant-design/icons/SearchOutlined'
+import { Space } from 'antd'
+import { ipcRenderer, shell } from 'electron'
 import filesize from 'filesize'
+import React from 'react'
 
 export const Extensions = ['png', 'jpg', 'jpeg', 'webp']
 

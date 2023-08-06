@@ -4,11 +4,11 @@
  * @Last Modified by:   shuoshubao
  * @Last Modified time: 2022-04-27 17:25:31
  */
-import React from 'react'
-import { Typography } from 'antd'
-import { map, sum } from 'lodash'
-import filesize from 'filesize'
 import { div, mul } from '@nbfe/tools'
+import { Typography } from 'antd'
+import filesize from 'filesize'
+import { map, sum } from 'lodash'
+import React from 'react'
 
 const { Text } = Typography
 

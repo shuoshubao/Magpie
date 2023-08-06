@@ -1,11 +1,11 @@
-import React, { Suspense } from 'react'
-import { ConfigProvider, Skeleton } from 'antd'
-import moment from 'moment'
-import { getAntdLocaleZhCN, defineMomentLocaleZhCn } from '@nbfe/tools'
+import '@/assets/styles/index.less'
 import Layout from '@/components/Layout'
 import '@/utils/monitor'
-import '@/assets/styles/index.less'
 import '@nbfe/components/dist/index.css'
+import { defineMomentLocaleZhCn, getAntdLocaleZhCN } from '@nbfe/tools'
+import { ConfigProvider, Skeleton } from 'antd'
+import moment from 'moment'
+import React, { Suspense } from 'react'
 
 defineMomentLocaleZhCn(moment)
 

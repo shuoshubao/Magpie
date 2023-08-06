@@ -8,6 +8,7 @@ module.exports = getESLintConfig(['react'], {
     }
   },
   rules: {
-    camelcase: [0]
+    camelcase: [0],
+    'import/order': [0]
   }
 })

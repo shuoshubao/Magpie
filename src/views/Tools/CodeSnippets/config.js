@@ -4,13 +4,13 @@
  * @Last Modified by:   shuoshubao
  * @Last Modified time: 2023-04-11 22:43:22
  */
-import React from 'react'
-import { ipcRenderer } from 'electron'
-import { Modal } from 'antd'
-import { find, cloneDeep } from 'lodash'
-import { rules, convertDataToEnum } from '@nbfe/tools'
-import hljs from 'highlight.js/lib/core'
 import { injectHighlightStyle } from '@/utils/highlight'
+import { convertDataToEnum, rules } from '@nbfe/tools'
+import { Modal } from 'antd'
+import { ipcRenderer } from 'electron'
+import hljs from 'highlight.js/lib/core'
+import { cloneDeep, find } from 'lodash'
+import React from 'react'
 
 const { required } = rules
 

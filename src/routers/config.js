@@ -1,19 +1,19 @@
 /*
+ * @Desc: 路由配置
  * @Author: shuoshubao
  * @Date:   2021-07-05 16:14:26
  * @Last Modified by:   shuoshubao
  * @Last Modified time: 2022-04-29 16:45:04
- * @Desc: 路由配置
  */
 
-import React, { lazy } from 'react'
+import Index, { NoMatch } from '@/views/Index'
+import AntDesignOutlined from '@ant-design/icons/AntDesignOutlined'
+import AppleOutlined from '@ant-design/icons/AppleOutlined'
+import CloudUploadOutlined from '@ant-design/icons/CloudUploadOutlined'
 import DashboardOutlined from '@ant-design/icons/DashboardOutlined'
 import PictureOutlined from '@ant-design/icons/PictureOutlined'
-import CloudUploadOutlined from '@ant-design/icons/CloudUploadOutlined'
-import AntDesignOutlined from '@ant-design/icons/AntDesignOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
-import AppleOutlined from '@ant-design/icons/AppleOutlined'
-import Index, { NoMatch } from '@/views/Index'
+import React, { lazy } from 'react'
 
 const About = lazy(() => import('@/views/About'))
 const Log = lazy(() => import('@/views/Log'))

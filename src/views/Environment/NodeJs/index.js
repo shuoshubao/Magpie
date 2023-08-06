@@ -4,12 +4,12 @@
  * @Last Modified by:   fangtao
  * @Last Modified time: 2023-06-27 18:16:45
  */
-import React, { useRef, useState, useEffect } from 'react'
-import { ipcRenderer } from 'electron'
-import { Button, Modal, Alert, Typography } from 'antd'
-import { Form, Table } from '@nbfe/components'
 import { fetchPkg } from '@/utils'
-import { getFormColumns, getTableColumns, getQueryColumns, getQueryTableColumns } from './config'
+import { Form, Table } from '@nbfe/components'
+import { Alert, Button, Modal, Typography } from 'antd'
+import { ipcRenderer } from 'electron'
+import React, { useEffect, useRef, useState } from 'react'
+import { getFormColumns, getQueryColumns, getQueryTableColumns, getTableColumns } from './config'
 
 const { Paragraph } = Typography
 

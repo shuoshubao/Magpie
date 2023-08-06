@@ -4,12 +4,12 @@
  * @Last Modified by:   shuoshubao
  * @Last Modified time: 2022-06-27 13:52:26
  */
-import React, { useRef, useState } from 'react'
-import { Modal, Collapse, Card, List, Typography, Space, Button } from 'antd'
-import { map } from 'lodash'
-import { plus } from '@nbfe/tools'
-import { Table, Form } from '@nbfe/components'
 import { fetchPkg } from '@/utils'
+import { Form, Table } from '@nbfe/components'
+import { plus } from '@nbfe/tools'
+import { Button, Card, Collapse, List, Modal, Space, Typography } from 'antd'
+import { map } from 'lodash'
+import React, { useRef, useState } from 'react'
 import { getFormColumns, getTableColumns } from './config'
 import { dataSource } from './data'
 

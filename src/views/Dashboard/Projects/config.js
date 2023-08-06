@@ -4,12 +4,12 @@
  * @Last Modified by:   shuoshubao
  * @Last Modified time: 2022-04-27 16:48:58
  */
-import React from 'react'
-import { ipcRenderer, shell } from 'electron'
-import { Space, Typography } from 'antd'
-import FolderOpenOutlined from '@ant-design/icons/FolderOpenOutlined'
-import { last, remove } from 'lodash'
 import { repositoryUrlStringify } from '@/utils'
+import FolderOpenOutlined from '@ant-design/icons/FolderOpenOutlined'
+import { Space, Typography } from 'antd'
+import { ipcRenderer, shell } from 'electron'
+import { last, remove } from 'lodash'
+import React from 'react'
 
 const { Link } = Typography
 

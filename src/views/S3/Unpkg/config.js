@@ -4,11 +4,11 @@
  * @Last Modified by:   shuoshubao
  * @Last Modified time: 2022-06-06 14:45:14
  */
-import React from 'react'
-import { ipcRenderer } from 'electron'
-import { Space, Typography } from 'antd'
-import { sleep } from '@nbfe/tools'
 import { RegistryEnum } from '@/configs'
+import { sleep } from '@nbfe/tools'
+import { Space, Typography } from 'antd'
+import { ipcRenderer } from 'electron'
+import React from 'react'
 
 const { Text } = Typography
 

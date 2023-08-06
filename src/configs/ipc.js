@@ -4,10 +4,10 @@
  * @Last Modified by:   shuoshubao
  * @Last Modified time: 2022-04-21 13:02:16
  */
-import React from 'react'
-import { ipcRenderer } from 'electron'
-import { Modal, Typography } from 'antd'
 import { getAntdLocaleZhCN } from '@nbfe/tools'
+import { Modal, Typography } from 'antd'
+import { ipcRenderer } from 'electron'
+import React from 'react'
 
 const { Text } = Typography
 

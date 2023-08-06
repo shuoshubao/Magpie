@@ -5,9 +5,9 @@
  * @Last Modified time: 2022-06-27 13:52:25
  * @Desc 色表盘
  */
-import React from 'react'
-import { Card, Button } from 'antd'
 import { Table } from '@nbfe/components'
+import { Button, Card } from 'antd'
+import React from 'react'
 import { columns, dataSource } from './config'
 import styles from './index.module.less'
 

@@ -5,13 +5,13 @@
  * @Last Modified time: 2022-04-27 16:54:30
  * @Desc: 插件
  */
-import React, { useState, useEffect } from 'react'
-import { ipcRenderer } from 'electron'
-import { Card, Space } from 'antd'
-import { List } from '@nbfe/components'
-import { last } from 'lodash'
-import ChromeOutlined from '@ant-design/icons/ChromeOutlined'
 import { VSCode } from '@/assets/icons'
+import ChromeOutlined from '@ant-design/icons/ChromeOutlined'
+import { List } from '@nbfe/components'
+import { Card, Space } from 'antd'
+import { ipcRenderer } from 'electron'
+import { last } from 'lodash'
+import React, { useEffect, useState } from 'react'
 import { ChromeExtensions, renderItem } from './config'
 
 export default () => {

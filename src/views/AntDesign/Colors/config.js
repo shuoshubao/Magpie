@@ -4,11 +4,11 @@
  * @Last Modified by:   shuoshubao
  * @Last Modified time: 2022-04-27 17:24:38
  */
-import React from 'react'
-import { message } from 'antd'
 import * as Colors from '@ant-design/colors'
-import { range } from 'lodash'
 import { copyText } from '@nbfe/tools'
+import { message } from 'antd'
+import { range } from 'lodash'
+import React from 'react'
 import styles from './index.module.less'
 
 const ColorsList = [

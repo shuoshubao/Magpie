@@ -5,9 +5,9 @@
  * @Last Modified time: 2022-04-13 14:04:13
  */
 
-import React, { Suspense } from 'react'
-import { Routes, Route } from 'react-router-dom'
 import { Skeleton } from 'antd'
+import React, { Suspense } from 'react'
+import { Route, Routes } from 'react-router-dom'
 import RouterConfig from './config'
 
 const dealRouter = () => {

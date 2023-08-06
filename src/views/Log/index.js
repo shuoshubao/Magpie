@@ -4,11 +4,11 @@
  * @Last Modified by:   shuoshubao
  * @Last Modified time: 2022-04-27 17:20:13
  */
-import React, { useState, useEffect } from 'react'
-import { ipcRenderer, shell } from 'electron'
-import { List, Button, Space, Tooltip, Tag } from 'antd'
-import SyncOutlined from '@ant-design/icons/SyncOutlined'
 import { LogColors } from '@/configs'
+import SyncOutlined from '@ant-design/icons/SyncOutlined'
+import { Button, List, Space, Tag, Tooltip } from 'antd'
+import { ipcRenderer, shell } from 'electron'
+import React, { useEffect, useState } from 'react'
 
 export default () => {
   const [LogList, setLogList] = useState([])

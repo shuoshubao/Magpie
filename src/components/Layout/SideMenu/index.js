@@ -5,13 +5,13 @@
  * @Last Modified time: 2022-08-22 16:37:07
  */
 
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { ipcRenderer } from 'electron'
-import { Menu } from 'antd'
-import { map } from 'lodash'
 import { RouterConfig } from '@/routers'
-import { getPathname, getTheme, checkShoulduHideSidebar } from '@/utils'
+import { checkShoulduHideSidebar, getPathname, getTheme } from '@/utils'
+import { Menu } from 'antd'
+import { ipcRenderer } from 'electron'
+import { map } from 'lodash'
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
 const Index = () => {

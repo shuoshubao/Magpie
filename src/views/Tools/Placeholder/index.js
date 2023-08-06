@@ -5,11 +5,11 @@
  * @Last Modified time: 2022-06-27 13:52:26
  * @Desc 图片占位符
  */
-import React, { useRef } from 'react'
-import { ipcRenderer, shell } from 'electron'
-import { Card, Button, Space, message } from 'antd'
 import { Form } from '@nbfe/components'
 import { copyText } from '@nbfe/tools'
+import { Button, Card, Space, message } from 'antd'
+import { ipcRenderer, shell } from 'electron'
+import React, { useRef } from 'react'
 import { getColumns } from './config'
 
 const Index = () => {

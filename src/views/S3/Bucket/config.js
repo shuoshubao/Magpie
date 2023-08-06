@@ -4,9 +4,9 @@
  * @Last Modified by:   shuoshubao
  * @Last Modified time: 2022-04-24 14:30:35
  */
+import { rules } from '@nbfe/tools'
 import { ipcRenderer } from 'electron'
 import { merge, remove } from 'lodash'
-import { rules } from '@nbfe/tools'
 
 const { required } = rules
 

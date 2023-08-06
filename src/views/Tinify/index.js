@@ -4,12 +4,12 @@
  * @Last Modified by:   shuoshubao
  * @Last Modified time: 2022-06-27 13:52:26
  */
-import React, { useRef, useState } from 'react'
-import { ipcRenderer } from 'electron'
 import { dialog } from '@electron/remote'
-import { Button, message } from 'antd'
 import { Table } from '@nbfe/components'
+import { Button, message } from 'antd'
+import { ipcRenderer } from 'electron'
 import { last } from 'lodash'
+import React, { useRef, useState } from 'react'
 import { Extensions, columns } from './config'
 
 export const Index = () => {

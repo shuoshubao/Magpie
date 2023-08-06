@@ -4,12 +4,12 @@
  * @Last Modified by:   shuoshubao
  * @Last Modified time: 2023-04-11 22:40:40
  */
-import React, { useRef, useState, useEffect } from 'react'
+import { Form, Table } from '@nbfe/components'
+import { Button, Modal, message } from 'antd'
 import { ipcRenderer } from 'electron'
-import { Modal, Button, message } from 'antd'
 import { omit } from 'lodash'
-import { Table, Form } from '@nbfe/components'
-import { PrettierParser, getDataSource, getTableColumns, getFormColumns } from './config'
+import React, { useEffect, useRef, useState } from 'react'
+import { PrettierParser, getDataSource, getFormColumns, getTableColumns } from './config'
 
 const Index = () => {
   const tableRef = useRef()

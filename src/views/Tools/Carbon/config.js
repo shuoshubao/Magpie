@@ -4,8 +4,8 @@
  * @Last Modified by:   shuoshubao
  * @Last Modified time: 2022-04-21 16:45:48
  */
-import { convertDataToEnum } from '@nbfe/tools'
 import { injectHighlightStyle } from '@/utils/highlight'
+import { convertDataToEnum } from '@nbfe/tools'
 
 export const HighlightThemes = [
   'seti-ui',

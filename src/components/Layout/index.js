@@ -1,15 +1,15 @@
-import React, { Component, useRef, useState, useEffect } from 'react'
-import { HashRouter } from 'react-router-dom'
-import { ipcRenderer } from 'electron'
-import { Layout, Result, Card, Button } from 'antd'
+import '@/assets/styles/index.less'
+import Preferences from '@/components/Preferences'
+import { RenderRouter } from '@/routers'
+import { checkShoulduHideSidebar, getTheme } from '@/utils'
 import CoffeeOutlined from '@ant-design/icons/CoffeeOutlined'
 import UserOutlined from '@ant-design/icons/UserOutlined'
 import { classNames } from '@nbfe/tools'
-import { RenderRouter } from '@/routers'
-import { checkShoulduHideSidebar, getTheme } from '@/utils'
-import Preferences from '@/components/Preferences'
+import { Button, Card, Layout, Result } from 'antd'
+import { ipcRenderer } from 'electron'
+import React, { Component, useEffect, useRef, useState } from 'react'
+import { HashRouter } from 'react-router-dom'
 import SideMenu from './SideMenu'
-import '@/assets/styles/index.less'
 
 const { Content, Sider } = Layout
 

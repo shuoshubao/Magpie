@@ -4,13 +4,13 @@
  * @Last Modified by:   shuoshubao
  * @Last Modified time: 2022-06-07 11:20:16
  */
-import React from 'react'
-import { ipcRenderer } from 'electron'
-import { message } from 'antd'
-import { merge } from 'lodash'
-import { rules, copyText } from '@nbfe/tools'
-import CopyOutlined from '@ant-design/icons/CopyOutlined'
 import SelectFolder from '@/components/SelectFolder'
+import CopyOutlined from '@ant-design/icons/CopyOutlined'
+import { copyText, rules } from '@nbfe/tools'
+import { message } from 'antd'
+import { ipcRenderer } from 'electron'
+import { merge } from 'lodash'
+import React from 'react'
 
 const { required, uniq } = rules
 

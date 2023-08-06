@@ -5,13 +5,13 @@
  * @Last Modified time: 2022-06-27 13:52:26
  * @Desc: 文件上传
  */
-import React, { useRef, useState, useEffect } from 'react'
-import { ipcRenderer } from 'electron'
-import { Modal, Card, Button, Typography, message } from 'antd'
-import { some } from 'lodash'
+import { Form, Table } from '@nbfe/components'
 import { formatTime } from '@nbfe/tools'
-import { Table, Form } from '@nbfe/components'
-import { TestBucketInfo, getTableColumns, getFormColumns, References } from './config'
+import { Button, Card, Modal, Typography, message } from 'antd'
+import { ipcRenderer } from 'electron'
+import { some } from 'lodash'
+import React, { useEffect, useRef, useState } from 'react'
+import { References, TestBucketInfo, getFormColumns, getTableColumns } from './config'
 
 const { Link } = Typography
 

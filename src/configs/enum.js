@@ -4,8 +4,8 @@
  * @Last Modified by:   shuoshubao
  * @Last Modified time: 2022-06-27 14:03:28
  */
-import React from 'react'
 import { Tag } from 'antd'
+import React from 'react'
 
 // registry
 export const RegistryEnum = [

@@ -5,15 +5,15 @@
  * @Last Modified time: 2022-06-27 13:52:26
  * @Desc Carbon
  */
-import React, { useRef, useState, useEffect } from 'react'
-import { ipcRenderer, shell } from 'electron'
-import { Card, Button, Modal, Space, message } from 'antd'
-import { Form } from '@nbfe/components'
-import { pick } from 'lodash'
-import hljs from 'highlight.js/lib/core'
-import { classNames, copyText } from '@nbfe/tools'
-import html2canvas from 'html2canvas'
 import { injectHighlightStyle } from '@/utils/highlight'
+import { Form } from '@nbfe/components'
+import { classNames, copyText } from '@nbfe/tools'
+import { Button, Card, Modal, Space, message } from 'antd'
+import { ipcRenderer, shell } from 'electron'
+import hljs from 'highlight.js/lib/core'
+import html2canvas from 'html2canvas'
+import { pick } from 'lodash'
+import React, { useEffect, useRef, useState } from 'react'
 import { HighlightThemes, getColumns } from './config'
 import styles from './index.module.less'
 

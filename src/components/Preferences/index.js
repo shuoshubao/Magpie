@@ -4,12 +4,12 @@
  * @Last Modified by:   shuoshubao
  * @Last Modified time: 2022-06-01 16:38:34
  */
-import React, { useState, useEffect } from 'react'
-import { ipcRenderer } from 'electron'
-import { dialog } from '@electron/remote'
-import { Modal, Input, Tabs, Radio } from 'antd'
-import FolderOpenOutlined from '@ant-design/icons/FolderOpenOutlined'
 import { setTheme as updateTheme } from '@/utils'
+import FolderOpenOutlined from '@ant-design/icons/FolderOpenOutlined'
+import { dialog } from '@electron/remote'
+import { Input, Modal, Radio, Tabs } from 'antd'
+import { ipcRenderer } from 'electron'
+import React, { useEffect, useState } from 'react'
 import { ThemeOptions } from './config'
 
 const { TabPane } = Tabs

@@ -4,21 +4,21 @@
  * @Last Modified by:   shuoshubao
  * @Last Modified time: 2022-06-27 13:52:25
  */
-import React, { useRef, useState, useEffect } from 'react'
-import { ipcRenderer, shell } from 'electron'
-import { BrowserWindow } from '@electron/remote'
-import { Modal, Card, List, Select, Result, Button, InputNumber, Typography, Progress, message } from 'antd'
-import SettingOutlined from '@ant-design/icons/SettingOutlined'
-import FolderOpenOutlined from '@ant-design/icons/FolderOpenOutlined'
-import EyeOutlined from '@ant-design/icons/EyeOutlined'
-import BugOutlined from '@ant-design/icons/BugOutlined'
-import { Column } from '@antv/g2plot'
-import { Table } from '@nbfe/components'
-import { last, sortBy } from 'lodash'
-import { sleep, div, formatters, isEmptyObject } from '@nbfe/tools'
 import Jscpd from '@/components/Jscpd'
 import { Colors } from '@/configs'
-import { getColumns, getDataSource, getProgressPercent, getProgressFormat, JsExtensions, getColumnData } from './config'
+import BugOutlined from '@ant-design/icons/BugOutlined'
+import EyeOutlined from '@ant-design/icons/EyeOutlined'
+import FolderOpenOutlined from '@ant-design/icons/FolderOpenOutlined'
+import SettingOutlined from '@ant-design/icons/SettingOutlined'
+import { Column } from '@antv/g2plot'
+import { BrowserWindow } from '@electron/remote'
+import { Table } from '@nbfe/components'
+import { div, formatters, isEmptyObject, sleep } from '@nbfe/tools'
+import { Button, Card, InputNumber, List, Modal, Progress, Result, Select, Typography, message } from 'antd'
+import { ipcRenderer, shell } from 'electron'
+import { last, sortBy } from 'lodash'
+import React, { useEffect, useRef, useState } from 'react'
+import { JsExtensions, getColumnData, getColumns, getDataSource, getProgressFormat, getProgressPercent } from './config'
 
 const { Text } = Typography
 

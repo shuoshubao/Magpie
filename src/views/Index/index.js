@@ -4,12 +4,11 @@
  * @Last Modified by:   shuoshubao
  * @Last Modified time: 2022-06-27 23:07:14
  */
-
-import React, { useState, useEffect } from 'react'
-import { ipcRenderer } from 'electron'
-import { Modal, Card, Result, Button, Typography } from 'antd'
 import CoffeeOutlined from '@ant-design/icons/CoffeeOutlined'
 import { Descriptions } from '@nbfe/components'
+import { Button, Card, Modal, Result, Typography } from 'antd'
+import { ipcRenderer } from 'electron'
+import React, { useEffect, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import RemarkGfm from 'remark-gfm'
 import { BaseinfoColumns, ElectronColumns } from './config'

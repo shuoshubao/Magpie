@@ -1,7 +1,7 @@
-import React from 'react'
+import FolderOpenOutlined from '@ant-design/icons/FolderOpenOutlined'
 import { dialog } from '@electron/remote'
 import { Input } from 'antd'
-import FolderOpenOutlined from '@ant-design/icons/FolderOpenOutlined'
+import React from 'react'
 
 const Index = props => {
   const { onChange } = props

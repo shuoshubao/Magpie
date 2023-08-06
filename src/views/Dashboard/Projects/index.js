@@ -5,13 +5,13 @@
  * @Last Modified time: 2022-06-27 13:52:25
  * @Desc: 文件上传
  */
-import React, { useRef, useEffect } from 'react'
-import { ipcRenderer } from 'electron'
-import { dialog } from '@electron/remote'
-import { Button, Typography, message, notification } from 'antd'
 import FolderOpenOutlined from '@ant-design/icons/FolderOpenOutlined'
-import { map } from 'lodash'
+import { dialog } from '@electron/remote'
 import { Table } from '@nbfe/components'
+import { Button, Typography, message, notification } from 'antd'
+import { ipcRenderer } from 'electron'
+import { map } from 'lodash'
+import React, { useEffect, useRef } from 'react'
 import { getTableColumns } from './config'
 
 const { Text } = Typography

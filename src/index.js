@@ -1,9 +1,9 @@
+import { isDevelopment } from '@/configs'
+import '@/configs/ipc'
+import { checkShoulduHideSidebar, setTheme } from '@/utils'
+import { ipcRenderer } from 'electron'
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import { ipcRenderer } from 'electron'
-import { isDevelopment } from '@/configs'
-import { checkShoulduHideSidebar, setTheme } from '@/utils'
-import '@/configs/ipc'
 import App from './App'
 
 const memoizePath = window.localStorage.getItem('path')

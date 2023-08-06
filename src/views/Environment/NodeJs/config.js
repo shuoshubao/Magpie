@@ -4,14 +4,14 @@
  * @Last Modified by:   fangtao
  * @Last Modified time: 2023-06-27 18:15:17
  */
-import React from 'react'
+import { RegistryEnum, RegistryOptions } from '@/configs'
+import { rules, sleep } from '@nbfe/tools'
+import { Modal, Typography, message } from 'antd'
 import { ipcRenderer } from 'electron'
+import { map } from 'lodash'
+import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import RemarkGfm from 'remark-gfm'
-import { Modal, Typography, message } from 'antd'
-import { map } from 'lodash'
-import { rules, sleep } from '@nbfe/tools'
-import { RegistryEnum, RegistryOptions } from '@/configs'
 
 const { required } = rules
 

@@ -4,10 +4,10 @@
  * @Last Modified by:   shuoshubao
  * @Last Modified time: 2022-04-27 16:52:55
  */
-import React from 'react'
-import { Card } from 'antd'
 import { Table } from '@nbfe/components'
-import { getTableColumns, getAppList, renderItem } from './config'
+import { Card } from 'antd'
+import React from 'react'
+import { getAppList, getTableColumns, renderItem } from './config'
 
 export default () => {
   return (

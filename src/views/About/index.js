@@ -4,11 +4,11 @@
  * @Last Modified by:   shuoshubao
  * @Last Modified time: 2022-04-29 16:42:05
  */
-import React from 'react'
-import { ipcRenderer } from 'electron'
-import { Typography } from 'antd'
-import CoffeeOutlined from '@ant-design/icons/CoffeeOutlined'
 import { Colors } from '@/configs'
+import CoffeeOutlined from '@ant-design/icons/CoffeeOutlined'
+import { Typography } from 'antd'
+import { ipcRenderer } from 'electron'
+import React from 'react'
 
 const { Title, Text } = Typography
 

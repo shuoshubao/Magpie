@@ -4,15 +4,15 @@
  * @Last Modified by:   shuoshubao
  * @Last Modified time: 2022-06-27 13:52:25
  */
-import React, { useRef, useState, useEffect } from 'react'
-import { ipcRenderer } from 'electron'
-import { Button, Modal, Collapse, Card, Popconfirm, message } from 'antd'
-import { Form } from '@nbfe/components'
-import { map, range } from 'lodash'
-import { isEmptyArray } from '@nbfe/tools'
-import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import { Colors } from '@/configs'
-import { getGlobalGitConfigColumns, getAddCustomerGitConfigColumns, getCustomerGitConfigColumns } from './config'
+import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
+import { Form } from '@nbfe/components'
+import { isEmptyArray } from '@nbfe/tools'
+import { Button, Card, Collapse, Modal, Popconfirm, message } from 'antd'
+import { ipcRenderer } from 'electron'
+import { map, range } from 'lodash'
+import React, { useEffect, useRef, useState } from 'react'
+import { getAddCustomerGitConfigColumns, getCustomerGitConfigColumns, getGlobalGitConfigColumns } from './config'
 
 const { Panel } = Collapse
 

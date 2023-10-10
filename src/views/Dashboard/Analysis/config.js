@@ -22,7 +22,7 @@ export const getColumns = () => {
   ]
 }
 
-export const JsExtensions = ['.js', '.jsx', '.ts', '.tsx']
+export const JsExtensions = ['.js', '.jsx', '.ts', '.tsx', '.vue']
 export const StyleExtensions = ['.css', '.less', '.scss']
 export const ImageExtensions = ['.png', '.jpg', '.jepg']
 
@@ -120,11 +120,11 @@ export const getColumnData = projectList => {
       value: 0
     },
     {
-      label: 700,
+      label: 1000,
       value: 0
     }
   ]
-  const moreItem = { label: '>=700', value: 0 }
+  const moreItem = { label: '>=1000', value: 0 }
   projectList
     .filter(v => {
       const { ext } = v

@@ -18,7 +18,7 @@ const { required } = rules
 const { Text } = Typography
 
 // 去掉尾部的 /
-export const formatRegistry = registry => {
+export const formatRegistry = (registry = '') => {
   if (registry.endsWith('/')) {
     return registry.slice(0, -1)
   }

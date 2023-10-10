@@ -20,7 +20,7 @@
   "dependencies": {
     "@antv/g2plot": "^2.4.28",
     "@electron/remote": "^2.0.8",
-    "@nbfe/components": "^0.3.2",
+    "@nbfe/components": "0.3.2",
     "@nbfe/standard": "^1.1.1",
     "@nbfe/tools": "^0.2.19",
     "antd": "^4.20.0",
@@ -48,6 +48,8 @@
     "ssh-config": "^4.1.4"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-proposal-private-methods": "^7.18.6",
     "@nbfe/react-cli": "^0.3.5",
     "electron": "^22.0.0",
     "electron-builder": "^23.6.0",

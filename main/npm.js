@@ -6,7 +6,7 @@
  */
 const { ipcMain } = require('electron')
 const { readFileSync } = require('fs')
-const { readJsonSync } = require('fs-extra')
+const { readJsonSync, ensureFileSync } = require('fs-extra')
 const { resolve } = require('path')
 const { sync: globSync } = require('glob')
 const ini = require('ini')
@@ -23,6 +23,7 @@ const formatRegistry = (registry = '') => {
 }
 
 ipcMain.on('getNpmrc', event => {
+  ensureFileSync(NPMRC_PATH)
   event.returnValue = ini.parse(readFileSync(NPMRC_PATH).toString() || '{}')
 })
 

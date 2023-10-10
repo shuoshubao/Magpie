@@ -87,10 +87,10 @@ ipcMain.handle('ssh-keygen', (event, config) => {
 ipcMain.handle('ssh-config', (event, action, config) => {
   const { configName, hostName, name, email, gitdirs } = config
   const sshConfigPath = resolve(SSH_CONFIG_DIR, 'config')
+  ensureFileSync(sshConfigPath)
   const content = readFileSync(sshConfigPath).toString()
   const sshConfig = SSHConfig.parse(content)
   const gitConfigPath = resolve(GIT_CONFIG_DIR, `.gitconfig-${configName}`)
-  ensureFileSync(sshConfigPath)
   ensureFileSync(gitConfigPath)
   // 新增
   if (action === 'append') {

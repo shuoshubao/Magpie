@@ -229,7 +229,6 @@ const Index = () => {
         }
         extra={
           <Button
-            type="primary"
             icon={<SettingOutlined />}
             onClick={() => {
               setModalVisible(true)

@@ -6,6 +6,7 @@ import javascript from 'highlight.js/lib/languages/javascript'
 import less from 'highlight.js/lib/languages/less'
 import scss from 'highlight.js/lib/languages/scss'
 import typescript from 'highlight.js/lib/languages/typescript'
+import hljsDefineVue from 'highlight.js/lib/languages/xml'
 import 'highlight.js/styles/monokai.css'
 import { filter, pick, sortBy } from 'lodash'
 import React, { useState } from 'react'
@@ -18,6 +19,7 @@ hljs.registerLanguage('tsx', typescript)
 hljs.registerLanguage('css', css)
 hljs.registerLanguage('less', less)
 hljs.registerLanguage('scss', scss)
+hljs.registerLanguage('vue', hljsDefineVue)
 
 export default props => {
   const { dataSource } = props
@@ -163,8 +165,8 @@ export default props => {
             })
           })
 
-          const duplicatedLinesText = `${total.duplicatedLines}(${total.percentage}%)`
-          const duplicatedTokensText = `${total.duplicatedTokens}(${total.percentageTokens}%)`
+          const duplicatedLinesText = `${total.duplicatedLines}`
+          const duplicatedTokensText = `${total.duplicatedTokens}`
 
           return (
             <Table.Summary.Row>
@@ -185,7 +187,8 @@ export default props => {
             <Collapse expandIconPosition="right">
               {duplicates.map((v, i) => {
                 const { fragment, firstFile, secondFile } = v
-                const { value: highlightCode } = hljs.highlight(fragment, { language })
+                const computedLanguage = language === 'markup' ? 'vue' : language
+                const { value: highlightCode } = hljs.highlight(fragment, { language: computedLanguage })
                 return (
                   <Collapse.Panel
                     header={
@@ -197,7 +200,7 @@ export default props => {
                     key={i}
                   >
                     <pre>
-                      <code className={`hljs language-${language}`}>
+                      <code className={`hljs language-${computedLanguage}`}>
                         <div dangerouslySetInnerHTML={{ __html: highlightCode }} />
                       </code>
                     </pre>

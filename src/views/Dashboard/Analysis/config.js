@@ -57,8 +57,8 @@ export const getDataSource = ({ projectInofList }) => {
     {
       type: 'Image',
       length: ImageData.length,
-      lines: sum(map(ImageData, 'lines')),
-      count: sum(map(ImageData, 'count')),
+      lines: '-',
+      count: '-',
       size: sum(map(ImageData, 'size'))
     }
   ]

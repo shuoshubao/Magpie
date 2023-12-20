@@ -119,7 +119,7 @@ ipcMain.handle('getJscpdReport', async (event, fullPath) => {
       'json',
       '-s',
       '-f',
-      'javascript,typescript,jsx,tsx,css,less,scss'
+      'javascript,typescript,jsx,tsx,css,less,scss,markup'
     ])
     const time = Date.now()
     const content = readFileSync(resolve(JscpdReportDir, 'jscpd-report.json'))

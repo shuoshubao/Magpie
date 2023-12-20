@@ -15,6 +15,11 @@ export const RegistryEnum = [
     color: '#231f20'
   },
   {
+    value: 'http://registry.npm.baidu-int.com',
+    label: '百度',
+    color: '#065fe7'
+  },
+  {
     value: 'https://registry.npmmirror.com',
     label: '阿里',
     color: '#ff5000'
